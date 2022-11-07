@@ -13,3 +13,5 @@ eftermiddagarna. Vi vill helst ha lediga helger, måste vi plugga under helgen s
 11. Vi försöker att oftast göra code reviews tillsammans på våra möten, behöver vi göra fler reviews än möten i veckan så kör vi på ett roterande sätt så att alla gör reviews. 
 12. Vi gör issues i github som en typ av checklista.
 13. Vi bygger upp sidan med html och css under 2-3 dagar så att vi har en grund. Sedan kör vi på med javascript i lite mer än två veckor för att sedan avsluta med att snygga till med css. Vi checkar med varandra under mötena vart vi ligger. Ligger vi efter så får vi jobba på helgen, eller lägga till mer tid i veckan. Om vi skulle ligga före så kan vi förbättra saker som går att förbättra, kanske snygga till designen eller lära oss något nytt om javascript. 
+
+Evelina Zillman
