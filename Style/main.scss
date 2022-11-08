@@ -9,6 +9,16 @@
     height: 50px;
     position: fixed;
     top: 0;
+
+}
+#donut-counter-cart{
+    text-align: center;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background-color: red;
+    display: inline-block;
+    visibility: hidden;
 }
 
 
