@@ -1,0 +1,79 @@
+/*Keep at top to normalize across webbrowsers*/
+@import 'normalize';
+
+
+/*Top header*/
+.top-header{
+    min-width: 100%;
+    background-color: aquamarine;
+    height: 50px;
+    position: fixed;
+    top: 0;
+}
+
+
+
+/*Content*/
+.content-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+header{
+    background-color: brown;
+    margin-top: 50px;
+    min-width: 100%;
+    height: 100px;
+}
+
+.sorting-box{
+    background-color: chartreuse;
+    min-width: 100%;
+    height: 30px;
+    h2{
+        margin: 0;
+    }
+}
+
+.flex-content{
+    background-color: blue;
+    min-width: 100%;
+    display: flex;
+    text-align: center;
+    margin: -1px 0;
+    border: 2px solid black;
+    button{
+        height: 400px;
+        width: 100px;
+        font-size: 6vh;
+    }
+    .donut-info{
+        display: flex;
+        flex-wrap: wrap;
+        min-width: calc(100% - 200px);
+        justify-content: space-evenly;
+        h3{
+            margin: 0 auto;
+            min-width: calc(100% - 200px);
+        }
+        .img-space{
+            min-width: 100%;
+            background-color: azure;
+        }
+        h4{
+
+            min-width: 50%;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+/*Keep at bottom to make sure it overrides default behavior*/
+@import 'mobile';
