@@ -84,62 +84,65 @@
 
         <!--form-->
         <form>
-            <label for="name">Förnamn</label>
-            <input type="text" id="name">
+            <div class="formSection1">
+                <label for="name">Förnamn</label>
+                <input type="text" id="name">
             
-            <label for="lastName">Efternamn</label>
-            <input type="text" id="lastName">
+                <label for="lastName">Efternamn</label>
+                <input type="text" id="lastName">
             
-            <label for="address">Adress(gata)</label>
-            <input type="text" id="address">
+                <label for="address">Adress(gata)</label>
+                <input type="text" id="address">
             
-            <label for="postNumber">Postnummer </label>
-            <input type="text" id="postNumber">
+                <label for="postNumber">Postnummer </label>
+                <input type="text" id="postNumber">
            
-            <label for="locality">Postort</label>
-            <input type="text" id="locality">
+                <label for="locality">Postort</label>
+                <input type="text" id="locality">
 
-            <label for="doorCode">Ev. Portkod</label>
-            <input type="text" id="doorCode">
+                <label for="doorCode">Ev. Portkod</label>
+                <input type="text" id="doorCode">
 
-            <label for="phoneNumber">Telefon(mobil)</label>
-            <input type="tel" id="phoneNumber">
+                <label for="phoneNumber">Telefon(mobil)</label>
+                <input type="tel" id="phoneNumber">
             
-            <label for="eMail">E-postadress</label>
-            <input type="email" id="eMail">
-            
-            <!--method of payment-->
-            <label for="payMethod">Betalsätt</label>
-            <select id="payMethod">
-                <option selected disabled>Välj betalsätt</option>
-                <option value="card">Kort</option>
-                <option value="bill">Faktura</option>
-            </select>
+                <label for="eMail">E-postadress</label>
+                <input type="email" id="eMail">
+            </div>
 
-            <label for="cardNumber">Kortnummer</label>
-                <input type="text" id="cardNumber">
+            <div class="formSection2">
+                <!--method of payment-->
+                <label for="payMethod">Betalsätt</label>
+                <select id="payMethod">
+                    <option selected disabled>Välj betalsätt</option>
+                    <option value="card">Kort</option>
+                    <option value="bill">Faktura</option>
+                </select>
+
+                <label for="cardNumber">Kortnummer</label>
+                    <input type="text" id="cardNumber">
             
-            <label for="date">Datum/år</label>
-            <input type="date" id="date">
+                <label for="date">Datum/år</label>
+                <input type="date" id="date">
            
-            <label for="cvc">CVC</label>
-            <input type="text" id="cvc">
+                <label for="cvc">CVC</label>
+                <input type="text" id="cvc">
             
-            <label for="discount">Rabattkod</label>
-            <input type="text" id="discount">
+                <label for="discount">Rabattkod</label>
+                <input type="text" id="discount">
             
 
-            <!--checkboxes-->
-            <label for="confirm"> Jag godkänner behandling av personuppgifter</label>
-            <input type="checkbox" id="confirm" name="confirm" value="confirm">
-            <label for="wantNews"> Jag vill ha nyhetsbrev</label>
-            <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
+                <!--checkboxes-->
+                <label for="confirm"> Jag godkänner behandling av personuppgifter</label>
+                <input type="checkbox" id="confirm" name="confirm" value="confirm">
+                <label for="wantNews"> Jag vill ha nyhetsbrev</label>
+                <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
 
-            <p>Summa:</p>
-
-            <button>Skicka beställning</button>
-            <button>Rensa beställning</button>
-            
+                <p>Summa:</p>
+  
+                <button>Skicka beställning</button>
+                <button>Rensa beställning</button>
+            </div>
         </form>
     </main>
 

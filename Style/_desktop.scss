@@ -1,13 +1,18 @@
 
 form{
-    height: 100vh;
-    width: 70vw;
     margin: auto;
     padding-left: 5rem;
     padding-right: 5rem;
     background-color: rgb(252, 207, 255);
-    display: grid;
-    grid-template-areas: 
-    "section1 section2";
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
 }
 
+.formSection1{
+    width: 15rem;
+}
+
+.formSection2{
+    width: 15rem;
+}
