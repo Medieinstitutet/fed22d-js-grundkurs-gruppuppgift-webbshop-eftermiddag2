@@ -85,6 +85,20 @@ header {
 
 }
 
+/*Form*/
+form{
+    display: grid;
+}
+
+
+input{
+    width: 10rem;
+}
+
+#postNumber{
+    width: 5rem;
+}
+
 
 
 
@@ -93,4 +107,6 @@ header {
 
 
 /*Keep at bottom to make sure it overrides default behavior*/
-@import 'mobile';
+@media screen and (min-width: 1024px){
+    @import 'desktop';
+}
