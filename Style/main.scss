@@ -80,21 +80,29 @@ header{
 
 /*Form*/
 form{
-    display: grid;
+    margin: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(176, 254, 255, 0.765);
 }
 
+label{
+    margin-top: 0.5rem;
+}
 
 input{
-    width: 10rem;
+    width: 15rem;
+    height: 2rem;
 }
 
-#postNumber{
+#postNumber, #locality, #doorCode, #cardNumber, #date, #cvc{
     width: 5rem;
 }
 
-
-
-
+select{
+    height: 2rem;;
+}
 
 
 
