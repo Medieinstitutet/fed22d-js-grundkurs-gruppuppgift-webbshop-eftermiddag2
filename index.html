@@ -5,36 +5,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gottfrids Munkar</title>
     <link rel="stylesheet" href="style/main.css">
 </head>
 
 <body>
     <!--top of the page-->
     <nav class="top-header">
-        <span class="shopping-cart">Varukorg</span><span id="donut-counter-cart" class="total-donut-counter">0</span>
+        <span class="shopping-cart">Varukorg</span><span id="donut-counter-cart" class="total-donut-counter">0<span>
+                kr</span></span>
         <button class="btn-menu">menu</button>
     </nav>
 
     <!--Main content falls in here-->
-    <main class="content-container">
+    <main class="content-container" id="sort-container">
         <!--Header-->
         <header>
             <h1>Gottfrids munkar</h1>
         </header>
         <!--sorting-->
         <div class="sorting-box">
-            <h2>Sortera efter <span class="sorting-type">Pris</span></h2>
+            <h2>Sortera efter
+                <button><span class="sorting-type">Pris &uarr;</span></button>
+                <button><span class="sorting-type">Pris &darr;</span></button>
+                <button><span class="sorting-type">Namn &uarr;</span></button>
+                <button><span class="sorting-type">Namn &darr;</span></button>
+            </h2>
+
         </div>
         <!--donuts-->
         <section class="flex-content">
             <button class="donut-amount-reduce">-</button>
 
             <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-sugar.svg" alt="Munk med socker" height="300" width="300"></div>
-                <p class="donut-price"><span>19</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
+
+                <h3 class="donut-name">Vanilj Donut one</h3>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">27</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
             </article>
 
             <button class="donut-amount-increase">+</button>
@@ -43,95 +52,104 @@
             <button class="donut-amount-reduce">-</button>
 
             <article class="donut-info">
+
+                <h3 class="donut-name">Jordgubb Donut</h3>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">27</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
+            </article>
+            <button class="donut-amount-increase">+</button>
+        </section>
+
+        <section class="flex-content">
+            <button class="donut-amount-reduce">-</button>
+
+            <article class="donut-info">
+                <h3 class="donut-name">Socker Donut</h3>
+
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">3</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
+
+            </article>
+
+            <button class="donut-amount-increase">+</button>
+        </section>
+        <section class="flex-content">
+            <button class="donut-amount-reduce">-</button>
+
+            <article class="donut-info">
+
                 <h3 class="donut-name">Choklad Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-chocolate.svg" alt="Munk med choklad" height="300" width="300"></div>
-                <p class="donut-price"><span>21</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">12</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
+
             </article>
-            <button class="donut-amount-increase">+</button>
-        </section>        
-        <section class="flex-content">
-            <button class="donut-amount-reduce">-</button>
-            <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-chocolate-sprinkles.svg" alt="Munk med choklad och sprinkles" height="300" width="300"></div>
-                <p class="donut-price"><span>24</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
-            </article>
-            <button class="donut-amount-increase">+</button>
-        </section>        
-        <section class="flex-content">
-            <button class="donut-amount-reduce">-</button>
-            <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-strawberry.svg" alt="Munk med jordgubb" height="300" width="300"></div>
-                <p class="donut-price"><span>21</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
-            </article>
-            <button class="donut-amount-increase">+</button>
-        </section>        
-        <section class="flex-content">
-            <button class="donut-amount-reduce">-</button>
-            <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-strawberry-sprinkles.svg" alt="Munk med jordgubb och sprinkles" height="300" width="300"></div>
-                <p class="donut-price"><span>24</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
-            </article>
+
             <button class="donut-amount-increase">+</button>
         </section>
         <section class="flex-content">
             <button class="donut-amount-reduce">-</button>
+
             <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-vanilla.svg" alt="Munk med vanilj" height="300" width="300"></div>
-                <p class="donut-price"><span>21</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
+
+                <h3 class="donut-name">Karamell Donut</h3>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">11</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
             </article>
+
             <button class="donut-amount-increase">+</button>
         </section>
         <section class="flex-content">
             <button class="donut-amount-reduce">-</button>
+
+
             <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-vanillastriped.svg" alt="Munk med vanilj och choklad" height="300" width="300"></div>
-                <p class="donut-price"><span>25</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
+                <h3 class="donut-name">Lakrits Donut</h3>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">15</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
             </article>
+
             <button class="donut-amount-increase">+</button>
         </section>
         <section class="flex-content">
             <button class="donut-amount-reduce">-</button>
+
             <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-circus-sprinkles.svg" alt="Munk med circus tema" height="300" width="300"></div>
-                <p class="donut-price"><span>26</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
+                <h3 class="donut-name">Daim Donut</h3>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">38</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
             </article>
+
             <button class="donut-amount-increase">+</button>
         </section>
         <section class="flex-content">
             <button class="donut-amount-reduce">-</button>
+
+
             <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-citron-sprinkles.svg" alt="Munk med citron och sprinkles" height="300" width="300"></div>
-                <p class="donut-price"><span>24</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
+                <h3 class="donut-name">Cheesecake Donut</h3>
+                <div class="img-space"><img class="donut-img" src="assets/donuts/donut1.jpg" alt="Munk med socker"
+                        height="300" width="300"></div>
+                <p><span class="donut-price">33</span> kr/st</p>
+                <p><span class="donut-count">0</span> st</p>
+
             </article>
             <button class="donut-amount-increase">+</button>
         </section>
-        <section class="flex-content">
-            <button class="donut-amount-reduce">-</button>
-            <article class="donut-info">
-                <h3 class="donut-name">Socker Donut</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-none.svg" alt="Munk" height="300" width="300"></div>
-                <p class="donut-price"><span>15</span>/st</p>
-                <p class="donut-count"><span>5</span>st</p>
-            </article>
-            <button class="donut-amount-increase">+</button>
-        </section>
+
         <!--form-->
-        <form>
+        <form id="form-container">
             
                 <label for="name">Förnamn</label>
                 <input type="text" id="name">
@@ -189,8 +207,8 @@
                 <p>Summa:</p>
   
                 <button>Skicka beställning</button>
-                <button>Rensa beställning</button>
-           
+                <button>Rensa beställning</button>           
+
         </form>
     </main>
 

@@ -23,7 +23,6 @@
 }
 
 
-
 /*Content*/
 .content-container {
     display: flex;
@@ -86,7 +85,9 @@ header {
 }
 
 /*Form*/
+
 form{
+
     margin: auto;
     padding: 1rem;
     display: flex;
@@ -94,14 +95,17 @@ form{
     background-color: rgba(176, 254, 255, 0.765);
 }
 
+
 label{
     margin-top: 0.5rem;
 }
 
 input{
+
     width: 15rem;
     height: 2rem;
 }
+
 
 #postNumber, #locality, #doorCode, #cardNumber, #date, #cvc{
     width: 5rem;
@@ -111,10 +115,7 @@ select{
     height: 2rem;;
 }
 
-
-
-
 /*Keep at bottom to make sure it overrides default behavior*/
-@media screen and (min-width: 1024px){
+@media screen and (min-width: 1024px) {
     @import 'desktop';
 }
