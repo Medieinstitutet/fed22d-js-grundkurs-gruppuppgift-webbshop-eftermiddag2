@@ -1,4 +1,22 @@
-
-form{
+form {
+    margin: auto;
+    padding-left: 5rem;
+    padding-right: 5rem;
     background-color: rgb(252, 207, 255);
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+}
+
+
+input {
+    margin-bottom: 1rem;
+}
+
+select {
+    margin-bottom: 1rem;
+}
+
+button {
+    height: 3rem;
+    width: 8rem;
 }
