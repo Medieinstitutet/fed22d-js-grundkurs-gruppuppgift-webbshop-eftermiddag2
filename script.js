@@ -16,7 +16,7 @@ donutIncrease.forEach((_, index) => {  //Loops through lenght of 'donutIncrease'
   })
 })
 
-donutCountCart.style.visibility = "visible";
+donutCountCart.style.visibility = "visible"; //check with group layout --------------------------
 
 
 //   ---------------------------------------------------------------------------------------------------------------------
