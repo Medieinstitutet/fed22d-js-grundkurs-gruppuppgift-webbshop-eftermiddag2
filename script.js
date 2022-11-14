@@ -151,3 +151,13 @@ const sortPriceDsc = () => {
 }
 
 sortPriceButtonDsc.addEventListener("click", sortPriceDsc); //onlick, run function 'sortPriceDsc'
+
+/** 
+ * -Varukorgen ska vara dold som default
+ * -Varukorgen ska kunna öppnas
+ * -Det ska ligga en "beställ-knapp" i varukorgen
+ * -När man trycker på beställ-knappen så ska formuläret öppnas,
+ * formuläret ska vara dolt som default
+ * -Summeringen av beställningen ska visas i varukorgen
+ * 
+*/
