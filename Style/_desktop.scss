@@ -4,12 +4,17 @@ form {
     padding-right: 5rem;
     background-color: rgb(252, 207, 255);
     display: grid;
-    grid-template-columns: 0.5fr 1fr;
+    grid-template-columns: 0.5fr 0.5fr;
+    gap: 2rem;
 }
 
 
 input {
     margin-bottom: 1rem;
+}
+
+#wantNews, #confirm{
+    width: 1rem;
 }
 
 select {
