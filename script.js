@@ -36,15 +36,15 @@ const getDonutCount = () => {
 //   ---------------------------------------------------------------------------------------------------------------------
 //
 
-const clickPlus = (e) => {  // donuts[index].count++;
+const clickPlus = (e) => { 
   e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++;  // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
   donutCountCart.innerHTML = getDonutCount(); //Updates cart text
 }
 
 
-const clickMinus = (e) => {  // donuts[index].count++;
+const clickMinus = (e) => { 
   if (e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0) { 
-    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--;  // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
+    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--;  // donutAmount[index].innerHTML++; //Adds -1 amount to property 'count' in object
     donutCountCart.innerHTML = getDonutCount(); //Updates cart text
   }
 }
@@ -110,10 +110,12 @@ const sortNameAsc = (a, b) => { // sort array with objects of ascending proprert
   return 0; // if its 0 ---> keep order
 }
 
+//skriva om anonyma functionen
 sortNameBtnAsc.addEventListener("click", () => {
   donuts.sort(sortNameAsc); // sorts donuts by sortNameAsc()
   sortByType('name',1); // sort type + start index which is 1 
 })
+
 
 const sortNameDsc = (a, b) => { // sort array with objects of proprerty name, from A-Ö. 
   if (a.name > b.name) { 
@@ -125,10 +127,12 @@ const sortNameDsc = (a, b) => { // sort array with objects of proprerty name, fr
   return 0;
 }
 
+//skriva om anonyma functionen
 sortNameBtnDsc.addEventListener("click", () => {
   donuts.sort(sortNameDsc); // sorts donuts after name ascending
   sortByType('name', 1);
 })
+
 
 const sortPriceAsc = () => {
   donuts.sort((a, b) => { //a & b is only made up arguments in this callback function
