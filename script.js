@@ -124,7 +124,7 @@ const sortNameAsc = () => {
 
 sortNameBtnAsc.addEventListener("click", sortNameAsc);
 
-const sortNameDescFn = (a, b) => { // sort array with objects of proprerty name, from A-Ö. 
+const sortNameDescFn = (a, b) => { // sort array with objects of proprerty name, from Ö-A. 
   if (a.name > b.name) { 
     return - 1;
   }
@@ -135,7 +135,7 @@ const sortNameDescFn = (a, b) => { // sort array with objects of proprerty name,
 }
 
 const sortNameDesc = () => {
-  donuts.sort(sortNameDescFn); // sorts donuts after name ascending
+  donuts.sort(sortNameDescFn);
   sortByType('name', 1);
 }
 
@@ -148,10 +148,10 @@ const sortPriceAscFn = (a, b) => { //a & b is only made up arguments in this cal
 //sort price
 const sortPriceAsc = () => {
   donuts.sort(sortPriceAscFn);
-  sortByType('price', 1); //sorts index.html when compared to 'donuts array'. Starts at 1, wants to compare 2nd index in sortedArray first. ---> bubble sort
+  sortByType('price', 1); 
 }
 
-sortPriceBtnAsc.addEventListener("click", sortPriceAsc); //onlick, run function 'sortPriceAsc'
+sortPriceBtnAsc.addEventListener("click", sortPriceAsc);
 
 const sortPriceDescFn = (a, b) => {
   return a.price - b.price; // sorts 'donuts array' by descending price
@@ -162,11 +162,11 @@ const sortPriceDesc = () => {
   sortByType('price', 1);
 }
 
-sortPriceBtnDesc.addEventListener("click", sortPriceDesc); //onlick, run function 'sortPriceDescsortNameBtnDesc'
+sortPriceBtnDesc.addEventListener("click", sortPriceDesc);
 
 //sort ratings
 const sortRatingAscFn = (a, b) => { 
-  return b.rating - a.rating;  
+  return b.rating - a.rating;  // sorts 'donuts array' by rating
 }
 
 const sortRatingAsc = () => {
