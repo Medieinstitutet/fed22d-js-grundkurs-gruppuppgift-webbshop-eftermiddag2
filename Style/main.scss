@@ -96,8 +96,11 @@ header {
 
 /*Form*/
 
-form{
+#formContainer{
+    visibility: hidden;
+}
 
+form{
     margin: auto;
     padding: 1rem;
     display: flex;

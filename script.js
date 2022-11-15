@@ -186,3 +186,14 @@ const cart = document.querySelectorAll('#shoppingCart');
     cart[0].style.display = 'block';
   }
 }) // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
+
+const orderBtn = document.querySelectorAll('#order');
+const showForm = document.querySelectorAll('#formContainer');
+
+orderBtn[0].addEventListener('click', () =>{ 
+  if(showForm[0].style.visibility === 'hidden'){ 
+    showForm[0].style.visibility = 'visible';
+  } else {
+    showForm[0].style.visibility = 'visible';
+  }
+})
