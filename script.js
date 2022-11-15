@@ -196,4 +196,4 @@ orderBtn[0].addEventListener('click', () =>{
   } else {
     showForm[0].style.visibility = 'visible';
   }
-})
+}) // The form will only be visible if you click on "Beställ" 
