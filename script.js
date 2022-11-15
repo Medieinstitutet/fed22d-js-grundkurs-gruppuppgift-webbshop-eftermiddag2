@@ -152,6 +152,11 @@ const sortPriceDsc = () => {
 
 sortPriceButtonDsc.addEventListener("click", sortPriceDsc); //onlick, run function 'sortPriceDsc'
 
+
+//-------------------------------------------------------------------------------------
+//----------------------------------SHOPPING CART--------------------------------------
+//-------------------------------------------------------------------------------------
+
 /** 
  * -Varukorgen ska vara dold som default
  * -Varukorgen ska kunna öppnas
@@ -160,4 +165,38 @@ sortPriceButtonDsc.addEventListener("click", sortPriceDsc); //onlick, run functi
  * formuläret ska vara dolt som default
  * -Summeringen av beställningen ska visas i varukorgen
  * 
+*/
+
+/** 
+ * NOT WORKING
+ * 
+ *let openCloseBtn = document.querySelectorAll('#openCart, #closeCart'); //Buttons that will open and close the shopping cart
+ *let cart = document.querySelectorAll('#shoppingCart'); // The shopping cart
+ *
+ *openCloseBtn.addEventListener('click', () =>{ // Console says it's not a function
+ *  if(cart.style.display === 'none'){
+ *    cart.style.display = 'block';
+ *  } else {
+ *    cart.style.display = 'none';
+ *  }
+ *}) // If you click on "Varukorg" and the cart is displayed as none in css it is supposed to display as a block
+*/   
+
+/**
+ * NOT WORKING
+ * 
+ * const openCloseBtn = document.querySelector('.shopping-cart, close-cart'); 
+ * openCloseBtn.addEventListener('click', openOrClose);
+ * 
+ * let closed = false;
+ * 
+ * function openOrClose() {
+ * closed = !closed;
+ * 
+ * if (closed) {
+ * document.querySelectorAll('#shoppingCart').style.display = 'none';
+ * } else {
+ * document.querySelectorAll('#shoppingCart').style.display = 'block';
+ * }
+ * }
 */

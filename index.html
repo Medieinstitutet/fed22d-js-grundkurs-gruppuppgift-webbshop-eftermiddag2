@@ -12,10 +12,18 @@
 <body>
     <!--top of the page-->
     <nav class="top-header">
-        <span class="shopping-cart">Varukorg</span><span id="donut-counter-cart" class="total-donut-counter">0<span>
+        <button id="openCart" class="shopping-cart">Varukorg</button><span id="donut-counter-cart" class="total-donut-counter">0<span>
                 kr</span></span>
         <button class="btn-menu">menu</button>
     </nav>
+
+    <div id="shoppingCart" class="cart">
+        <span>Produkt</span>
+        <span>Antal</span>
+        <span>Styckpris</span>
+        <span>Delsumma</span>
+        <button id="closeCart">Stäng</button>
+    </div>
 
     <!--Main content falls in here-->
     <main class="content-container" id="sort-container">
