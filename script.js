@@ -8,14 +8,15 @@ const mainDonuts = document.getElementById("sort-container"); //creates containe
 const form = document.getElementById("form-container"); // use for reference position line at <form> in html
 
 let donuts = []; //creates an empty array
-donutIncrease.forEach((_, index) => {  //Loops through lenght of 'donutIncrease' which is = amount of donus. Could also use for-loop
-  donuts.push({    //push objects to 'donuts'-array.
+const tempDonutContainer = [...donutsContainer]
+tempDonutContainer.forEach((donut) => {  //Loops through lenght of 'donutIncrease' which is = amount of donus. Could also use for-loop
+    donuts.push({    //push objects to 'donuts'-array.
     // Creates an object with properties 'name, price, count'
-    name: document.getElementsByClassName("donut-name")[index].innerHTML,
-    price: document.getElementsByClassName("donut-price")[index].innerHTML,
+    name: donut.childNodes[3].childNodes[1].innerHTML,
+    price: donut.childNodes[3].childNodes[5].childNodes[0].innerHTML,
   })
 })
-
+  
 donutCountCart.style.visibility = "visible"; //check with group layout --------------------------
 
 
@@ -27,7 +28,7 @@ const getDonutCount = () => {
   for (let i = 0; i < donutsContainer.length; i++){ //loop
     sum += donutsContainer[i].querySelector(".donut-price").innerHTML * donutsContainer[i].querySelector(".donut-count").innerHTML; // sum = sum+price*st
   }
-  return sum + " kr";
+  return sum;
 }
 
 
@@ -51,11 +52,11 @@ const clickMinus = (e) => {
 
 donutIncrease.forEach((button) => {  //Loops over all increase buttons
   button.addEventListener("click", clickPlus); //On click (on plus button), run function 'clickPlus'
-})
+});
 
 donutDecrease.forEach((button) => { //loops over all decrease btns
   button.addEventListener("click", clickMinus);
-})
+});
 
 
 // ------------------------------------------------------------------------------------------------------------------------
@@ -64,11 +65,9 @@ donutDecrease.forEach((button) => { //loops over all decrease btns
 //   ---------------------------------------------------------------------------------------------------------------------
 
 const sortPriceButtonAsc = sortingButtons[0]; //Button Sort price: High to low.
-const sortPriceButtonDsc = sortingButtons[1]; // Button sort price: Low to high.
+const sortPriceButtonDescsortNameBtnDesc = sortingButtons[1]; // Button sort price: Low to high.
 const sortNameBtnAsc = sortingButtons[2]; // Btn sort name A-Ö
-const sortNameBtnDsc = sortingButtons[3]; // Btn sort name Ö-A
-
-
+const sortNameBtnDesc = sortingButtons[3]; // Btn sort name Ö-A
 
 //For sortByType to work, index MUST start at 1 ---> Bubble sort
 const sortByType = (type,index) => { //creates a function for sorting types (e.g name + price)
@@ -79,12 +78,12 @@ const sortByType = (type,index) => { //creates a function for sorting types (e.g
   donuts.forEach((donut, j) => {    // '.forEach' loops for every donut in 'donutsContainer'
     sortedArray.push(donut[type]); //extracts type from donuts into 'sortedArray'
     unSortedArray.push(   // extracts donuts type from 'index.html' into 'unSortedArray'
-    document.getElementsByClassName("donut-" + type)[j].innerHTML //gets the value of the type
+      document.getElementsByClassName("donut-" + type)[j].innerHTML //gets the value of the type
     );
-  })
+  });
   
   const compare = (value) => {  // compares all values from unSortedArray with values in sortedArray until a match, e.g 2===2
-    return value === sortedArray[index]; // condition for match for '.findIndex'. '.findIndex' requires a function with conditions.
+  return value === sortedArray[index]; // condition for match for '.findIndex'. '.findIndex' requires a function with conditions.
   }
   
   let foundIndex = unSortedArray.findIndex(compare); //finds index in unSortedArray where elements matches with the sortedArray. It compares with the current index recieved in this function.
@@ -100,7 +99,8 @@ const sortByType = (type,index) => { //creates a function for sorting types (e.g
   }
 } 
 
-const sortNameAsc = (a, b) => { // sort array with objects of ascending proprerty name, from A-Ö. 
+
+const sortNameAscFn = (a, b) => { // sort array with objects of ascending proprerty name, from A-Ö. 
   if (a.name < b.name) { // compare first letter in a with first letter in b. Each letter (lower and upper) has different values e.g console.log("a".charCodeAt(0)) returns 97
     return -1; //if return < 0 ---> sort a BEFORE b
   }
@@ -110,14 +110,15 @@ const sortNameAsc = (a, b) => { // sort array with objects of ascending proprert
   return 0; // if its 0 ---> keep order
 }
 
-//skriva om anonyma functionen
-sortNameBtnAsc.addEventListener("click", () => {
-  donuts.sort(sortNameAsc); // sorts donuts by sortNameAsc()
+const sortNameAsc = () => {
+  donuts.sort(sortNameAscFn); // sorts donuts by sortNameAsc()
   sortByType('name',1); // sort type + start index which is 1 
-})
+}
+
+sortNameBtnAsc.addEventListener("click", sortNameAsc)
 
 
-const sortNameDsc = (a, b) => { // sort array with objects of proprerty name, from A-Ö. 
+const sortNameDescFn = (a, b) => { // sort array with objects of proprerty name, from A-Ö. 
   if (a.name > b.name) { 
     return - 1;
   }
@@ -127,27 +128,32 @@ const sortNameDsc = (a, b) => { // sort array with objects of proprerty name, fr
   return 0;
 }
 
-//skriva om anonyma functionen
-sortNameBtnDsc.addEventListener("click", () => {
-  donuts.sort(sortNameDsc); // sorts donuts after name ascending
+const sortNameDesc = () => {
+  donuts.sort(sortNameDescFn); // sorts donuts after name ascending
   sortByType('name', 1);
-})
+}
+sortNameBtnDesc.addEventListener("click", sortNameDesc )
 
+
+const sortPriceAscFn = (a, b) => { //a & b is only made up arguments in this callback function
+  return b.price - a.price;   //sorts 'donuts array' by ascending price.
+}
 
 const sortPriceAsc = () => {
-  donuts.sort((a, b) => { //a & b is only made up arguments in this callback function
-    return b.price - a.price;   //sorts 'donuts array' by ascending price.
-  })
+  donuts.sort(sortPriceAscFn)
   sortByType('price', 1); //sorts index.html when compared to 'donuts array'. Starts at 1, wants to compare 2nd index in sortedArray first. ---> bubble sort
 }
 
 sortPriceButtonAsc.addEventListener("click", sortPriceAsc); //onlick, run function 'sortPriceAsc'
 
-const sortPriceDsc = () => {
-  donuts.sort((a, b) => {
-    return a.price - b.price; // sorts 'donuts array' by descending price
-  })
+
+const sortPriceDescFn = (a, b) => {
+  return a.price - b.price; // sorts 'donuts array' by descending price
+}
+
+const sortPriceDesc = () => {
+  donuts.sort(sortPriceAscFn)
   sortByType('price', 1);
 }
 
-sortPriceButtonDsc.addEventListener("click", sortPriceDsc); //onlick, run function 'sortPriceDsc'
+sortPriceButtonDescsortNameBtnDesc.addEventListener("click", sortPriceDesc); //onlick, run function 'sortPriceDescsortNameBtnDesc'
