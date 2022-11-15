@@ -158,45 +158,31 @@ sortPriceButtonDsc.addEventListener("click", sortPriceDsc); //onlick, run functi
 //-------------------------------------------------------------------------------------
 
 /** 
- * -Varukorgen ska vara dold som default
- * -Varukorgen ska kunna öppnas
- * -Det ska ligga en "beställ-knapp" i varukorgen
- * -När man trycker på beställ-knappen så ska formuläret öppnas,
- * formuläret ska vara dolt som default
- * -Summeringen av beställningen ska visas i varukorgen
+ * [X]Varukorgen ska vara dold som default
+ * [X]Varukorgen ska kunna öppnas
+ * []Det ska ligga en "beställ-knapp" i varukorgen
+ * []När man trycker på beställ-knappen så ska formuläret öppnas
+ * []Formuläret ska vara dolt som default
+ * []Summeringen av beställningen ska visas i varukorgen
  * 
 */
 
-/** 
- * NOT WORKING
- * 
- *let openCloseBtn = document.querySelectorAll('#openCart, #closeCart'); //Buttons that will open and close the shopping cart
- *let cart = document.querySelectorAll('#shoppingCart'); // The shopping cart
- *
- *openCloseBtn.addEventListener('click', () =>{ // Console says it's not a function
- *  if(cart.style.display === 'none'){
- *    cart.style.display = 'block';
- *  } else {
- *    cart.style.display = 'none';
- *  }
- *}) // If you click on "Varukorg" and the cart is displayed as none in css it is supposed to display as a block
-*/   
+const openBtn = document.querySelectorAll('#openCart');
+const closeBtn = document.querySelectorAll('#closeCart');
+const cart = document.querySelectorAll('#shoppingCart'); 
+ 
+ openBtn[0].addEventListener('click', () =>{ 
+   if(cart[0].style.display === 'none'){ 
+     cart[0].style.display = 'block';
+   } else {
+     cart[0].style.display = 'none';
+   }
+ }) // If you click on the button "Varukorg" while the shopping cart is closed it will open the shopping cart
 
-/**
- * NOT WORKING
- * 
- * const openCloseBtn = document.querySelector('.shopping-cart, close-cart'); 
- * openCloseBtn.addEventListener('click', openOrClose);
- * 
- * let closed = false;
- * 
- * function openOrClose() {
- * closed = !closed;
- * 
- * if (closed) {
- * document.querySelectorAll('#shoppingCart').style.display = 'none';
- * } else {
- * document.querySelectorAll('#shoppingCart').style.display = 'block';
- * }
- * }
-*/
+ closeBtn[0].addEventListener('click', () =>{ 
+  if(cart[0].style.display === 'block'){ 
+    cart[0].style.display = 'none';
+  } else {
+    cart[0].style.display = 'block';
+  }
+}) // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
