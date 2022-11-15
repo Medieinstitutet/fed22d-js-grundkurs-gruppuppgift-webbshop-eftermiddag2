@@ -122,7 +122,7 @@ const sortNameAsc = () => {
   sortByType('name',1); // sort type + start index which is 1 
 }
 
-sortNameBtnAsc.addEventListener("click", sortNameAsc)
+sortNameBtnAsc.addEventListener("click", sortNameAsc);
 
 const sortNameDescFn = (a, b) => { // sort array with objects of proprerty name, from A-Ö. 
   if (a.name > b.name) { 
@@ -139,7 +139,7 @@ const sortNameDesc = () => {
   sortByType('name', 1);
 }
 
-sortNameBtnDesc.addEventListener("click", sortNameDesc )
+sortNameBtnDesc.addEventListener("click", sortNameDesc);
 
 const sortPriceAscFn = (a, b) => { //a & b is only made up arguments in this callback function
   return b.price - a.price;   //sorts 'donuts array' by ascending price.
@@ -147,7 +147,7 @@ const sortPriceAscFn = (a, b) => { //a & b is only made up arguments in this cal
 
 //sort price
 const sortPriceAsc = () => {
-  donuts.sort(sortPriceAscFn)
+  donuts.sort(sortPriceAscFn);
   sortByType('price', 1); //sorts index.html when compared to 'donuts array'. Starts at 1, wants to compare 2nd index in sortedArray first. ---> bubble sort
 }
 
@@ -158,7 +158,7 @@ const sortPriceDescFn = (a, b) => {
 }
 
 const sortPriceDesc = () => {
-  donuts.sort(sortPriceDescFn)
+  donuts.sort(sortPriceDescFn);
   sortByType('price', 1);
 }
 
@@ -170,19 +170,88 @@ const sortRatingAscFn = (a, b) => {
 }
 
 const sortRatingAsc = () => {
-  donuts.sort(sortRatingAscFn)
+  donuts.sort(sortRatingAscFn);
   sortByType('rating', 1); 
 }
 
-sortRatingBtnAsc.addEventListener("click", sortRatingAsc)
+sortRatingBtnAsc.addEventListener("click", sortRatingAsc);
 
 const sortRatingDescFn = (a, b) => {
   return a.rating - b.rating;
 }
 
 const sortRatingDesc = () => {
-  donuts.sort(sortRatingDescFn)
+  donuts.sort(sortRatingDescFn);
   sortByType('rating', 1);
 }
 
-sortRatingBtnDesc.addEventListener("click", sortRatingDesc)
+sortRatingBtnDesc.addEventListener("click", sortRatingDesc);
+
+//filter btns
+const filterBtns = document.querySelectorAll(".filter-type");
+const filterBtnGlaze = filterBtns[0];
+const filterBtnSprinkle = filterBtns[1];
+const filterBtnNone = filterBtns[2];
+const filterBtnAll = filterBtns[3];
+
+const noneArray = document.getElementsByClassName("category-none");
+const sprinkleArray = document.getElementsByClassName("category-sprinkle");
+const glazeArray = document.getElementsByClassName("category-glaze");
+
+const showNone = () => { 
+  for (let i = 0; i < noneArray.length; i++){
+    noneArray[i].style.display = "flex";
+  }
+}
+const showGlaze = () => {
+  for (let i = 0; i < glazeArray.length; i++){
+    glazeArray[i].style.display = "flex";
+  }
+}
+const showSprinkle = () => {
+  for (let i = 0; i < sprinkleArray.length; i++){
+    sprinkleArray[i].style.display = "flex";
+  }
+}
+
+const hideNone = () => { 
+  for (let i = 0; i < noneArray.length; i++){
+    noneArray[i].style.display = "none";
+  }
+}
+const hideGlaze = () => {
+  for (let i = 0; i < glazeArray.length; i++){
+    glazeArray[i].style.display = "none";
+  }
+}
+const hideSprinkle = () => {
+  for (let i = 0; i < sprinkleArray.length; i++){
+  sprinkleArray[i].style.display = "none";
+  }
+}
+
+const filterGlaze = () => {
+  hideNone();
+  hideSprinkle();
+  showGlaze();
+  }
+const filterSprinkle = () => {
+  hideNone();
+  hideGlaze();
+  showSprinkle();
+}
+const filterNone = () => {
+  hideGlaze();
+  hideSprinkle();
+  showNone();
+}
+const filterAll = () => {
+  showNone();
+  showGlaze();
+  showSprinkle();
+}
+  
+filterBtnGlaze.addEventListener("click", filterGlaze);  
+filterBtnSprinkle.addEventListener("click", filterSprinkle);  
+filterBtnNone.addEventListener("click", filterNone);  
+filterBtnAll.addEventListener("click", filterAll);
