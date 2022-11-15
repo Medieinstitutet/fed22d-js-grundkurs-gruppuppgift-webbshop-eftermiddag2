@@ -213,36 +213,28 @@ const showSprinkle = () => {
     sprinkleArray[i].style.display = "flex";
   }
 }
-
-const hideNone = () => { 
+const hideAll = () => {
   for (let i = 0; i < noneArray.length; i++){
     noneArray[i].style.display = "none";
   }
-}
-const hideGlaze = () => {
   for (let i = 0; i < glazeArray.length; i++){
     glazeArray[i].style.display = "none";
   }
-}
-const hideSprinkle = () => {
   for (let i = 0; i < sprinkleArray.length; i++){
-  sprinkleArray[i].style.display = "none";
-  }
+    sprinkleArray[i].style.display = "none";
+    }
 }
 
 const filterGlaze = () => {
-  hideNone();
-  hideSprinkle();
+  hideAll();
   showGlaze();
-  }
+}
 const filterSprinkle = () => {
-  hideNone();
-  hideGlaze();
+  hideAll();
   showSprinkle();
 }
 const filterNone = () => {
-  hideGlaze();
-  hideSprinkle();
+  hideAll();
   showNone();
 }
 const filterAll = () => {
