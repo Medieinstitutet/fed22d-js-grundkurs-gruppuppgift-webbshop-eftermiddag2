@@ -9,14 +9,16 @@ const form = document.getElementById("form-container"); // use for reference pos
 
 let donuts = []; //creates an empty array
 const tempDonutContainer = [...donutsContainer]
+
 tempDonutContainer.forEach((donut) => {  //Loops through lenght of 'donutIncrease' which is = amount of donus. Could also use for-loop
     donuts.push({    //push objects to 'donuts'-array.
     // Creates an object with properties 'name, price, count'
     name: donut.childNodes[3].childNodes[1].innerHTML,
     price: donut.childNodes[3].childNodes[5].childNodes[0].innerHTML,
+    rating: donut.childNodes[3].childNodes[9].childNodes[1].innerHTML
   })
+
 })
-  
 donutCountCart.style.visibility = "visible"; //check with group layout --------------------------
 
 
@@ -64,17 +66,19 @@ donutDecrease.forEach((button) => { //loops over all decrease btns
 //   -------------------------------------SORTING FUNCTION-----------------------------------------------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 
-const sortPriceButtonAsc = sortingButtons[0]; //Button Sort price: High to low.
-const sortPriceButtonDescsortNameBtnDesc = sortingButtons[1]; // Button sort price: Low to high.
+const sortPriceBtnAsc = sortingButtons[0]; //Button Sort price: High to low.
+const sortPriceBtnDesc = sortingButtons[1]; // Button sort price: Low to high.
 const sortNameBtnAsc = sortingButtons[2]; // Btn sort name A-Ö
 const sortNameBtnDesc = sortingButtons[3]; // Btn sort name Ö-A
+const sortRatingBtnAsc = sortingButtons[4]; // Btn sort Rating high to low
+const sortRatingBtnDesc = sortingButtons[5]; // btn sort rating low to high
+
 
 //For sortByType to work, index MUST start at 1 ---> Bubble sort
 const sortByType = (type,index) => { //creates a function for sorting types (e.g name + price)
   
   let sortedArray = [];   //  empty array for sorted preferences
   let unSortedArray = []; //  empty array for comparison
-  
   donuts.forEach((donut, j) => {    // '.forEach' loops for every donut in 'donutsContainer'
     sortedArray.push(donut[type]); //extracts type from donuts into 'sortedArray'
     unSortedArray.push(   // extracts donuts type from 'index.html' into 'unSortedArray'
@@ -95,11 +99,14 @@ const sortByType = (type,index) => { //creates a function for sorting types (e.g
     }
     if (type === 'price' ) { // if yes; then re-run function with +1 index. (starts on 2 next time etc)
       sortByType('price',index + 1);
-    }    
+    }  
+    if (type === 'rating' ) { // if yes; then re-run function with +1 index. (starts on 2 next time etc)
+      sortByType('rating',index + 1);
+    }   
   }
 } 
 
-
+// sort name 
 const sortNameAscFn = (a, b) => { // sort array with objects of ascending proprerty name, from A-Ö. 
   if (a.name < b.name) { // compare first letter in a with first letter in b. Each letter (lower and upper) has different values e.g console.log("a".charCodeAt(0)) returns 97
     return -1; //if return < 0 ---> sort a BEFORE b
@@ -117,7 +124,6 @@ const sortNameAsc = () => {
 
 sortNameBtnAsc.addEventListener("click", sortNameAsc)
 
-
 const sortNameDescFn = (a, b) => { // sort array with objects of proprerty name, from A-Ö. 
   if (a.name > b.name) { 
     return - 1;
@@ -132,28 +138,51 @@ const sortNameDesc = () => {
   donuts.sort(sortNameDescFn); // sorts donuts after name ascending
   sortByType('name', 1);
 }
-sortNameBtnDesc.addEventListener("click", sortNameDesc )
 
+sortNameBtnDesc.addEventListener("click", sortNameDesc )
 
 const sortPriceAscFn = (a, b) => { //a & b is only made up arguments in this callback function
   return b.price - a.price;   //sorts 'donuts array' by ascending price.
 }
 
+//sort price
 const sortPriceAsc = () => {
   donuts.sort(sortPriceAscFn)
   sortByType('price', 1); //sorts index.html when compared to 'donuts array'. Starts at 1, wants to compare 2nd index in sortedArray first. ---> bubble sort
 }
 
-sortPriceButtonAsc.addEventListener("click", sortPriceAsc); //onlick, run function 'sortPriceAsc'
-
+sortPriceBtnAsc.addEventListener("click", sortPriceAsc); //onlick, run function 'sortPriceAsc'
 
 const sortPriceDescFn = (a, b) => {
   return a.price - b.price; // sorts 'donuts array' by descending price
 }
 
 const sortPriceDesc = () => {
-  donuts.sort(sortPriceAscFn)
+  donuts.sort(sortPriceDescFn)
   sortByType('price', 1);
 }
 
-sortPriceButtonDescsortNameBtnDesc.addEventListener("click", sortPriceDesc); //onlick, run function 'sortPriceDescsortNameBtnDesc'
+sortPriceBtnDesc.addEventListener("click", sortPriceDesc); //onlick, run function 'sortPriceDescsortNameBtnDesc'
+
+//sort ratings
+const sortRatingAscFn = (a, b) => { 
+  return b.rating - a.rating;  
+}
+
+const sortRatingAsc = () => {
+  donuts.sort(sortRatingAscFn)
+  sortByType('rating', 1); 
+}
+
+sortRatingBtnAsc.addEventListener("click", sortRatingAsc)
+
+const sortRatingDescFn = (a, b) => {
+  return a.rating - b.rating;
+}
+
+const sortRatingDesc = () => {
+  donuts.sort(sortRatingDescFn)
+  sortByType('rating', 1);
+}
+
+sortRatingBtnDesc.addEventListener("click", sortRatingDesc)
