@@ -1,7 +1,9 @@
 /*Keep at top to normalize across webbrowsers*/
 @import 'normalize';
 
-
+html{
+    scroll-behavior: smooth;
+}
 
 /*Top header*/
 .top-header {
