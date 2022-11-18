@@ -162,6 +162,7 @@ const sortPriceDesc = () => {
   sortByType('price', 1);
 }
 
+
 sortPriceBtnDesc.addEventListener("click", sortPriceDesc);
 
 //sort ratings
@@ -247,3 +248,46 @@ filterBtnGlaze.addEventListener("click", filterGlaze);
 filterBtnSprinkle.addEventListener("click", filterSprinkle);  
 filterBtnNone.addEventListener("click", filterNone);  
 filterBtnAll.addEventListener("click", filterAll);
+
+sortPriceButtonDsc.addEventListener("click", sortPriceDsc); //onlick, run function 'sortPriceDsc'
+
+
+//-------------------------------------------------------------------------------------
+//----------------------------------SHOPPING CART--------------------------------------
+//-------------------------------------------------------------------------------------
+
+/** 
+ * [X]Varukorgen ska vara dold som default
+ * [X]Varukorgen ska kunna öppnas
+ * []Det ska ligga en "beställ-knapp" i varukorgen
+ * []När man trycker på beställ-knappen så ska formuläret öppnas
+ * []Formuläret ska vara dolt som default
+ * []Summeringen av beställningen ska visas i varukorgen
+ * 
+*/
+
+const openBtn = document.querySelectorAll('#openCart');
+const closeBtn = document.querySelectorAll('#closeCart');
+const cart = document.querySelectorAll('#shoppingCart'); 
+ 
+ openBtn[0].addEventListener('click', () =>{ 
+  cart[0].classList.toggle("hidden");
+ })
+   
+
+ closeBtn[0].addEventListener('click', () =>{ 
+  cart[0].classList.toggle("hidden");
+}) // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
+
+const orderBtn = document.querySelectorAll('#order');
+const showForm = document.querySelectorAll('#formContainer');
+
+orderBtn[0].addEventListener('click', () =>{ 
+  showForm[0].classList.toggle("hidden");
+  /*if(showForm[0].style.visibility === 'hidden'){ 
+    showForm[0].style.visibility = 'visible';
+  } else {
+    showForm[0].style.visibility = 'visible';
+  } */
+}) // The form will only be visible if you click on "Beställ" 
+

@@ -2,6 +2,7 @@
 @import 'normalize';
 
 
+
 /*Top header*/
 .top-header {
     min-width: 100%;
@@ -20,6 +21,18 @@
     background-color: red;
     display: inline-block;
     visibility: hidden;
+}
+
+/*Shopping cart*/
+.cart{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(249, 0, 232);
+}
+
+.hidden{
+    display: none;
 }
 
 
@@ -157,8 +170,10 @@ header {
 
 /*Form*/
 
-form {
 
+
+
+form{
     margin: auto;
     padding: 1rem;
     display: flex;
