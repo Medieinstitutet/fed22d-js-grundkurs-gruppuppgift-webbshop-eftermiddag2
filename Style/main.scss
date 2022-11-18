@@ -52,11 +52,78 @@ header {
 .sorting-box {
     background-color: chartreuse;
     min-width: 100%;
-    height: 30px;
+    height: 50px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
 
-    h2 {
-        margin: 0;
+    // filter btn
+    .filter-btn {
+        min-height: 50px;
     }
+
+    .filter-content {
+        // display: flex;
+        flex-direction: column;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: auto;
+        min-height: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        align-items: center;
+        margin-top: 40px;
+
+        .filter-type {
+            height: 60px;
+            width: 200px;
+            font-size: 2.5rem;
+        }
+    }
+
+    //sort btn
+    .sort-btn {
+        min-height: 50px;
+    }
+
+    .sort-content {
+        // display: flex;
+        flex-direction: column;
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: auto;
+        min-height: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        align-items: center;
+        margin-top: 40px;
+
+        button {
+            height: 60px;
+            width: 200px;
+            font-size: 2.5rem;
+        }
+    }
+
+
+}
+
+.sort-btn:hover+.sort-content {
+    display: flex;
+}
+
+.sort-content:hover {
+    display: flex;
+}
+
+.filter-btn:hover+.filter-content {
+    display: flex;
+}
+
+.filter-content:hover {
+    display: flex;
 }
 
 .flex-content {
@@ -93,11 +160,17 @@ header {
 
             min-width: 50%;
         }
+
+        .donut-rating {
+            visibility: hidden;
+        }
     }
 
 }
 
 /*Form*/
+
+
 
 
 form{
@@ -109,23 +182,29 @@ form{
 }
 
 
-label{
+label {
     margin-top: 0.5rem;
 }
 
-input{
+input {
 
     width: 15rem;
     height: 2rem;
 }
 
 
-#postNumber, #locality, #doorCode, #cardNumber, #date, #cvc{
+#postNumber,
+#locality,
+#doorCode,
+#cardNumber,
+#date,
+#cvc {
     width: 5rem;
 }
 
-select{
-    height: 2rem;;
+select {
+    height: 2rem;
+    ;
 }
 
 /*Keep at bottom to make sure it overrides default behavior*/
