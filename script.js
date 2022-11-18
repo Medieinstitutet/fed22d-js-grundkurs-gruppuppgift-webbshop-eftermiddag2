@@ -172,28 +172,22 @@ const closeBtn = document.querySelectorAll('#closeCart');
 const cart = document.querySelectorAll('#shoppingCart'); 
  
  openBtn[0].addEventListener('click', () =>{ 
-   if(cart[0].style.display === 'none'){ 
-     cart[0].style.display = 'block';
-   } else {
-     cart[0].style.display = 'none';
-   }
- }) // If you click on the button "Varukorg" while the shopping cart is closed it will open the shopping cart
+  cart[0].classList.toggle("hidden");
+ })
+   
 
  closeBtn[0].addEventListener('click', () =>{ 
-  if(cart[0].style.display === 'block'){ 
-    cart[0].style.display = 'none';
-  } else {
-    cart[0].style.display = 'block';
-  }
+  cart[0].classList.toggle("hidden");
 }) // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
 
 const orderBtn = document.querySelectorAll('#order');
 const showForm = document.querySelectorAll('#formContainer');
 
 orderBtn[0].addEventListener('click', () =>{ 
-  if(showForm[0].style.visibility === 'hidden'){ 
+  showForm[0].classList.toggle("hidden");
+  /*if(showForm[0].style.visibility === 'hidden'){ 
     showForm[0].style.visibility = 'visible';
   } else {
     showForm[0].style.visibility = 'visible';
-  }
+  } */
 }) // The form will only be visible if you click on "Beställ" 

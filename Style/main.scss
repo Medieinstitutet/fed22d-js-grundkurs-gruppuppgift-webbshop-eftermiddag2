@@ -25,11 +25,14 @@
 
 /*Shopping cart*/
 .cart{
-    display: none;
     position: fixed;
     height: 100vh;
     width: 100vw;
     background-color: rgb(249, 0, 232);
+}
+
+.hidden{
+    display: none;
 }
 
 
@@ -96,9 +99,6 @@ header {
 
 /*Form*/
 
-#formContainer{
-    visibility: hidden;
-}
 
 form{
     margin: auto;
