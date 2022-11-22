@@ -281,11 +281,14 @@ filterBtnAll.addEventListener('click', filterAll);
 
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
-const cart = document.querySelectorAll('#shoppingCart');
 
-openBtn[0].addEventListener('click', () => {
-  cart[0].classList.toggle('hidden');
-});
+const cart = document.querySelectorAll('#shoppingCart'); 
+ 
+ openBtn[0].addEventListener('click', () =>{ 
+  cart[0].classList.toggle("hidden");
+ }) // If you click on "Varukorg" the shopping cart will open
+   
+
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
@@ -294,11 +297,10 @@ closeBtn[0].addEventListener('click', () => {
 const orderBtn = document.querySelectorAll('#order');
 const showForm = document.querySelectorAll('#formContainer');
 
-orderBtn[0].addEventListener('click', () => {
-  showForm[0].classList.toggle('hidden');
-  /*if(showForm[0].style.visibility === 'hidden'){ 
-    showForm[0].style.visibility = 'visible';
-  } else {
-    showForm[0].style.visibility = 'visible';
-  } */
-}); // The form will only be visible if you click on "Beställ"
+
+orderBtn[0].addEventListener('click', () =>{ 
+  showForm[0].classList.toggle("hidden");
+  cart[0].classList.toggle("hidden");
+
+}) // The form will only be visible if you click on "Beställ" 
+

@@ -4,19 +4,30 @@
   width: 50vw;
 }
 
-/*Form*/
-form {
-  margin: auto;
-  padding-left: 5rem;
-  padding-right: 5rem;
-  background-color: rgb(252, 207, 255);
-  display: grid;
-  grid-template-columns: 0.5fr 0.5fr;
-  gap: 2rem;
+
+/*Donut boxes*/
+.flex-content{
+    width: 49vw;
 }
 
-input {
-  margin-bottom: 1rem;
+
+/*Form*/
+form {
+    margin: auto;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 2rem;
+    background: linear-gradient(90deg, #00c8ffb2 0%, #92fe9db7 100%);
+    border: 0.4rem;
+    border-style: solid;
+    border-color: rgb(1, 130, 190);
+    border-radius: 2rem;
+    display: grid;
+    grid-template-columns: 0.5fr 0.5fr;
+    gap: 2rem;
+    width: 45rem;
+    height: 100vh;
+
 }
 
 #wantNews,

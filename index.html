@@ -10,23 +10,21 @@
 </head>
 
 <body>
-  <!--top of the page-->
-  <nav class="top-header">
-    <span class="shopping-cart">Varukorg</span>
-    <span id="donut-counter-cart" class="total-donut-counter"> 0 </span>
-    <span>kr</span>
 
-    <button class="btn-menu">menu</button>
-  </nav>
+    <!--top of the page-->
+    <nav class="top-header">
+        <button id="openCart" class="shopping-cart">Varukorg</button><span id="donut-counter-cart" class="total-donut-counter">0<span>
+                kr</span></span>
+        <button class="btn-menu">menu</button>
+    </nav>
 
-  <div id="shoppingCart" class="cart hidden">
-    <span>Produkt</span>
-    <span>Antal</span>
-    <span>Styckpris</span>
-    <span>Delsumma</span>
-    <button id="closeCart">Stäng</button>
-    <button id="order">Beställ</button>
-  </div>
+    <div id="shoppingCart" class="cart hidden" >
+        <span>Produkt</span>
+        <span>Antal</span>
+        <span>Styckpris</span>
+        <span>Delsumma</span>
+        <button id="closeCart">Stäng</button>
+        <a href="#formContainer"><button id="order">Beställ</button></a>
 
   <!--Main content falls in here-->
   <main class="content-container" id="sort-container">
@@ -52,6 +50,7 @@
         <button><span class="sorting-type">Ratings &uarr;</span></button>
         <button><span class="sorting-type">Ratings &darr;</span></button>
       </div>
+
     </div>
     <!--donuts-->
     <section class="flex-content category-none">
