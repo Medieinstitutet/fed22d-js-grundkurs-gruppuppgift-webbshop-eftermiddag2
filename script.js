@@ -270,13 +270,7 @@ filterBtnAll.addEventListener('click', filterAll);
 //-------------------------------------------------------------------------------------
 
 /**
- * [X]Varukorgen ska vara dold som default
- * [X]Varukorgen ska kunna öppnas
- * []Det ska ligga en "beställ-knapp" i varukorgen
- * []När man trycker på beställ-knappen så ska formuläret öppnas
- * []Formuläret ska vara dolt som default
  * []Summeringen av beställningen ska visas i varukorgen
- *
  */
 
 const openBtn = document.querySelectorAll('#openCart');
@@ -304,3 +298,36 @@ orderBtn[0].addEventListener('click', () =>{
 
 }) // The form will only be visible if you click on "Beställ" 
 
+
+//-------------------------------------------------------------------------------------
+//---------------------------------------FORM------------------------------------------
+//-------------------------------------------------------------------------------------
+
+/**
+ * Kontrollera att alla fält är korrekt ifyllda
+ * 
+ * Betalsätt..
+ * 
+ * Rabattkod..
+ * 
+ * Visa summan av beställningen
+ * 
+ * Gör så att knappen "Rensa beställning" rensar beställningen
+ */
+
+
+const firstNameField = document.querySelector('#name');
+const lastNameField = document.querySelector('#lastName');
+const addressField = document.querySelector('#address');
+const postNumberField = document.querySelector('#postNumber');
+const localityField = document.querySelector('#locality');
+const doorCodeField = document.querySelector('#doorCode');
+const phoneNumberField = document.querySelector('#phoneNumber');
+const eMailField = document.querySelector('#eMail');
+const cardNumberField = document.querySelector('#cardNumber');
+const dateField = document.querySelector('#date'); 
+const cvcField = document.querySelector('#cvc');
+const discountField = document.querySelector('#discount');
+
+const sendBtn = document.querySelector('#sendBtn');
+const clearBtn = document.querySelector('#clearBtn');
