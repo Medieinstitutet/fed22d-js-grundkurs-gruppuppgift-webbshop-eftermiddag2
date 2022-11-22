@@ -2,296 +2,327 @@
 <html lang="sv">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gottfrids Munkar</title>
-    <link rel="stylesheet" href="style/main.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gottfrids Munkar</title>
+  <link rel="stylesheet" href="style/main.css" />
 </head>
 
 <body>
-    <!--top of the page-->
-    <nav class="top-header">
+  <!--top of the page-->
+  <nav class="top-header">
+    <span class="shopping-cart">Varukorg</span>
+    <span id="donut-counter-cart" class="total-donut-counter"> 0 </span>
+    <span>kr</span>
 
-        <span class="shopping-cart">Varukorg</span>
-        <span id="donut-counter-cart" class="total-donut-counter">
-            0
-        </span>
-        <span>kr</span>
+    <button class="btn-menu">menu</button>
+  </nav>
 
-        <button class="btn-menu">menu</button>
-    </nav>
+  <div id="shoppingCart" class="cart hidden">
+    <span>Produkt</span>
+    <span>Antal</span>
+    <span>Styckpris</span>
+    <span>Delsumma</span>
+    <button id="closeCart">Stäng</button>
+    <button id="order">Beställ</button>
+  </div>
 
-    <div id="shoppingCart" class="cart hidden" >
-        <span>Produkt</span>
-        <span>Antal</span>
-        <span>Styckpris</span>
-        <span>Delsumma</span>
-        <button id="closeCart">Stäng</button>
-        <button id="order">Beställ</button>
+  <!--Main content falls in here-->
+  <main class="content-container" id="sort-container">
+    <!--Header-->
+    <header>
+      <h1>Gottfrids munkar</h1>
+    </header>
+    <!--filter & sorting-->
+    <div class="sorting-box">
+      <button class="filter-btn">Filtrera efter</button>
+      <div class="filter-content">
+        <button class="filter-type">Glasyr</button>
+        <button class="filter-type">Strössel</button>
+        <button class="filter-type">Övrigt</button>
+        <button class="filter-type">Alla munkar</button>
+      </div>
+      <button class="sort-btn">Sortera efter:</button>
+      <div class="sort-content">
+        <button><span class="sorting-type">Pris &uarr;</span></button>
+        <button><span class="sorting-type">Pris &darr;</span></button>
+        <button><span class="sorting-type">Namn &uarr;</span></button>
+        <button><span class="sorting-type">Namn &darr;</span></button>
+        <button><span class="sorting-type">Ratings &uarr;</span></button>
+        <button><span class="sorting-type">Ratings &darr;</span></button>
+      </div>
     </div>
+    <!--donuts-->
+    <section class="flex-content category-none">
+      <button class="donut-amount-reduce">-</button>
 
-    <!--Main content falls in here-->
-    <main class="content-container" id="sort-container">
-        <!--Header-->
-        <header>
-            <h1>Gottfrids munkar</h1>
-        </header>
-        <!--filter & sorting-->
-        <div class="sorting-box">
-            <button class="filter-btn">Filtrera efter</button>
-            <div class="filter-content">
-                <button class="filter-type">Glasyr</button>
-                <button class="filter-type">Strössel</button>
-                <button class="filter-type">Övrigt</button>
-                <button class="filter-type">Alla munkar</button>
-            </div>
-            <button class="sort-btn"> Sortera efter:</button>
-            <div class="sort-content">
-                <button><span class="sorting-type">Pris &uarr;</span></button>
-                <button><span class="sorting-type">Pris &darr;</span></button>
-                <button><span class="sorting-type">Namn &uarr;</span></button>
-                <button><span class="sorting-type">Namn &darr;</span></button>
-                <button><span class="sorting-type">Ratings &uarr;</span></button>
-                <button><span class="sorting-type">Ratings &darr;</span></button>
-            </div>
+      <article class="donut-info">
+        <h3 class="donut-name">Sockermunk</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-sugar.svg" alt="Munk med socker" height="300" width="300" />
         </div>
-        <!--donuts-->
-        <section class="flex-content category-none">
-            <button class="donut-amount-reduce">-</button>
+        <p><span class="donut-price">17</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9734;&#9734;&#9734;&#9734;<span class="donut-rating">1</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Sockermunk</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-sugar.svg" alt="Munk med socker"
-                        height="300" width="300"></div>
-                <p><span class="donut-price">17</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9734;&#9734;&#9734;&#9734;<span class="donut-rating">1</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Chokladmunk</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-chocolate.svg" alt="Munk med choklad" height="300"
+            width="300" />
+        </div>
+        <p><span class="donut-price">20</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9733;&#9734;&#9734;<span class="donut-rating">3</span>
+        </p>
+      </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Chokladmunk</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-chocolate.svg"
-                        alt="Munk med choklad" height="300" width="300"></div>
-                <p><span class="donut-price">20</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9733;&#9734;&#9734;<span class="donut-rating">3</span></p>
-            </article>
-            <button class="donut-amount-increase">+</button>
-        </section>
+    <section class="flex-content category-glaze category-sprinkle">
+      <button class="donut-amount-reduce">-</button>
 
-        <section class="flex-content category-glaze category-sprinkle">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Chokladmunk med strössel</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-chocolate-sprinkles.svg"
+            alt="Munk med choklad och sprinkles" height="300" width="300" />
+        </div>
+        <p><span class="donut-price">30</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9734;&#9734;&#9734;
+          <span class="donut-rating">2</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Chokladmunk med strössel</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-chocolate-sprinkles.svg"
-                        alt="Munk med choklad och sprinkles" height="300" width="300"></div>
-                <p><span class="donut-price">30</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9734;&#9734;&#9734; <span class="donut-rating">2</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Jordgubbsmunk</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-strawberry.svg" alt="Munk med jordgubb" height="300"
+            width="300" />
+        </div>
+        <p><span class="donut-price">20</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9734;&#9734;&#9734;
+          <span class="donut-rating">2</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Jordgubbsmunk</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-strawberry.svg"
-                        alt="Munk med jordgubb" height="300" width="300"></div>
-                <p><span class="donut-price">20</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9734;&#9734;&#9734; <span class="donut-rating">2</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze category-sprinkle">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze category-sprinkle">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Jordgubbsmunk med strössel</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-strawberry-sprinkles.svg" alt="Munk med socker"
+            height="300" width="300" />
+        </div>
+        <p><span class="donut-price">30</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9733;&#9733;&#9733;<span class="donut-rating">5</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Jordgubbsmunk med strössel </h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-strawberry-sprinkles.svg"
-                        alt="Munk med socker" height="300" width="300"></div>
-                <p><span class="donut-price">30</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9733;&#9733;&#9733;<span class="donut-rating">5</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Vaniljmunk</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-vanilla.svg" alt="Munk med vanilj" height="300"
+            width="300" />
+        </div>
+        <p><span class="donut-price">20</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9733;&#9734;&#9734;<span class="donut-rating">3</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Vaniljmunk</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-vanilla.svg"
-                        alt="Munk med vanilj" height="300" width="300"></div>
-                <p><span class="donut-price">20</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9733;&#9734;&#9734;<span class="donut-rating">3</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze category-none">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze category-none">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Vaniljmunk med choklad</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-vanillastriped.svg" alt="Munk med vanilj och choklad"
+            alt="Munk med socker" height="300" width="300" />
+        </div>
+        <p><span class="donut-price">25</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings:&#9733;&#9734;&#9734;&#9734;&#9734;<span class="donut-rating">1</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Vaniljmunk med choklad</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-vanillastriped.svg"
-                        alt="Munk med vanilj och choklad" alt="Munk med socker" height="300" width="300"></div>
-                <p><span class="donut-price">25</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings:&#9733;&#9734;&#9734;&#9734;&#9734;<span class="donut-rating">1</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze category-sprinkle">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze category-sprinkle">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Blåbärsmunk</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-circus-sprinkles.svg"
+            alt="Munk med blåbärskräm och strössel" height="300" width="300" />
+        </div>
+        <p><span class="donut-price">30</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9733;&#9733;&#9734;<span class="donut-rating">4</span>
+        </p>
+      </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-glaze category-sprinkle">
+      <button class="donut-amount-reduce">-</button>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Blåbärsmunk</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-circus-sprinkles.svg"
-                        alt="Munk med blåbärskräm och strössel" height="300" width="300"></div>
-                <p><span class="donut-price">30</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9733;&#9733;&#9734;<span class="donut-rating">4</span></p>
-            </article>
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-glaze category-sprinkle">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Citronmunk</h3>
+        <div class="img-space">
+          <img class="donut-img" src="assets/donuts/donut-glaze-citron-sprinkles.svg"
+            alt="Munk med citron och sprinkles" height="300" width="300" />
+        </div>
+        <p><span class="donut-price">30</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9733;&#9733;&#9733;<span class="donut-rating">5</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Citronmunk</h3>
-                <div class="img-space"><img class="donut-img" src="assets/donuts/donut-glaze-citron-sprinkles.svg"
-                        alt="Munk med citron och sprinkles" height="300" width="300"></div>
-                <p><span class="donut-price">30</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9733;&#9733;&#9733;<span class="donut-rating">5</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
+    <section class="flex-content category-none">
+      <button class="donut-amount-reduce">-</button>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
-        <section class="flex-content category-none">
-            <button class="donut-amount-reduce">-</button>
+      <article class="donut-info">
+        <h3 class="donut-name">Munk</h3>
+        <div class="img-space">
+          <img src="assets/donuts/donut-none.svg" alt="Munk" height="300" width="300" />
+        </div>
+        <p><span class="donut-price">10</span> kr/st</p>
+        <p><span class="donut-count">0</span> st</p>
+        <p>
+          Ratings: &#9733;&#9733;&#9733;&#9733;&#9734;<span class="donut-rating">4</span>
+        </p>
+      </article>
 
-            <article class="donut-info">
-                <h3 class="donut-name">Munk</h3>
-                <div class="img-space"><img src="assets/donuts/donut-none.svg" alt="Munk" height="300" width="300">
-                </div>
-                <p><span class="donut-price">10</span> kr/st</p>
-                <p><span class="donut-count">0</span> st</p>
-                <p>Ratings: &#9733;&#9733;&#9733;&#9733;&#9734;<span class="donut-rating">4</span></p>
-            </article>
+      <button class="donut-amount-increase">+</button>
+    </section>
 
-            <button class="donut-amount-increase">+</button>
-        </section>
+    <!--form-->
+    <form id="formContainer" class="hidden">
+      <label>
+        <span>Förnamn</span><br />
+        <input type="text" id="name" />
+      </label>
 
+      <label>
+        <span>Efternamn</span><br />
+        <input type="text" id="lastName" />
+      </label>
 
+      <label>
+        <span>Adress(gata)</span><br />
+        <input type="text" id="address" />
+      </label>
 
-        <!--form-->
-        <form id="formContainer" class="hidden">
+      <label>
+        <span>Postnummer</span><br />
+        <input type="text" id="postNumber" />
+      </label>
 
-            <label>
-                <span>Förnamn</span><br>
-                <input type="text" id="name">
-            </label>
+      <label>
+        <span>Postort</span><br />
+        <input type="text" id="locality" />
+      </label>
 
-            <label>
-                <span>Efternamn</span><br>
-                <input type="text" id="lastName">
-            </label>
+      <label>
+        <span>Ev. Portkod</span><br />
+        <input type="text" id="doorCode" />
+      </label>
 
-            <label>
-                <span>Adress(gata)</span><br>
-                <input type="text" id="address">
-            </label>
+      <label>
+        <span>Telefon(mobil)</span><br />
+        <input type="tel" id="phoneNumber" />
+      </label>
 
-            <label>
-                <span>Postnummer</span><br>
-                <input type="text" id="postNumber"> 
-            </label>
+      <label>
+        <span>E-postadress</span><br />
+        <input type="email" id="eMail" />
+      </label>
 
-            <label>
-                <span>Postort</span><br>
-                <input type="text" id="locality">
-            </label>
+      <!--method of payment-->
+      <label>
+        <span>Betalsätt</span><br />
+        <select id="payMethod">
+          <option selected disabled>Välj betalsätt</option>
+          <option value="card">Kort</option>
+          <option value="bill">Faktura</option>
+        </select>
+      </label>
 
-            <label>
-                <span>Ev. Portkod</span><br>
-                <input type="text" id="doorCode">
-            </label>
+      <label>
+        <span>Kortnummer</span><br />
+        <input type="text" id="cardNumber" />
+      </label>
 
-            <label>
-                <span>Telefon(mobil)</span><br>
-                <input type="tel" id="phoneNumber">
-            </label>
+      <label>
+        <span>Datum/år</span><br />
+        <input type="date" id="date" />
+      </label>
 
-            <label>
-                <span>E-postadress</span><br>
-                <input type="email" id="eMail">
-            </label>
+      <label>
+        <span>CVC</span><br />
+        <input type="text" id="cvc" />
+      </label>
 
-            <!--method of payment-->
-            <label>
-                <span>Betalsätt</span><br>
-                <select id="payMethod">
-                    <option selected disabled>Välj betalsätt</option>
-                    <option value="card">Kort</option>
-                    <option value="bill">Faktura</option>
-                </select>
-            </label>
+      <label>
+        <span>Rabattkod</span><br />
+        <input type="text" id="discount" />
+      </label>
 
-            <label>
-                <span>Kortnummer</span><br>
-                <input type="text" id="cardNumber">
-            </label>
+      <!--checkboxes-->
+      <label>
+        <input type="checkbox" id="confirm" name="confirm" value="confirm" />
+        <span>Jag godkänner behandling av personuppgifter</span>
+      </label>
+      <label>
+        <input type="checkbox" id="wantNews" name="wantNews" value="wantNews" />
+        <span>Jag vill ha nyhetsbrev</span>
+      </label>
+      <p>Summa:</p>
 
-            <label>
-                <span>Datum/år</span><br>
-                <input type="date" id="date">
-            </label>
+      <button>Skicka beställning</button>
+      <button>Rensa beställning</button>
+    </form>
+  </main>
 
-            <label>
-                <span>CVC</span><br>
-                <input type="text" id="cvc">
-            </label>
-
-            <label>
-                <span>Rabattkod</span><br>
-                <input type="text" id="discount">
-            </label>
-
-
-            <!--checkboxes-->
-            <label> 
-                <input type="checkbox" id="confirm" name="confirm" value="confirm">
-                <span>Jag godkänner behandling av personuppgifter</span>
-            </label>    
-            <label>
-                <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
-                <span>Jag vill ha nyhetsbrev</span>
-            </label>
-            <p>Summa:</p>
-
-            <button>Skicka beställning</button>
-            <button>Rensa beställning</button>
-
-        </form>
-    </main>
-
-
-    <script src="script.js" defer></script>
+  <script src="script.js" defer></script>
 </body>
 
 </html>
