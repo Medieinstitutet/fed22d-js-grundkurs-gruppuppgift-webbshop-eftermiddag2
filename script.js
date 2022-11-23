@@ -316,10 +316,10 @@ orderBtn[0].addEventListener('click', () =>{
  */
 
 //Variables for the input fields
-const firstNameField = document.querySelector('#name');
-const lastNameField = document.querySelector('#lastName');
+//const firstNameField = document.querySelector('#name');
+//const lastNameField = document.querySelector('#lastName');
 const addressField = document.querySelector('#address');
-const postNumberField = document.querySelector('#postNumber');
+/*const postNumberField = document.querySelector('#postNumber');
 const localityField = document.querySelector('#locality');
 //const doorCodeField = document.querySelector('#doorCode'); not a compulsory field?
 const phoneNumberField = document.querySelector('#phoneNumber');
@@ -331,31 +331,43 @@ const discountField = document.querySelector('#discount');
 
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
-const clearBtn = document.querySelector('#clearBtn');
+const clearBtn = document.querySelector('#clearBtn'); */
 
 //Keep track if fields have correct values
-const validName = false;
-const validLastName = false;
-const validAdress = false;
-const validPostNumber = false;
-const validLocality = false;
-const validPhoneNumber = false;
-const validEMail = false;
-const validCardNumber = false;
-const validDate = false;
-const validCvc = false;
-const validDiscount = false;
+//let validName = false;
+//let validLastName = false;
+let validAddress = false;
+/*let validPostNumber = false;
+let validLocality = false;
+let validPhoneNumber = false;
+let validEMail = false;
+let validCardNumber = false;
+let validDate = false;
+let validCvc = false;
+let validDiscount = false; */
+
+
+function checkAddress() {
+  if(addressField.value.indexOf(' ') > -1) {
+    validAddress = true;
+  } else {
+    validAddress = false;
+  }
+}
+console.log(validAddress);
 
 //Check values on input field
-firstNameField.addEventListener('change', checkName);
-lastNameField.addEventListener('change', checkLastName);
-addressField.addEventListener('change', checkAdress);
-postNumberField.addEventListener('change', checkPostNumber);
+//firstNameField.addEventListener('change', checkName);
+//lastNameField.addEventListener('change', checkLastName);
+addressField.addEventListener('change', checkAddress);
+/*postNumberField.addEventListener('change', checkPostNumber);
 localityField.addEventListener('change', checkLocality);
-//doorCodeField.addEventListener('change', checkDoorCode); not needed?
+doorCodeField.addEventListener('change', checkDoorCode); not needed?
 phoneNumberField.addEventListener('change', checkPhoneNumber);
 eMailField.addEventListener('change', checkEMail);
 cardNumberField.addEventListener('change', checkCardNumber);
 dateField.addEventListener('change', checkDate);
 cvcField.addEventListener('change', checkCvc);
-discountField.addEventListener('change', checkDiscount);
+discountField.addEventListener('change', checkDiscount); */
+
+
