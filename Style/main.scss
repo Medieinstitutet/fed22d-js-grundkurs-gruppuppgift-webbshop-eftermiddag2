@@ -143,12 +143,11 @@ header {
   min-width: 100vw;
   display: flex;
   text-align: center;
-  margin: -1px 0;
-  border: 2px solid black;
+
 
   button {
     height: 400px;
-    width: 100px;
+    min-width: 100px;
     font-size: 6vh;
   }
 
