@@ -315,13 +315,13 @@ orderBtn[0].addEventListener('click', () =>{
  * Gör så att knappen "Rensa beställning" rensar beställningen
  */
 
-
+//Variables for the input fields
 const firstNameField = document.querySelector('#name');
 const lastNameField = document.querySelector('#lastName');
 const addressField = document.querySelector('#address');
 const postNumberField = document.querySelector('#postNumber');
 const localityField = document.querySelector('#locality');
-const doorCodeField = document.querySelector('#doorCode');
+//const doorCodeField = document.querySelector('#doorCode'); not a compulsory field?
 const phoneNumberField = document.querySelector('#phoneNumber');
 const eMailField = document.querySelector('#eMail');
 const cardNumberField = document.querySelector('#cardNumber');
@@ -329,5 +329,33 @@ const dateField = document.querySelector('#date');
 const cvcField = document.querySelector('#cvc');
 const discountField = document.querySelector('#discount');
 
+//Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
 const clearBtn = document.querySelector('#clearBtn');
+
+//Keep track if fields have correct values
+const validName = false;
+const validLastName = false;
+const validAdress = false;
+const validPostNumber = false;
+const validLocality = false;
+const validPhoneNumber = false;
+const validEMail = false;
+const validCardNumber = false;
+const validDate = false;
+const validCvc = false;
+const validDiscount = false;
+
+//Check values on input field
+firstNameField.addEventListener('change', checkName);
+lastNameField.addEventListener('change', checkLastName);
+addressField.addEventListener('change', checkAdress);
+postNumberField.addEventListener('change', checkPostNumber);
+localityField.addEventListener('change', checkLocality);
+//doorCodeField.addEventListener('change', checkDoorCode); not needed?
+phoneNumberField.addEventListener('change', checkPhoneNumber);
+eMailField.addEventListener('change', checkEMail);
+cardNumberField.addEventListener('change', checkCardNumber);
+dateField.addEventListener('change', checkDate);
+cvcField.addEventListener('change', checkCvc);
+discountField.addEventListener('change', checkDiscount);
