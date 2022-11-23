@@ -316,26 +316,30 @@ orderBtn[0].addEventListener('click', () =>{
  */
 
 //Variables for the input fields
-//const firstNameField = document.querySelector('#name');
-//const lastNameField = document.querySelector('#lastName');
+/*const firstNameField = document.querySelector('#name');
+const lastNameField = document.querySelector('#lastName'); */
 const addressField = document.querySelector('#address');
-/*const postNumberField = document.querySelector('#postNumber');
-const localityField = document.querySelector('#locality');
+const postNumberField = document.querySelector('#postNumber');
+//const localityField = document.querySelector('#locality');
 //const doorCodeField = document.querySelector('#doorCode'); not a compulsory field?
-const phoneNumberField = document.querySelector('#phoneNumber');
+/*const phoneNumberField = document.querySelector('#phoneNumber');
 const eMailField = document.querySelector('#eMail');
 const cardNumberField = document.querySelector('#cardNumber');
 const dateField = document.querySelector('#date'); 
 const cvcField = document.querySelector('#cvc');
-const discountField = document.querySelector('#discount');
+const discountField = document.querySelector('#discount'); */
+
+//Variables for form and error
+const formContainer = document.querySelector('#formContainer');
+const errorText = document.querySelector('#error');
 
 //Variables for the buttons
-const sendBtn = document.querySelector('#sendBtn');
+/*const sendBtn = document.querySelector('#sendBtn');
 const clearBtn = document.querySelector('#clearBtn'); */
 
 //Keep track if fields have correct values
-//let validName = false;
-//let validLastName = false;
+/*let validName = false;
+let validLastName = false; */
 let validAddress = false;
 /*let validPostNumber = false;
 let validLocality = false;
@@ -346,7 +350,22 @@ let validDate = false;
 let validCvc = false;
 let validDiscount = false; */
 
+formContainer.addEventListener('submit', (e) => {
+  const errorMessages = []
 
+  if (postNumberField.value.length !== 5) {  //Checks that the postnumber is valid
+    errorMessages.push('Felaktigt postnummer')
+  }
+
+  if (errorMessages.length > 0) { //If the length of error messages are greater than 0 the form will not submit
+     e.preventDefault()
+     errorText.innerText = errorMessages.join(', ') //Shows error messages and separates them if there are multiple errors
+  }
+ 
+})
+
+
+// Trying two methods, this is the second
 function checkAddress() {
   if(addressField.value.indexOf(' ') > -1) {
     validAddress = true;
