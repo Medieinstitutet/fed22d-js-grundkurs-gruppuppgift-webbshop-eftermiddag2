@@ -289,25 +289,25 @@
         <span>Betalsätt</span><br>
         <select id="payMethod">
           <option selected disabled>Välj betalsätt</option>
-          <option value="card">Kort</option>
+          <option value="card" id="optionCard">Kort</option>
           <option value="bill">Faktura</option>
         </select><br>
         <span class="error-hidden9" id="error9">Måste välja ett betalsätt</span>
       </label>
 
-      <label class="hide">
+      <label class="hide" id="hideInput1">
         <span>Kortnummer</span><br>
         <input type="text" id="cardNumber"><br>
         <span class="error-hidden10" id="error10">Felaktigt Kortnummer</span>
       </label>
 
-      <label class="hide">
+      <label class="hide" id="hideInput2">
         <span>Datum/år</span><br>
         <input type="date" id="date"><br>
         <span class="error-hidden11" id="error11">Felaktigt datum</span>
       </label>
 
-      <label class="hide">
+      <label class="hide" id="hideInput3">
         <span>CVC</span><br>
         <input type="text" id="cvc"><br>
         <span class="error-hidden12" id="error12">Felaktigt CVC</span>

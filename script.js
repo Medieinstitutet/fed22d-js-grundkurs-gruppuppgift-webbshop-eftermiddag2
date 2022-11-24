@@ -332,6 +332,11 @@ const cvcField = document.querySelector('#cvc');
 const discountField = document.querySelector('#discount'); */
 
 
+//const hiddenInput = document.querySelector('#hideInput');
+
+const methodOfPayment = document.querySelector('#payMethod');
+const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3');
+
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
 //const clearBtn = document.querySelector('#clearBtn'); 
@@ -437,6 +442,11 @@ function checkPhoneNumber() {
 }
 
 
+
+/*if(document.querySelector('card').selected === true) {
+  hiddenInput.classList.remove('hide');
+}*/
+
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
 lastNameField.addEventListener('change', checkLastName);
@@ -451,4 +461,16 @@ dateField.addEventListener('change', checkDate);
 cvcField.addEventListener('change', checkCvc);
 discountField.addEventListener('change', checkDiscount); */
 
+
+methodOfPayment.addEventListener('change', (event) => { //If card is chosen as method of payment
+  if(event.target.value === 'card') {                   //the hidden input fields will be displayed as blocks
+    hiddenInputs[0].style.display = 'block';
+    hiddenInputs[1].style.display = 'block';
+    hiddenInputs[2].style.display = 'block';
+  } else {
+    hiddenInputs[0].style.display = 'none';
+    hiddenInputs[1].style.display = 'none';
+    hiddenInputs[2].style.display = 'none';
+  }
+})
 
