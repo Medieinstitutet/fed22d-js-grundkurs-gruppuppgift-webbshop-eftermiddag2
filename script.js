@@ -308,9 +308,9 @@ orderBtn[0].addEventListener('click', () =>{
  * 
  * Visa ett felmeddelande om fälten inte är korrekt ifyllda
  * 
- * Betalsätt..
+ * Om betalsätt kort är valt, visa kortnummer, datum/år och cvc annars göm fälten
  * 
- * Rabattkod..
+ * Rabattkod & specialregler
  * 
  * Visa summan av beställningen
  * 
@@ -318,77 +318,114 @@ orderBtn[0].addEventListener('click', () =>{
  */
 
 //Variables for the input fields
-/*const firstNameField = document.querySelector('#name');
-const lastNameField = document.querySelector('#lastName'); */
+const firstNameField = document.querySelector('#name');
+const lastNameField = document.querySelector('#lastName'); 
 const addressField = document.querySelector('#address');
 const postNumberField = document.querySelector('#postNumber');
-//const localityField = document.querySelector('#locality');
-//const doorCodeField = document.querySelector('#doorCode'); not required?
-/*const phoneNumberField = document.querySelector('#phoneNumber');
-const eMailField = document.querySelector('#eMail');
+const localityField = document.querySelector('#locality');
+//const doorCodeField = document.querySelector('#doorCode'); 
+const phoneNumberField = document.querySelector('#phoneNumber');
+/*const eMailField = document.querySelector('#eMail');
 const cardNumberField = document.querySelector('#cardNumber');
 const dateField = document.querySelector('#date'); 
 const cvcField = document.querySelector('#cvc');
 const discountField = document.querySelector('#discount'); */
 
-//Variables for form and error
-const formContainer = document.querySelector('#formContainer');
-const errorText = document.querySelector('#error');
 
 //Variables for the buttons
-/*const sendBtn = document.querySelector('#sendBtn');
-const clearBtn = document.querySelector('#clearBtn'); */
+const sendBtn = document.querySelector('#sendBtn');
+//const clearBtn = document.querySelector('#clearBtn'); 
 
 //Keep track if fields have correct values
-/*let validName = false;
-let validLastName = false; */
+let validName = false;
+let validLastName = false; 
 let validAddress = false;
-/*let validPostNumber = false;
+let validPostNumber = false;
 let validLocality = false;
 let validPhoneNumber = false;
-let validEMail = false;
+/*let validEMail = false;
 let validCardNumber = false;
 let validDate = false;
 let validCvc = false;
 let validDiscount = false; */
 
-formContainer.addEventListener('submit', (e) => {
-  const errorMessages = []
 
-  if (postNumberField.value.length !== 5) {  //Checks that the postnumber is valid
-    errorMessages.push('Felaktigt postnummer') //FIX! The error message should disappear when you write the postnumber correctly
+
+//Activates the button "skicka beställning" if all values are true
+function activateSendBtn() {
+  if (validName && validLastName && validAddress && validLocality) { 
+    sendBtn.removeAttribute('disabled');
+  } else {                             //Add validName, validLastName etc. when the functions are made
+    sendBtn.setAttribute('disabled', '');
+  }
+}
+
+
+//Functions to check if the input fields are valid
+function checkName() {
+  if (firstNameField.value !== '' || firstNameField.value == null) { //if there's something written in the namefield it's valid
+    validName = true;
   } else {
-    errorText.innerText.replace('Felaktigt postnummer', '');
+    validName = false;
   }
+  activateSendBtn();
+}
 
-  if (errorMessages.length > 0) { //If the length of error messages are greater than 0 the form will not submit
-     e.preventDefault()
-     errorText.innerText = errorMessages.join(', ') //Shows error messages and separates them if there are multiple errors
+function checkLastName() {
+  if (lastNameField.value !== '' || lastNameField.value == null) { //if there's something written in the lastnamefield it's valid
+    validLastName = true;
+  } else {
+    validLastName = false;
   }
- 
-})
+  activateSendBtn();
+}
 
-
-// Trying two methods, this is the second
 function checkAddress() {
-  if(addressField.value.indexOf(' ') > -1) {
-    validAddress = true;
+  if(addressField.value.indexOf(' ') > -1) { //address is valid if there's a space in the field, change with RegEx?
+    validAddress = true; 
   } else {
     validAddress = false;
   }
-  console.log(validAddress);
+  activateSendBtn();
+}
+
+function checkPostNumber() {
+  if(postNumberField.value === /^[0-9]{3}\s?[0-9]{2}$/) { //FIX! regex does not work
+    validPostNumber = true;
+  } else {
+    validPostNumber = false;
+  }
+  //activateSendBtn();
+}
+
+function checkLocality() {
+  if(localityField.value !== '' || localityField.value == null) { //if there's something written in the locality field it's valid
+    validLocality = true;
+  } else {
+    validLocality = false;
+  }
+  activateSendBtn();
+}
+
+function checkPhoneNumber() {
+  if(phoneNumberField.value === /^07[\d]{1}-?[\d]{7}$/) { //FIX! regex does not work
+    validPhoneNumber = true;
+  } else {
+    validPhoneNumber = false;
+  }
+  console.log(validPhoneNumber);
 }
 
 
 //Check values on input field
-//firstNameField.addEventListener('change', checkName);
-//lastNameField.addEventListener('change', checkLastName);
+firstNameField.addEventListener('change', checkName);
+lastNameField.addEventListener('change', checkLastName);
 addressField.addEventListener('change', checkAddress);
-/*postNumberField.addEventListener('change', checkPostNumber);
+postNumberField.addEventListener('change', checkPostNumber);
 localityField.addEventListener('change', checkLocality);
-doorCodeField.addEventListener('change', checkDoorCode); not needed?
+//doorCodeField.addEventListener('change', checkDoorCode); not needed?
 phoneNumberField.addEventListener('change', checkPhoneNumber);
-eMailField.addEventListener('change', checkEMail);
+/*eMailField.addEventListener('change', checkEMail);
 cardNumberField.addEventListener('change', checkCardNumber);
 dateField.addEventListener('change', checkDate);
 cvcField.addEventListener('change', checkCvc);
