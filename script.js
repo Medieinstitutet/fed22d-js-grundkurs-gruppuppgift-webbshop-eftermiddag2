@@ -341,7 +341,7 @@ const setLeftValue = () => {
     Number(inputRight.value) - 1
   );
   priceFrom.textContent = `${inputLeft.value}`; // change left value text
-  let percent = ((inputLeft.value - minLeft) / (maxLeft - minLeft)) * 100; // calculating the % of the html-bar
+  const percent = ((inputLeft.value - minLeft) / (maxLeft - minLeft)) * 100; // calculating the % of the html-bar
   range.style.left = `${percent}%`; //moves the pink bar % from left
 
   filterPriceLeft();
@@ -373,7 +373,7 @@ const setRightValue = () => {
     Number(inputLeft.value) + 1
   );
   priceTo.textContent = `${inputRight.value}`;
-  let percent = ((inputRight.value - minRight) / (maxRight - minRight)) * 100;
+  const percent = ((inputRight.value - minRight) / (maxRight - minRight)) * 100;
   range.style.right = `${100 - percent}%`;
 
   filterPriceRight();
@@ -400,7 +400,7 @@ inputRight.addEventListener('input', setRightValue);
 // [] timer 15 min => rensa/tömma formulär
 // [] meddela kund att denne är för långsam
 
-}) // The form will only be visible if you click on "Beställ"
+ // The form will only be visible if you click on "Beställ"
 
 //Slideshow
 //God has abandoned me
@@ -416,7 +416,7 @@ const slideshowBtnRight = (e) => {
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
   if (checkEnd !== "side") { //Kollar ifall checkEnd redan är i "side"
-    image.setAttribute('src', imageSrc.slice(0, imageSrc.length - 4) + "-side.svg"); //Tar bort .svg från slutet, sätter in -side.svg
+    image.setAttribute('src', `${imageSrc.slice(0, imageSrc.length - 4)  }-side.svg`); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
   }
 
