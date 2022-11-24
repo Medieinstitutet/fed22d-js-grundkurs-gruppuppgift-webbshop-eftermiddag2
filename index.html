@@ -11,21 +11,22 @@
 
 <body>
 
-    <!--top of the page-->
-    <nav class="top-header">
-        <button id="openCart" class="shopping-cart">Varukorg</button><span id="donut-counter-cart" class="total-donut-counter">0<span>
-                kr</span></span>
-        <button class="btn-menu">menu</button>
-    </nav>
+  <!--top of the page-->
+  <nav class="top-header">
+    <button id="openCart" class="shopping-cart">Varukorg</button><span id="donut-counter-cart"
+      class="total-donut-counter">0<span>
+        kr</span></span>
+    <button class="btn-menu">menu</button>
+  </nav>
 
-    <div id="shoppingCart" class="cart hidden" >
-        <span>Produkt</span>
-        <span>Antal</span>
-        <span>Styckpris</span>
-        <span>Delsumma</span>
-        <button id="closeCart">Stäng</button>
-        <a href="#formContainer"><button id="order">Beställ</button></a>
-      </div>
+  <div id="shoppingCart" class="cart hidden">
+    <span>Produkt</span>
+    <span>Antal</span>
+    <span>Styckpris</span>
+    <span>Delsumma</span>
+    <button id="closeCart">Stäng</button>
+    <a href="#formContainer"><button id="order">Beställ</button></a>
+  </div>
   <!--Main content falls in here-->
   <main class="content-container" id="sort-container">
     <!--Header-->
@@ -50,8 +51,25 @@
         <button><span class="sorting-type">Ratings &uarr;</span></button>
         <button><span class="sorting-type">Ratings &darr;</span></button>
       </div>
-
+      <div class="sort-range">
+        <p class="range-text">Prisintervall</p>
+        <div class="range-bar-holder">
+          <span class="range-bar">
+            <input type="range" id="range-left" min="0" max="35" value="0">
+            <input type="range" id="range-right" min="0" max="35" value="35">
+            <div class="range-bg">
+              <div class="track"></div>
+              <div class="range" id="range"></div>
+            </div>
+          </span>
+          <span class="range-price">
+            <p><span class="price-from">0</span> kr</p>
+            <p><span class="price-to">35</span> kr</p>
+          </span>
+        </div>
+      </div>
     </div>
+
     <!--donuts-->
     <section class="flex-content category-none">
       <button class="donut-amount-reduce">-</button>
