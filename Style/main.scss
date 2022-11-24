@@ -1,8 +1,8 @@
 /*Keep at top to normalize across webbrowsers*/
 @import 'normalize';
 
-html{
-    scroll-behavior: smooth;
+html {
+  scroll-behavior: smooth;
 }
 
 /*Top header*/
@@ -113,16 +113,140 @@ header {
     align-items: center;
     margin-top: 40px;
 
-
     button {
       height: 60px;
       width: 200px;
       font-size: 2.5rem;
     }
   }
+
+  //sort range
+  .sort-range {
+    width: 30%;
+    position: relative;
+    float: right;
+
+    .range-text {
+      display: inline;
+    }
+
+    .range-bar-holder {
+      width: 100%;
+
+      .range-bar {
+        position: relative;
+        width: 100%;
+        height: 2rem;
+        display: block;
+        margin-left: 20px;
+
+        input[type="range"] {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          width: 100%;
+          background: transparent;
+          appearance: none;
+          position: absolute;
+          z-index: 2;
+          height: 100%;
+          pointer-events: none;
+        }
+
+        input[type="range"]::-ms-track {
+          width: 100%;
+          cursor: pointer;
+          background: transparent;
+          border-color: transparent;
+          color: transparent;
+        }
+
+        //safari + chrome
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          pointer-events: all;
+          cursor: pointer;
+          border: 0 none;
+          width: 1px;
+          height: 1px;
+          background: grey;
+          border: 10px solid rgb(0, 0, 0);
+          border-radius: 50%;
+        }
+
+        //mozilla firefox
+        input[type="range"]::-moz-range-thumb {
+          pointer-events: all;
+          cursor: pointer;
+          border: 0 none;
+          width: 1px;
+          height: 1px;
+          background: grey;
+          border: 10px solid black;
+          border-radius: 50%;
+        }
+
+        //edge
+        input[type="range"]::-ms-thumb {
+          pointer-events: all;
+          cursor: pointer;
+          border: 0 none;
+          width: 1px;
+          height: 1px;
+          background: grey;
+          border: 10px solid black;
+          border-radius: 50%;
+        }
+
+        .range-bg {
+          position: absolute;
+          width: 100%;
+          top: 0.6rem;
+          z-index: 1;
+          height: 0.8rem;
+
+          .track {
+            position: absolute;
+            // z-index: 1;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            border-radius: 5rem;
+            background-color: rgb(0, 166, 255);
+          }
+
+          .range {
+            position: absolute;
+            // z-index: 2;
+            top: 0;
+            bottom: 0;
+            border-radius: 5rem;
+            background: rgb(242, 0, 255);
+            left: 0%;
+            right: 0%;
+          }
+        }
+      }
+
+      .range-price {
+        width: 100%;
+        color: black;
+        display: flex;
+        position: absolute;
+        top: 20%;
+        gap: 110%;
+
+        .price-from {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
 }
 
-.sort-btn:hover + .sort-content {
+
+.sort-btn:hover+.sort-content {
   display: flex;
 }
 
@@ -130,7 +254,7 @@ header {
   display: flex;
 }
 
-.filter-btn:hover + .filter-content {
+.filter-btn:hover+.filter-content {
   display: flex;
 }
 

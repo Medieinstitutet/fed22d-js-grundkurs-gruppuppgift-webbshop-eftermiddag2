@@ -283,13 +283,11 @@ filterBtnAll.addEventListener('click', filterAll);
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
 
-const cart = document.querySelectorAll('#shoppingCart'); 
- 
- openBtn[0].addEventListener('click', () =>{ 
-  cart[0].classList.toggle("hidden");
- }) // If you click on "Varukorg" the shopping cart will open
-   
+const cart = document.querySelectorAll('#shoppingCart');
 
+openBtn[0].addEventListener('click', () => {
+  cart[0].classList.toggle('hidden');
+}); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
@@ -298,10 +296,109 @@ closeBtn[0].addEventListener('click', () => {
 const orderBtn = document.querySelectorAll('#order');
 const showForm = document.querySelectorAll('#formContainer');
 
+orderBtn[0].addEventListener('click', () => {
+  showForm[0].classList.toggle('hidden');
+  cart[0].classList.toggle('hidden');
+}); // The form will only be visible if you click on "Beställ"
 
-orderBtn[0].addEventListener('click', () =>{ 
-  showForm[0].classList.toggle("hidden");
-  cart[0].classList.toggle("hidden");
+//filter price range
+const inputLeft = document.getElementById('range-left');
+const inputRight = document.getElementById('range-right');
+const range = document.getElementById('range');
+const priceFrom = document.querySelector('.price-from');
+const priceTo = document.querySelector('.price-to');
+
+const filterPriceLeft = () => {
+  // destruct donuts.price
+  donuts.forEach(({ price }, i) => {
+    if (
+      //If left value is BIGGER than price of donut && right value is BIGGER than price of donut
+      Number(inputLeft.value) > Number(price) &&
+      Number(inputRight.value) > Number(price)
+    ) {
+      //hide donut
+      donutsContainer[i].style.display = 'none';
+    }
+    if (
+      //If left value is SMALLER than price of donut && right value is BIGGER than price of donut
+      Number(inputLeft.value) < Number(price) &&
+      Number(inputRight.value) > Number(price)
+    ) {
+      //show donut
+      donutsContainer[i].style.display = 'flex';
+    }
+  });
+};
+
+const setLeftValue = () => {
+  //convert to number because 'inputLeft.min' is a string
+  const minLeft = Number(inputLeft.min);
+  const maxLeft = Number(inputLeft.max);
+  //Math.min return smalles number of given values
+  inputLeft.value = Math.min(
+    // the limit of how the left knob can be. This case always 1 less than right knob
+    Number(inputLeft.value),
+    Number(inputRight.value) - 1
+  );
+  priceFrom.textContent = `${inputLeft.value}`; // change left value text
+  let percent = ((inputLeft.value - minLeft) / (maxLeft - minLeft)) * 100; // calculating the % of the html-bar
+  range.style.left = `${percent}%`; //moves the pink bar % from left
+
+  filterPriceLeft();
+};
+
+const filterPriceRight = () => {
+  donuts.forEach(({ price }, i) => {
+    if (
+      Number(inputRight.value) < Number(price) &&
+      Number(inputLeft.value) < Number(price)
+    ) {
+      donutsContainer[i].style.display = 'none';
+    }
+    if (
+      Number(inputRight.value) > Number(price) &&
+      Number(inputLeft.value) < Number(price)
+    ) {
+      donutsContainer[i].style.display = 'flex';
+    }
+  });
+};
+
+const setRightValue = () => {
+  const minRight = Number(inputRight.min);
+  const maxRight = Number(inputRight.max);
+
+  inputRight.value = Math.max(
+    Number(inputRight.value),
+    Number(inputLeft.value) + 1
+  );
+  priceTo.textContent = `${inputRight.value}`;
+  let percent = ((inputRight.value - minRight) / (maxRight - minRight)) * 100;
+  range.style.right = `${100 - percent}%`;
+
+  filterPriceRight();
+};
+
+inputLeft.addEventListener('input', setLeftValue);
+inputRight.addEventListener('input', setRightValue);
+
+//discounts
+
+// [] frakt: 25kr + 10% av totalbeloppet
+
+// [] mån kl 3:00-10:00 => -10% på hela beställningssumman
+// [] Display "Måndagsrabatt: 10 % på hela beställningen"
+
+// [] Fre kl 15:00 - mån kl 03:00 => +15% på alla munkar (kund ska ej se detta)
+
+// [] >800kr => ej faktura
+
+// [] <= 10 samma sort munkar => -10% rabatt
+
+// [] >15 munkar => fri frakt
+
+// [] timer 15 min => rensa/tömma formulär
+// [] meddela kund att denne är för långsam
 
 }) // The form will only be visible if you click on "Beställ"
 
@@ -337,3 +434,4 @@ slideshowRight.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnRight);
 });
 //Potentiella ändringar: Göra så den loopar runt om man trycker mer, alt. göra knapparna greyed out efter ha tryckt på den.
+
