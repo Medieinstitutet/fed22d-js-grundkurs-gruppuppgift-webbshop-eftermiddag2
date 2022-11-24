@@ -310,6 +310,9 @@ orderBtn[0].addEventListener('click', () =>{
  * 
  * Om betalsätt kort är valt, visa kortnummer, datum/år och cvc annars göm fälten
  * 
+ * Kortnummer, datum/år och cvc ska endast valideras och påverka "skicka" knappen
+ * om betalsätt kort är valt
+ * 
  * Rabattkod & specialregler
  * 
  * Visa summan av beställningen
@@ -323,16 +326,13 @@ const lastNameField = document.querySelector('#lastName');
 const addressField = document.querySelector('#address');
 const postNumberField = document.querySelector('#postNumber');
 const localityField = document.querySelector('#locality');
-//const doorCodeField = document.querySelector('#doorCode'); 
+//const doorCodeField = document.querySelector('#doorCode'); not needed?
 const phoneNumberField = document.querySelector('#phoneNumber');
-/*const eMailField = document.querySelector('#eMail');
-const cardNumberField = document.querySelector('#cardNumber');
+const eMailField = document.querySelector('#eMail');
+/*const cardNumberField = document.querySelector('#cardNumber');
 const dateField = document.querySelector('#date'); 
 const cvcField = document.querySelector('#cvc');
 const discountField = document.querySelector('#discount'); */
-
-
-//const hiddenInput = document.querySelector('#hideInput');
 
 const methodOfPayment = document.querySelector('#payMethod');
 const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3');
@@ -348,6 +348,7 @@ const error3 = document.querySelector('#error3');
 const error4 = document.querySelector('#error4');
 const error5 = document.querySelector('#error5');
 const error6 = document.querySelector('#error6');
+const error7 = document.querySelector('#error7');
 
 //Keep track if fields have correct values
 let validName = false;
@@ -356,8 +357,8 @@ let validAddress = false;
 let validPostNumber = false;
 let validLocality = false;
 let validPhoneNumber = false;
-/*let validEMail = false;
-let validCardNumber = false;
+let validEMail = false;
+/*let validCardNumber = false;
 let validDate = false;
 let validCvc = false;
 let validDiscount = false; */
@@ -441,11 +442,16 @@ function checkPhoneNumber() {
   //activateSendBtn();
 }
 
+function checkEMail() {
+  if(eMailField.value === /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g) { //FIX! regex does not work
+    validEMail = true;
+    error7.classList.add('error-hidden7');
+  } else {
+    validEMail = false;
+    error7.classList.remove('error-hidden7');
+  }
+}
 
-
-/*if(document.querySelector('card').selected === true) {
-  hiddenInput.classList.remove('hide');
-}*/
 
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
@@ -455,8 +461,8 @@ postNumberField.addEventListener('change', checkPostNumber);
 localityField.addEventListener('change', checkLocality);
 //doorCodeField.addEventListener('change', checkDoorCode); not needed?
 phoneNumberField.addEventListener('change', checkPhoneNumber);
-/*eMailField.addEventListener('change', checkEMail);
-cardNumberField.addEventListener('change', checkCardNumber);
+eMailField.addEventListener('change', checkEMail);
+/*cardNumberField.addEventListener('change', checkCardNumber);
 dateField.addEventListener('change', checkDate);
 cvcField.addEventListener('change', checkCvc);
 discountField.addEventListener('change', checkDiscount); */
@@ -472,5 +478,5 @@ methodOfPayment.addEventListener('change', (event) => { //If card is chosen as m
     hiddenInputs[1].style.display = 'none';
     hiddenInputs[2].style.display = 'none';
   }
-})
+})  //How to make the input fields cardnumber, cvc and date required only if option card is chosen?
 
