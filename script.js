@@ -336,6 +336,14 @@ const discountField = document.querySelector('#discount'); */
 const sendBtn = document.querySelector('#sendBtn');
 //const clearBtn = document.querySelector('#clearBtn'); 
 
+//Variables for errors
+const error1 = document.querySelector('#error1');
+const error2 = document.querySelector('#error2');
+const error3 = document.querySelector('#error3');
+const error4 = document.querySelector('#error4');
+const error5 = document.querySelector('#error5');
+const error6 = document.querySelector('#error6');
+
 //Keep track if fields have correct values
 let validName = false;
 let validLastName = false; 
@@ -353,9 +361,9 @@ let validDiscount = false; */
 
 //Activates the button "skicka beställning" if all values are true
 function activateSendBtn() {
-  if (validName && validLastName && validAddress && validLocality) { 
+  if (validName && validLastName && validAddress && validLocality) { //Add the other functions
     sendBtn.removeAttribute('disabled');
-  } else {                             //Add validName, validLastName etc. when the functions are made
+  } else {                              
     sendBtn.setAttribute('disabled', '');
   }
 }
@@ -365,8 +373,10 @@ function activateSendBtn() {
 function checkName() {
   if (firstNameField.value !== '' || firstNameField.value == null) { //if there's something written in the namefield it's valid
     validName = true;
+    error1.classList.add('error-hidden1');
   } else {
     validName = false;
+    error1.classList.remove('error-hidden1');
   }
   activateSendBtn();
 }
@@ -374,8 +384,10 @@ function checkName() {
 function checkLastName() {
   if (lastNameField.value !== '' || lastNameField.value == null) { //if there's something written in the lastnamefield it's valid
     validLastName = true;
+    error2.classList.add('error-hidden2');
   } else {
     validLastName = false;
+    error2.classList.remove('error-hidden2');
   }
   activateSendBtn();
 }
@@ -383,8 +395,10 @@ function checkLastName() {
 function checkAddress() {
   if(addressField.value.indexOf(' ') > -1) { //address is valid if there's a space in the field, change with RegEx?
     validAddress = true; 
+    error3.classList.add('error-hidden3');
   } else {
     validAddress = false;
+    error3.classList.remove('error-hidden3');
   }
   activateSendBtn();
 }
@@ -392,8 +406,10 @@ function checkAddress() {
 function checkPostNumber() {
   if(postNumberField.value === /^[0-9]{3}\s?[0-9]{2}$/) { //FIX! regex does not work
     validPostNumber = true;
+    error4.classList.add('error-hidden4');
   } else {
     validPostNumber = false;
+    error4.classList.remove('error-hidden4');
   }
   //activateSendBtn();
 }
@@ -401,8 +417,10 @@ function checkPostNumber() {
 function checkLocality() {
   if(localityField.value !== '' || localityField.value == null) { //if there's something written in the locality field it's valid
     validLocality = true;
+    error5.classList.add('error-hidden5');
   } else {
     validLocality = false;
+    error5.classList.remove('error-hidden5');
   }
   activateSendBtn();
 }
@@ -410,10 +428,12 @@ function checkLocality() {
 function checkPhoneNumber() {
   if(phoneNumberField.value === /^07[\d]{1}-?[\d]{7}$/) { //FIX! regex does not work
     validPhoneNumber = true;
+    error6.classList.add('error-hidden6');
   } else {
     validPhoneNumber = false;
+    error6.classList.remove('error-hidden6');
   }
-  console.log(validPhoneNumber);
+  //activateSendBtn();
 }
 
 
