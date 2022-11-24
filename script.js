@@ -354,7 +354,7 @@ formContainer.addEventListener('submit', (e) => {
   const errorMessages = []
 
   if (postNumberField.value.length !== 5) {  //Checks that the postnumber is valid
-    errorMessages.push('Felaktigt postnummer')
+    errorMessages.push('Felaktigt postnummer') //FIX! The error message should disappear when you write the postnumber correctly
   }
 
   if (errorMessages.length > 0) { //If the length of error messages are greater than 0 the form will not submit
