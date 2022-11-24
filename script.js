@@ -306,6 +306,8 @@ orderBtn[0].addEventListener('click', () =>{
 /**
  * Kontrollera att alla fält är korrekt ifyllda
  * 
+ * Visa ett felmeddelande om fälten inte är korrekt ifyllda
+ * 
  * Betalsätt..
  * 
  * Rabattkod..
@@ -321,7 +323,7 @@ const lastNameField = document.querySelector('#lastName'); */
 const addressField = document.querySelector('#address');
 const postNumberField = document.querySelector('#postNumber');
 //const localityField = document.querySelector('#locality');
-//const doorCodeField = document.querySelector('#doorCode'); not a compulsory field?
+//const doorCodeField = document.querySelector('#doorCode'); not required?
 /*const phoneNumberField = document.querySelector('#phoneNumber');
 const eMailField = document.querySelector('#eMail');
 const cardNumberField = document.querySelector('#cardNumber');
@@ -355,6 +357,8 @@ formContainer.addEventListener('submit', (e) => {
 
   if (postNumberField.value.length !== 5) {  //Checks that the postnumber is valid
     errorMessages.push('Felaktigt postnummer') //FIX! The error message should disappear when you write the postnumber correctly
+  } else {
+    errorText.innerText.replace('Felaktigt postnummer', '');
   }
 
   if (errorMessages.length > 0) { //If the length of error messages are greater than 0 the form will not submit
@@ -372,8 +376,9 @@ function checkAddress() {
   } else {
     validAddress = false;
   }
+  console.log(validAddress);
 }
-console.log(validAddress);
+
 
 //Check values on input field
 //firstNameField.addEventListener('change', checkName);

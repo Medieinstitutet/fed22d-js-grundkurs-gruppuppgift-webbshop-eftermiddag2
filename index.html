@@ -237,82 +237,95 @@
     <!--form-->
     <form id="formContainer" class="hidden">
       <label>
-        <span>Förnamn</span><br />
-        <input type="text" id="name" />
+        <span>Förnamn</span><br>
+        <input type="text" id="name"><br>
+        <span class="error-hidden1" id="error1">Obligatoriskt fält</span>
       </label>
 
       <label>
-        <span>Efternamn</span><br />
-        <input type="text" id="lastName" />
+        <span>Efternamn</span><br>
+        <input type="text" id="lastName"><br>
+        <span class="error-hidden2" id="error2">Obligatoriskt fält</span>
       </label>
 
       <label>
-        <span>Adress(gata)</span><br />
-        <input type="text" id="address" />
+        <span>Adress(gata)</span><br>
+        <input type="text" id="address"><br>
+        <span class="error-hidden3" id="error3">Felaktig adress</span>
       </label>
 
       <label>
-        <span>Postnummer</span><br />
-        <input type="text" id="postNumber" />
+        <span>Postnummer</span><br>
+        <input type="text" id="postNumber"><br>
+        <span class="error-hidden4" id="error4">Felaktigt postnummer</span>
       </label>
 
       <label>
-        <span>Postort</span><br />
-        <input type="text" id="locality" />
+        <span>Postort</span><br>
+        <input type="text" id="locality"><br>
+        <span class="error-hidden5" id="error5">Obligatoriskt fält</span>
       </label>
 
       <label>
-        <span>Ev. Portkod</span><br />
-        <input type="text" id="doorCode" />
+        <span>Ev. Portkod</span><br>
+        <input type="text" id="doorCode"><br>
+        <span class="error-hidden6" id="error6">Felaktig portkod</span>
       </label>
 
       <label>
-        <span>Telefon(mobil)</span><br />
-        <input type="tel" id="phoneNumber" />
+        <span>Telefon(mobil)</span><br>
+        <input type="tel" id="phoneNumber"><br>
+        <span class="error-hidden7" id="error7">Felaktigt telefonnummer</span>
       </label>
 
       <label>
-        <span>E-postadress</span><br />
-        <input type="email" id="eMail" />
+        <span>E-postadress</span><br>
+        <input type="email" id="eMail"><br>
+        <span class="error-hidden8" id="error8">Felaktig E-postadress</span>
       </label>
 
       <!--method of payment-->
       <label>
-        <span>Betalsätt</span><br />
+        <span>Betalsätt</span><br>
         <select id="payMethod">
           <option selected disabled>Välj betalsätt</option>
           <option value="card">Kort</option>
           <option value="bill">Faktura</option>
-        </select>
+        </select><br>
+        <span class="error-hidden9" id="error9">Måste välja ett betalsätt</span>
       </label>
 
       <label>
-        <span>Kortnummer</span><br />
-        <input type="text" id="cardNumber" />
+        <span>Kortnummer</span><br>
+        <input type="text" id="cardNumber"><br>
+        <span class="error-hidden10" id="error10">Felaktigt Kortnummer</span>
       </label>
 
       <label>
-        <span>Datum/år</span><br />
-        <input type="date" id="date" />
+        <span>Datum/år</span><br>
+        <input type="date" id="date"><br>
+        <span class="error-hidden11" id="error11">Felaktigt datum</span>
       </label>
 
       <label>
-        <span>CVC</span><br />
-        <input type="text" id="cvc" />
+        <span>CVC</span><br>
+        <input type="text" id="cvc"><br>
+        <span class="error-hidden12" id="error12">Felaktigt CVC</span>
       </label>
 
       <label>
-        <span>Rabattkod</span><br />
-        <input type="text" id="discount" />
+        <span>Rabattkod</span><br>
+        <input type="text" id="discount"><br>
+        <span class="error-hidden13" id="error13">Felaktig rabattkod</span>
       </label>
 
       <!--checkboxes-->
       <label>
-        <input type="checkbox" id="confirm" name="confirm" value="confirm" />
+        <input type="checkbox" required id="confirm" name="confirm" value="confirm">
         <span>Jag godkänner behandling av personuppgifter</span>
       </label>
       <label>
-        <input type="checkbox" id="wantNews" name="wantNews" value="wantNews" />
+        <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
         <span>Jag vill ha nyhetsbrev</span>
       </label>
       <p>Summa:</p>
