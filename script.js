@@ -20,11 +20,12 @@ tempDonutContainer.forEach((donut) => {
     name: donut.childNodes[3].childNodes[1].innerHTML,
     price: donut.childNodes[3].childNodes[5].childNodes[0].innerHTML,
     rating: donut.childNodes[3].childNodes[9].childNodes[1].innerHTML,
+    count: Number(donut.childNodes[3].childNodes[7].childNodes[0].innerHTML),
+    img: donut.childNodes[3].childNodes[3].childNodes[3].attributes[1]
+      .nodeValue,
   });
-
 });
 donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
-
 //   ---------------------------------------------------------------------------------------------------------------------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
 
@@ -47,6 +48,17 @@ const getDonutCount = () => {
 const clickPlus = (e) => {
   e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
   donutCountCart.innerHTML = getDonutCount(); //Updates cart text
+
+  const iOfName = ({ name }) => {
+    return (
+      name ===
+      e.currentTarget.parentElement.querySelector('.donut-name').innerHTML
+    );
+  };
+
+  const iOfDonut = donuts.findIndex(iOfName);
+
+  donuts[iOfDonut].count++;
 };
 
 const clickMinus = (e) => {
@@ -55,6 +67,17 @@ const clickMinus = (e) => {
   ) {
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // donutAmount[index].innerHTML++; //Adds -1 amount to property 'count' in object
     donutCountCart.innerHTML = getDonutCount(); //Updates cart text
+
+    const iOfName = ({ name }) => {
+      return (
+        name ===
+        e.currentTarget.parentElement.querySelector('.donut-name').innerHTML
+      );
+    };
+
+    const iOfDonut = donuts.findIndex(iOfName);
+
+    donuts[iOfDonut].count--;
   }
 };
 
@@ -119,7 +142,6 @@ const sortByType = (type, index) => {
     }
   }
 };
-
 // sort name
 const sortNameAscFn = (a, b) => {
   // sort array with objects of ascending proprerty name, from A-Ö.
@@ -270,15 +292,53 @@ filterBtnAll.addEventListener('click', filterAll);
 //----------------------------------SHOPPING CART--------------------------------------
 //-------------------------------------------------------------------------------------
 
-/**
- * [X]Varukorgen ska vara dold som default
- * [X]Varukorgen ska kunna öppnas
- * []Det ska ligga en "beställ-knapp" i varukorgen
- * []När man trycker på beställ-knappen så ska formuläret öppnas
- * []Formuläret ska vara dolt som default
- * []Summeringen av beställningen ska visas i varukorgen
- *
- */
+const cartContent = document.querySelector('.cart-content');
+let cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
+let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
+
+const createDonut = () => {
+  // donuts.forEach((donut) => {});
+  for (let i = 0; i < 9; i++) {
+    if (donuts[i].count > 0) {
+      cartContent.innerHTML += `
+   <tr class="cart-delete">
+   <td>
+   <span>${donuts[i].name}</span>
+   <br>
+   <img class="donut-img" src="${donuts[i].img}
+   " alt="Munk med socker" height="100" width="100" />
+   </td>
+   <td>
+     <span>${donuts[i].count}</span> st
+     <br>
+     <button class="cart-amount-decrease">-</button>
+     <button class="cart-amount-increase">+</button>
+   </td>
+   <td><span>${donuts[i].price}</span> kr/st</td>
+   <td><span class="cart-count">${
+     donuts[i].price * donuts[i].count
+   }</span> kr</td>
+   <td>
+     <button>Ta bort</button>
+   </td>
+   </tr>`;
+    }
+  }
+};
+
+//when closing cart, remove all existing donuts in cart
+const defaultCart = () => {
+  const cartDonuts = document.querySelectorAll('.cart-delete');
+  cartDonuts.forEach((cartDonut) => {
+    cartDonut.remove();
+  });
+};
+// const cartBtnPlus =
+//   cartContent.childNodes[5].childNodes[0].childNodes[3].childNodes[7];
+
+// cartBtnPlus.addEventListener('click', () => {
+//   donutsContainer[0].childNodes[3].childNodes[7].childNodes[0].innerHTML++;
+// });
 
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
@@ -287,10 +347,27 @@ const cart = document.querySelectorAll('#shoppingCart');
 
 openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+  filterAll();
+  createDonut();
+  cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
+  cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
+  console.log(cartPlusBtns);
+  cartPlusBtns.forEach((button) => {
+    button.addEventListener('click', () => {
+      console.log(1);
+      //     //     // e.currentTarget.parentElement.childNodes[1].innerHTML++;
+      //     //     // e.currentTarget.parentElement.parentElement.childNodes[7].childNodes[0].innerHTML =
+      //     //     //   Number(e.currentTarget.parentElement.childNodes[1].innerHTML) *
+      //     //     //   Number(
+      //     //     //     e.currentTarget.parentElement.nextElementSibling.childNodes[0].innerHTML
+      //     //     //   );
+    });
+  });
 }); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+  defaultCart();
 }); // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
 
 const orderBtn = document.querySelectorAll('#order');
@@ -382,27 +459,6 @@ const setRightValue = () => {
 inputLeft.addEventListener('input', setLeftValue);
 inputRight.addEventListener('input', setRightValue);
 
-//discounts
-
-// [] frakt: 25kr + 10% av totalbeloppet
-
-// [] mån kl 3:00-10:00 => -10% på hela beställningssumman
-// [] Display "Måndagsrabatt: 10 % på hela beställningen"
-
-// [] Fre kl 15:00 - mån kl 03:00 => +15% på alla munkar (kund ska ej se detta)
-
-// [] >800kr => ej faktura
-
-// [] <= 10 samma sort munkar => -10% rabatt
-
-// [] >15 munkar => fri frakt
-
-// [] timer 15 min => rensa/tömma formulär
-// [] meddela kund att denne är för långsam
-
- // The form will only be visible if you click on "Beställ"
-
-//Slideshow
 //God has abandoned me
 
 //variabler för knappar
@@ -415,17 +471,20 @@ const slideshowBtnRight = (e) => {
   const imageSrc = image.getAttribute('src'); //Får attribut src
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
-  if (checkEnd !== "side") { //Kollar ifall checkEnd redan är i "side"
-    image.setAttribute('src', `${imageSrc.slice(0, imageSrc.length - 4)  }-side.svg`); //Tar bort .svg från slutet, sätter in -side.svg
+  if (checkEnd !== 'side') {
+    //Kollar ifall checkEnd redan är i "side"
+    image.setAttribute(
+      'src',
+      `${imageSrc.slice(0, imageSrc.length - 4)}-side.svg`
+    ); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
   }
-
-}
+};
 const slideshowBtnLeft = (e) => {
-  const image = e.currentTarget.nextElementSibling;//Samma sak som förra
+  const image = e.currentTarget.nextElementSibling; //Samma sak som förra
   const imageSrc = image.getAttribute('src');
-  image.setAttribute('src', imageSrc.replace('-side', ''));//Om den hittar -side, ta bort den
-}
+  image.setAttribute('src', imageSrc.replace('-side', '')); //Om den hittar -side, ta bort den
+};
 //Eventlisteners
 slideshowLeft.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnLeft);
@@ -434,4 +493,3 @@ slideshowRight.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnRight);
 });
 //Potentiella ändringar: Göra så den loopar runt om man trycker mer, alt. göra knapparna greyed out efter ha tryckt på den.
-

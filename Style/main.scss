@@ -27,11 +27,15 @@ html {
 /*Shopping cart*/
 .cart {
   position: fixed;
-  height: 100vh;
+  height: 100%;
   width: 100vw;
-  background-color: rgb(249, 0, 232);
+  background-color: rgb(255, 163, 232);
+  z-index: 10;
+  overflow: scroll;
 }
 
+// VISIBILITY HIDDEN HERE----------------------------------
+//------------------------------------------------------
 .hidden {
   display: none;
 }
@@ -274,10 +278,11 @@ header {
     min-width: 100px;
     font-size: 6vh;
   }
+
   .slideshow-button {
     height: 40px;
     font-size: 24px;
-    
+
   }
 
   .donut-info {
