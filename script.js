@@ -279,7 +279,7 @@ const closeBtn = document.querySelectorAll('#closeCart');
 const cart = document.querySelectorAll('#shoppingCart'); 
  
  openBtn[0].addEventListener('click', () =>{ 
-  cart[0].classList.toggle("hidden");
+  cart[0].classList.toggle('hidden');
  }) // If you click on "Varukorg" the shopping cart will open
    
 
@@ -293,8 +293,8 @@ const showForm = document.querySelectorAll('#formContainer');
 
 
 orderBtn[0].addEventListener('click', () =>{ 
-  showForm[0].classList.toggle("hidden");
-  cart[0].classList.toggle("hidden");
+  showForm[0].classList.toggle('hidden');
+  cart[0].classList.toggle('hidden');
 
 }) // The form will only be visible if you click on "Beställ" 
 
@@ -328,7 +328,7 @@ const lastNameField = document.querySelector('#lastName');
 const addressField = document.querySelector('#address');
 const postNumberField = document.querySelector('#postNumber');
 const localityField = document.querySelector('#locality');
-//const doorCodeField = document.querySelector('#doorCode'); not needed?
+//const doorCodeField = document.querySelector('#doorCode'); No need to validate doorcode?
 const phoneNumberField = document.querySelector('#phoneNumber');
 const eMailField = document.querySelector('#eMail');
 const cardNumberField = document.querySelector('#cardNumber');
@@ -336,6 +336,7 @@ const dateField = document.querySelector('#date');
 const cvcField = document.querySelector('#cvc');
 /*const discountField = document.querySelector('#discount'); */
 
+//Variables used for hiding some inputs
 const methodOfPayment = document.querySelector('#payMethod');
 const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3');
 
@@ -343,7 +344,7 @@ const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideI
 const sendBtn = document.querySelector('#sendBtn');
 //const clearBtn = document.querySelector('#clearBtn'); 
 
-//Variables for errors
+//Variables for errors  FIX: Rename the errors maybe?
 const error1 = document.querySelector('#error1');
 const error2 = document.querySelector('#error2');
 const error3 = document.querySelector('#error3');
@@ -472,8 +473,8 @@ function checkCardNumber() {
 }
 
 function checkDate() {
-  if(dateField.value !== null) { //FIX! should not be null
-    validDate = true;
+  if(dateField.value !== null) { //FIX! change input type in html and use regex to 
+    validDate = true;            //validate dates in this format: mm/yy
     error10.classList.add('error-hidden10');
   } else {
     validDate = false;
@@ -499,7 +500,7 @@ lastNameField.addEventListener('change', checkLastName);
 addressField.addEventListener('change', checkAddress);
 postNumberField.addEventListener('change', checkPostNumber);
 localityField.addEventListener('change', checkLocality);
-//doorCodeField.addEventListener('change', checkDoorCode); not needed?
+//doorCodeField.addEventListener('change', checkDoorCode); No need to validate doorcode?
 phoneNumberField.addEventListener('change', checkPhoneNumber);
 eMailField.addEventListener('change', checkEMail);
 cardNumberField.addEventListener('change', checkCardNumber);
@@ -518,10 +519,10 @@ methodOfPayment.addEventListener('change', (event) => { //If card is chosen as m
     hiddenInputs[1].style.display = 'none';
     hiddenInputs[2].style.display = 'none';
   }
-})  //How to make the input fields cardnumber, cvc and date required only if option card is chosen?
+})  
 
 methodOfPayment.addEventListener('change', (event) => { 
-  if(event.target.value === 'bill' &&                     //If the option "bill" is chosen the cardnumber, date and cvc will be true
+  if(event.target.value === 'bill' &&                     //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
   cardNumberField.value === '' || cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
   dateField.value === '' || dateField.value == null &&
   cvcField.value === '' || cvcField.value == null) {
