@@ -309,7 +309,7 @@ const createDonut = () => {
    " alt="Munk med socker" height="100" width="100" />
    </td>
    <td>
-     <span>${donuts[i].count}</span> st
+     <span class="cart-donut-count">${donuts[i].count}</span> st
      <br>
      <button class="cart-amount-decrease">-</button>
      <button class="cart-amount-increase">+</button>
@@ -351,10 +351,17 @@ openBtn[0].addEventListener('click', () => {
   createDonut();
   cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
   cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
-  console.log(cartPlusBtns);
   cartPlusBtns.forEach((button) => {
-    button.addEventListener('click', () => {
-      console.log(1);
+    button.addEventListener('click', (e) => {
+      const cartAddCount = document.body.childNodes[9].childNodes[11]
+        .childNodes[3].childNodes[7].childNodes[0].innerHTML++;
+
+      e.currentTarget.parentElement.childNodes[1].innerHTML++; // + cart count
+
+      console.log(
+        e.currentTarget.parentElement.previousElementSibling.childNodes[1]
+          .innerHTML
+      );
       //     //     // e.currentTarget.parentElement.childNodes[1].innerHTML++;
       //     //     // e.currentTarget.parentElement.parentElement.childNodes[7].childNodes[0].innerHTML =
       //     //     //   Number(e.currentTarget.parentElement.childNodes[1].innerHTML) *
