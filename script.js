@@ -296,6 +296,7 @@ filterBtnAll.addEventListener('click', filterAll);
 const cartContent = document.querySelector('.cart-content');
 let cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
 let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
+let cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
 
 const createDonut = () => {
   // donuts.forEach((donut) => {});
@@ -320,13 +321,87 @@ const createDonut = () => {
      donuts[i].price * donuts[i].count
    }</span> kr</td>
    <td>
-     <button>Ta bort</button>
+     <button class="cart-delete-donut">Ta bort</button>
    </td>
    </tr>`;
     }
   }
+  cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
+  cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
+  cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
+
+  cartPlusBtns.forEach((plusBtn) => {
+    plusBtn.addEventListener('click', (e) => {
+      // const cartAddCount = document.body.childNodes[9].childNodes[11]
+      //   .childNodes[3].childNodes[7].childNodes[0].innerHTML++;
+
+      e.currentTarget.parentElement.childNodes[1].innerHTML++;
+      const cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML; // + cart count
+      const cartDonutName =
+        e.currentTarget.parentElement.previousElementSibling.childNodes[1]
+          .innerHTML; //name of donut from cart
+      // donutsContainerArray[0].childNodes[3].childNodes[1].innerHTML name of donut from front page
+      const indexOfDonutCart = donuts.findIndex(
+        (donut) => donut.name === cartDonutName
+      );
+      donuts[indexOfDonutCart].count++;
+      const donutsContainerArray = Array.from(donutsContainer);
+      const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+        (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+      );
+      donutsContainer[
+        indexOfDonutFrontPage
+      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount; // set front page counter equal to cart counter
+      // console.log(donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML) // hitta countern. jag ska göra min macka brb
+    });
+  });
+  cartMinusBtns.forEach((minusBtn) => {
+    minusBtn.addEventListener('click', (e) => {
+      if (e.currentTarget.parentElement.childNodes[1].innerHTML > 0) {
+        e.currentTarget.parentElement.childNodes[1].innerHTML--;
+        const cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML;
+        const cartDonutName =
+          e.currentTarget.parentElement.previousElementSibling.childNodes[1]
+            .innerHTML; //name of donut from cart
+
+        const indexOfDonutCart = donuts.findIndex(
+          (donut) => donut.name === cartDonutName
+        );
+        donuts[indexOfDonutCart].count--;
+        const donutsContainerArray = Array.from(donutsContainer);
+        const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+          (donut) =>
+            donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+        );
+        donutsContainer[
+          indexOfDonutFrontPage
+        ].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount; // set front page counter equal to cart counter
+      }
+    });
+  });
+  cartDeleteBtn.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', (e) => {
+      const cartDonutName =
+        e.currentTarget.parentElement.parentElement.childNodes[1].childNodes[1]
+          .innerHTML;
+      //name of donut from cart
+
+      const indexOfDonutCart = donuts.findIndex(
+        (donut) => donut.name === cartDonutName
+      );
+      donuts[indexOfDonutCart].count = 0;
+      const donutsContainerArray = Array.from(donutsContainer);
+      const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+        (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+      );
+      donutsContainer[
+        indexOfDonutFrontPage
+      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = 0;
+
+      e.currentTarget.parentElement.parentElement.remove();
+    });
+  });
 };
-console.table(donuts);
 //when closing cart, remove all existing donuts in cart
 const defaultCart = () => {
   const cartDonuts = document.querySelectorAll('.cart-delete');
@@ -334,12 +409,6 @@ const defaultCart = () => {
     cartDonut.remove();
   });
 };
-// const cartBtnPlus =
-//   cartContent.childNodes[5].childNodes[0].childNodes[3].childNodes[7];
-
-// cartBtnPlus.addEventListener('click', () => {
-//   donutsContainer[0].childNodes[3].childNodes[7].childNodes[0].innerHTML++;
-// });
 
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
@@ -350,43 +419,6 @@ openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
   filterAll();
   createDonut();
-  cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
-  cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
-  cartPlusBtns.forEach((button) => {
-    button.addEventListener('click', (e) => {
-      // const cartAddCount = document.body.childNodes[9].childNodes[11]
-      //   .childNodes[3].childNodes[7].childNodes[0].innerHTML++;
-
-      e.currentTarget.parentElement.childNodes[1].innerHTML++;
-      const cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML; // + cart count
-      const cartDonutName =
-        e.currentTarget.parentElement.previousElementSibling.childNodes[1]
-          .innerHTML; //name of donut from cart
-      // donutsContainerArray[0].childNodes[3].childNodes[1].innerHTML name of donut from front page
-      const donutsContainerArray = Array.from(donutsContainer);
-      const indexOfDonutFrontPage = donutsContainerArray.findIndex(
-        (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
-      );
-      // console.log(indexOfDonutFrontPage)
-      donutsContainer[
-        indexOfDonutFrontPage
-      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount; // set front page counter equal to cart counter
-      // console.log(donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML) // hitta countern. jag ska göra min macka brb
-
-      //     //     // e.currentTarget.parentElement.childNod,es[1].innerHTML++;
-      //     //     // e.currentTarget.parentElement.parentElement.childNodes[7].childNodes[0].innerHTML =
-      //     //     //   Number(e.currentTarget.parentElement.childNodes[1].innerHTML) *
-      //     //     //   Number(
-      //     //     //     e.currentTarget.parentElement.nextElementSibling.childNodes[0].innerHTML
-      //     //     //   );
-      // OH TABLE
-      const updateCartCount = donuts.findIndex(
-        (donut) => donut.name === cartDonutName
-      );
-      donuts[updateCartCount].count++;
-      console.log(updateCartCount, indexOfDonutFrontPage);
-    });
-  });
 }); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
