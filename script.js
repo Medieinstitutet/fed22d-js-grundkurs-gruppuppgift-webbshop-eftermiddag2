@@ -25,6 +25,7 @@ tempDonutContainer.forEach((donut) => {
       .nodeValue,
   });
 });
+
 donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
@@ -298,7 +299,7 @@ let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
 
 const createDonut = () => {
   // donuts.forEach((donut) => {});
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 10; i++) {
     if (donuts[i].count > 0) {
       cartContent.innerHTML += `
    <tr class="cart-delete">
@@ -325,7 +326,7 @@ const createDonut = () => {
     }
   }
 };
-
+console.table(donuts);
 //when closing cart, remove all existing donuts in cart
 const defaultCart = () => {
   const cartDonuts = document.querySelectorAll('.cart-delete');
@@ -356,30 +357,37 @@ openBtn[0].addEventListener('click', () => {
       // const cartAddCount = document.body.childNodes[9].childNodes[11]
       //   .childNodes[3].childNodes[7].childNodes[0].innerHTML++;
 
-        e.currentTarget.parentElement.childNodes[1].innerHTML++
-      let cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML; // + cart count
-      const cartDonutName = e.currentTarget.parentElement.previousElementSibling.childNodes[1].innerHTML; //name of donut from cart
+      e.currentTarget.parentElement.childNodes[1].innerHTML++;
+      const cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML; // + cart count
+      const cartDonutName =
+        e.currentTarget.parentElement.previousElementSibling.childNodes[1]
+          .innerHTML; //name of donut from cart
       // donutsContainerArray[0].childNodes[3].childNodes[1].innerHTML name of donut from front page
-      const donutsContainerArray = Array.from(donutsContainer)
-      const indexOfDonutFrontPage = donutsContainerArray.findIndex((donut)=> donut.childNodes[3].childNodes[1].innerHTML === cartDonutName );
+      const donutsContainerArray = Array.from(donutsContainer);
+      const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+        (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+      );
       // console.log(indexOfDonutFrontPage)
-      donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount // set front page counter equal to cart counter
+      donutsContainer[
+        indexOfDonutFrontPage
+      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount; // set front page counter equal to cart counter
       // console.log(donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML) // hitta countern. jag ska göra min macka brb
-  
+
       //     //     // e.currentTarget.parentElement.childNod,es[1].innerHTML++;
       //     //     // e.currentTarget.parentElement.parentElement.childNodes[7].childNodes[0].innerHTML =
       //     //     //   Number(e.currentTarget.parentElement.childNodes[1].innerHTML) *
       //     //     //   Number(
-        //     //     //     e.currentTarget.parentElement.nextElementSibling.childNodes[0].innerHTML
-        //     //     //   );
-        // OH TABLE 
-        const updateCartCount = donuts.findIndex((donut)=>donut.name ===cartDonutName)
-        donuts[updateCartCount].count++
-        console.log(updateCartCount,indexOfDonutFrontPage)
-
-      });
+      //     //     //     e.currentTarget.parentElement.nextElementSibling.childNodes[0].innerHTML
+      //     //     //   );
+      // OH TABLE
+      const updateCartCount = donuts.findIndex(
+        (donut) => donut.name === cartDonutName
+      );
+      donuts[updateCartCount].count++;
+      console.log(updateCartCount, indexOfDonutFrontPage);
     });
-  }); // If you click on "Varukorg" the shopping cart will open
+  });
+}); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
