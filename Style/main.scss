@@ -23,7 +23,6 @@ html {
   border-radius: 50%;
   background-color: red;
   display: inline-block;
-  visibility: hidden;
 }
 
 /*Shopping cart*/
@@ -36,9 +35,7 @@ html {
   box-shadow: 2px 0px 10px rgba($color: #000000, $alpha: 0.5);
 }
 
-.hidden {
-  display: none;
-}
+
 
 /*Content*/
 .content-container {
@@ -390,7 +387,9 @@ input {
 select {
   height: 2rem;
 }
-
+.hidden {
+  display: none !important;
+}
 /*Keep at bottom to make sure it overrides default behavior*/
 @media screen and (min-width: 1024px) {
   @import 'desktop';

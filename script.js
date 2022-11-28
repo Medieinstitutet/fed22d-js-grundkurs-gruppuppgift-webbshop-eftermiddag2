@@ -23,7 +23,7 @@ tempDonutContainer.forEach((donut) => {
   });
 
 });
-donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
+donutCountCart.style.visibility = 'none'; //check with group layout --------------------------
 
 //   ---------------------------------------------------------------------------------------------------------------------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
@@ -32,9 +32,16 @@ const getDonutCount = () => {
   let sum = 0; // sum starts at 0
   for (let i = 0; i < donutsContainer.length; i++) {
     //loop
-    sum +=
-      donutsContainer[i].querySelector('.donut-price').innerHTML *
-      donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
+    console.log(donutsContainer[i].querySelector('.donut-count').innerHTML);
+    sum += parseInt(donutsContainer[i].querySelector('.donut-count').innerHTML, 10);
+  }
+  console.log(sum);
+  if (sum <= 0) {
+    console.log('hidden');
+    donutCountCart.classList.add('hidden');
+  } else {
+    console.log('show');
+    donutCountCart.classList.remove('hidden');
   }
   return sum;
 };
