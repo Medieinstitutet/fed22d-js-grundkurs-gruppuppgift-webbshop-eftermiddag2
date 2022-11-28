@@ -3,6 +3,7 @@
 const donutIncrease = document.querySelectorAll('.donut-amount-increase'); //all + btns
 const donutDecrease = document.querySelectorAll('.donut-amount-reduce'); //all - btns
 const donutCountCart = document.getElementById('donut-counter-cart'); //text in cart
+const donutCostSummary = document.getElementById('donut-cost-summary-container');
 const sortingButtons = document.querySelectorAll('.sorting-type'); //filter btns
 
 const donutsContainer = document.getElementsByClassName('flex-content'); //array med div:en med ALLA munkar
@@ -36,32 +37,47 @@ const getDonutCount = () => {
     sum += parseInt(donutsContainer[i].querySelector('.donut-count').innerHTML, 10);
   }
   console.log(sum);
-  if (sum <= 0) {
-    console.log('hidden');
-    donutCountCart.classList.add('hidden');
-  } else {
-    console.log('show');
-    donutCountCart.classList.remove('hidden');
-  }
   return sum;
 };
+function getDonutCost() {
+  let sum = 0;
+  for (let i = 0; i < donutsContainer.length; i++){
+    sum += 
+    donutsContainer[i].querySelector('.donut-price').innerHTML *
+    donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
+  }
+  return sum;
+}
 
 //   ---------------------------------------------------------------------------------------------------------------------
 //   --------------------------------------------INCREASE & DECREASE BUTTON--------------------------------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 //
+function detailsVisbility() {
+  if (getDonutCount() <= 0) {
+    donutCountCart.classList.add('hidden');
+    donutCostSummary.classList.add('hidden');
+  } else {
+    donutCountCart.classList.remove('hidden');
+    donutCostSummary.classList.remove('hidden');
+  }
+  
 
+}
 const clickPlus = (e) => {
   e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
   donutCountCart.innerHTML = getDonutCount(); //Updates cart text
+  donutCostSummary.childNodes[0].innerHTML = getDonutCost();
+  detailsVisbility();
 };
-
 const clickMinus = (e) => {
   if (
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0
   ) {
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // donutAmount[index].innerHTML++; //Adds -1 amount to property 'count' in object
     donutCountCart.innerHTML = getDonutCount(); //Updates cart text
+    donutCostSummary.childNodes[0].innerHTML = getDonutCost();
+    detailsVisbility();
   }
 };
 
