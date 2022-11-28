@@ -282,15 +282,17 @@ filterBtnAll.addEventListener('click', filterAll);
 
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
-
+const backdropShadow = document.querySelector('#shadowcast');
 const cart = document.querySelectorAll('#shoppingCart');
 
 openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+  backdropShadow.classList.remove('hidden');
 }); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+  backdropShadow.classList.add('hidden');
 }); // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
 
 const orderBtn = document.querySelectorAll('#order');
@@ -299,6 +301,7 @@ const showForm = document.querySelectorAll('#formContainer');
 orderBtn[0].addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
+
 }); // The form will only be visible if you click on "Beställ"
 
 //filter price range

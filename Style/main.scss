@@ -31,8 +31,9 @@ html {
   position: fixed;
   height: 100vh;
   width: 100vw;
-  background-color: rgb(249, 0, 232);
+  background-color: rgb(255, 255, 255);
   z-index: 30;
+  box-shadow: 2px 0px 10px rgba($color: #000000, $alpha: 0.5);
 }
 
 .hidden {
@@ -262,6 +263,17 @@ html {
   display: flex;
 }
 
+#shadowcast {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: black;
+  opacity: 0.6;
+}
+
 .flex-content {
   background-color: rgb(239, 251, 255);
   min-width: 100vw;
@@ -352,6 +364,9 @@ form {
   display: flex;
   flex-direction: column;
   background-color: rgba(176, 254, 255, 0.765);
+  position: fixed;
+  z-index: 60;
+  left: 25%;
 }
 
 label {
