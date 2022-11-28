@@ -11,6 +11,7 @@
 
 <body>
 
+
     <!--top of the page-->
     <nav class="top-header">
         <button id="openCart" class="shopping-cart">Varukorg</button><span id="donut-counter-cart" class="total-donut-counter">0<span>
@@ -51,8 +52,25 @@
         <button><span class="sorting-type">Ratings &uarr;</span></button>
         <button><span class="sorting-type">Ratings &darr;</span></button>
       </div>
-
+      <div class="sort-range">
+        <p class="range-text">Prisintervall</p>
+        <div class="range-bar-holder">
+          <span class="range-bar">
+            <input type="range" id="range-left" min="0" max="35" value="0">
+            <input type="range" id="range-right" min="0" max="35" value="35">
+            <div class="range-bg">
+              <div class="track"></div>
+              <div class="range" id="range"></div>
+            </div>
+          </span>
+          <span class="range-price">
+            <p><span class="price-from">0</span> kr</p>
+            <p><span class="price-to">35</span> kr</p>
+          </span>
+        </div>
+      </div>
     </div>
+
     <!--donuts-->
     <section class="flex-content category-none">
       <button class="donut-amount-reduce">-</button>
@@ -60,7 +78,9 @@
       <article class="donut-info">
         <h3 class="donut-name">Sockermunk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-sugar.svg" alt="Munk med socker" height="300" width="300" />
+          <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">17</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -77,8 +97,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Chokladmunk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-chocolate.svg" alt="Munk med choklad" height="300"
             width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">20</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -95,8 +117,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Chokladmunk med strössel</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-chocolate-sprinkles.svg"
             alt="Munk med choklad och sprinkles" height="300" width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">30</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -114,8 +138,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Jordgubbsmunk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-strawberry.svg" alt="Munk med jordgubb" height="300"
             width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">20</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -133,8 +159,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Jordgubbsmunk med strössel</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-strawberry-sprinkles.svg" alt="Munk med socker"
             height="300" width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">30</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -151,8 +179,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Vaniljmunk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-vanilla.svg" alt="Munk med vanilj" height="300"
             width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">20</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -169,8 +199,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Vaniljmunk med choklad</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-vanillastriped.svg" alt="Munk med vanilj och choklad"
             alt="Munk med socker" height="300" width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">25</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -187,8 +219,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Blåbärsmunk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-circus-sprinkles.svg"
             alt="Munk med blåbärskräm och strössel" height="300" width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">30</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -204,8 +238,10 @@
       <article class="donut-info">
         <h3 class="donut-name">Citronmunk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img class="donut-img" src="assets/donuts/donut-glaze-citron-sprinkles.svg"
             alt="Munk med citron och sprinkles" height="300" width="300" />
+            <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">30</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
@@ -222,7 +258,9 @@
       <article class="donut-info">
         <h3 class="donut-name">Munk</h3>
         <div class="img-space">
+          <button class="slideshow-button btn-left">Arrow_left</button>
           <img src="assets/donuts/donut-none.svg" alt="Munk" height="300" width="300" />
+          <button class="slideshow-button btn-right">Arrow_right</button>
         </div>
         <p><span class="donut-price">10</span> kr/st</p>
         <p><span class="donut-count">0</span> st</p>
