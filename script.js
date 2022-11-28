@@ -3,6 +3,7 @@
 const donutIncrease = document.querySelectorAll('.donut-amount-increase'); //all + btns
 const donutDecrease = document.querySelectorAll('.donut-amount-reduce'); //all - btns
 const donutCountCart = document.getElementById('donut-counter-cart'); //text in cart
+const donutCostSummary = document.getElementById('donut-cost-summary-container');
 const sortingButtons = document.querySelectorAll('.sorting-type'); //filter btns
 
 const donutsContainer = document.getElementsByClassName('flex-content'); //array med div:en med ALLA munkar
@@ -30,6 +31,7 @@ donutCountCart.style.visibility = 'visible'; //check with group layout ---------
 //   ---------------------------------------------------------------------------------------------------------------------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
 
+
 const getDonutSum = () => {
   const sum = donuts.reduce((acc, { price, count }) => {
     if (count >= 10) {
@@ -39,12 +41,23 @@ const getDonutSum = () => {
   }, 0);
 
   return Math.round(sum);
+
 };
+function getDonutCost() {
+  let sum = 0;
+  for (let i = 0; i < donutsContainer.length; i++){
+    sum += 
+    donutsContainer[i].querySelector('.donut-price').innerHTML *
+    donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
+  }
+  return sum;
+}
 
 //   ---------------------------------------------------------------------------------------------------------------------
 //   --------------------------------------------INCREASE & DECREASE BUTTON--------------------------------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 //
+
 const basketSum = document.getElementsByClassName('basket-sum');
 const discountText = document.getElementsByClassName('discount-text');
 
@@ -92,8 +105,21 @@ const updateCarts = () => {
   basketSum[0].innerHTML = sum;
 };
 
+function detailsVisbility() {
+  if (getDonutCount() <= 0) {
+    donutCountCart.classList.add('hidden');
+    donutCostSummary.classList.add('hidden');
+  } else {
+    donutCountCart.classList.remove('hidden');
+    donutCostSummary.classList.remove('hidden');
+  }
+  
+
+
+}
 const clickPlus = (e) => {
   e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
+
   //Updates cart text
   const iOfName = ({ name }) => {
     return (
@@ -106,13 +132,18 @@ const clickPlus = (e) => {
 
   donuts[iOfDonut].count++;
   updateCarts();
-};
 
+  donutCountCart.innerHTML = getDonutCount(); //Updates cart text
+  donutCostSummary.childNodes[0].innerHTML = getDonutCost();
+  detailsVisbility();
+
+};
 const clickMinus = (e) => {
   if (
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0
   ) {
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // donutAmount[index].innerHTML++; //Adds -1 amount to property 'count' in object
+
 
     const iOfName = ({ name }) => {
       return (
@@ -125,6 +156,11 @@ const clickMinus = (e) => {
 
     donuts[iOfDonut].count--;
     updateCarts(); //Updates cart text
+
+    donutCountCart.innerHTML = getDonutCount(); //Updates cart text
+    donutCostSummary.childNodes[0].innerHTML = getDonutCost();
+    detailsVisbility();
+
   }
 };
 
@@ -339,6 +375,7 @@ filterBtnAll.addEventListener('click', filterAll);
 //----------------------------------SHOPPING CART--------------------------------------
 //-------------------------------------------------------------------------------------
 
+
 const cartContent = document.querySelector('.cart-content');
 let cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
 let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
@@ -517,21 +554,32 @@ const defaultCart = () => {
   });
 };
 
+
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
+const backdropShadow = document.querySelector('#shadowcast');
 
 const cart = document.querySelectorAll('#shoppingCart');
 
+
 openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+
   filterAll();
   createDonut();
   updateFeesCart();
+
+  backdropShadow.classList.remove('hidden');
+
 }); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+
   defaultCart();
+
+  backdropShadow.classList.add('hidden');
+
 }); // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
 
 const orderBtn = document.querySelectorAll('#order');
@@ -540,6 +588,7 @@ const showForm = document.querySelectorAll('#formContainer');
 orderBtn[0].addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
+
 }); // The form will only be visible if you click on "Beställ"
 
 //filter price range
@@ -588,6 +637,7 @@ const setLeftValue = () => {
   filterPriceLeft();
 };
 
+
 const filterPriceRight = () => {
   donuts.forEach(({ price }, i) => {
     if (
@@ -620,6 +670,7 @@ const setRightValue = () => {
   filterPriceRight();
 };
 
+
 inputLeft.addEventListener('input', setLeftValue);
 inputRight.addEventListener('input', setRightValue);
 
@@ -629,9 +680,7 @@ inputRight.addEventListener('input', setRightValue);
 const slideshowLeft = document.querySelectorAll('.btn-left');
 const slideshowRight = document.querySelectorAll('.btn-right');
 
-//Functioner för knapparna
-const slideshowBtnRight = (e) => {
-  const image = e.currentTarget.previousElementSibling; //Får sibling(bilden)
+function switchImage(image) {
   const imageSrc = image.getAttribute('src'); //Får attribut src
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
@@ -642,13 +691,23 @@ const slideshowBtnRight = (e) => {
       `${imageSrc.slice(0, imageSrc.length - 4)}-side.svg`
     ); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
+  } else { 
+    image.setAttribute('src', imageSrc.replace('-side', ''));//Om den hittar -side, ta bort den
   }
-};
+
+}
+
+//Functioner för knapparna
+const slideshowBtnRight = (e) => {
+  const image = e.currentTarget.previousElementSibling; //Får sibling(bilden)
+  switchImage(image);
+
+}
 const slideshowBtnLeft = (e) => {
-  const image = e.currentTarget.nextElementSibling; //Samma sak som förra
-  const imageSrc = image.getAttribute('src');
-  image.setAttribute('src', imageSrc.replace('-side', '')); //Om den hittar -side, ta bort den
-};
+  const image = e.currentTarget.nextElementSibling;//Samma sak som förra
+  switchImage(image);
+}
+
 //Eventlisteners
 slideshowLeft.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnLeft);
@@ -657,3 +716,241 @@ slideshowRight.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnRight);
 });
 //Potentiella ändringar: Göra så den loopar runt om man trycker mer, alt. göra knapparna greyed out efter ha tryckt på den.
+
+//-------------------------------------------------------------------------------------
+//---------------------------------------FORM------------------------------------------
+//-------------------------------------------------------------------------------------
+
+/**
+ * Kontrollera att alla fält är korrekt ifyllda
+ * 
+ * Hitta och lägg in regex för mobilnummer, postnummer, email, datum för kort, kortnummer och cvc
+ * 
+ * [X]Visa ett felmeddelande om fälten inte är korrekt ifyllda
+ * 
+ * [X]Om betalsätt kort är valt, visa kortnummer, datum/år och cvc annars göm fälten
+ * 
+ * [X]Kortnummer, datum/år och cvc ska endast valideras och påverka "skicka" knappen
+ * om betalsätt kort är valt
+ * 
+ * Rabattkod & specialregler
+ * 
+ * Visa summan av beställningen
+ * 
+ * Gör så att knappen "Rensa beställning" rensar beställningen
+ */
+
+//Variables for the input fields
+const firstNameField = document.querySelector('#name');
+const lastNameField = document.querySelector('#lastName'); 
+const addressField = document.querySelector('#address');
+const postNumberField = document.querySelector('#postNumber');
+const localityField = document.querySelector('#locality');
+//const doorCodeField = document.querySelector('#doorCode'); No need to validate doorcode?
+const phoneNumberField = document.querySelector('#phoneNumber');
+const eMailField = document.querySelector('#eMail');
+const cardNumberField = document.querySelector('#cardNumber');
+const dateField = document.querySelector('#date'); 
+const cvcField = document.querySelector('#cvc');
+/*const discountField = document.querySelector('#discount'); */
+
+//Variables used for hiding some inputs
+const methodOfPayment = document.querySelector('#payMethod');
+const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3');
+
+//Variables for the buttons
+const sendBtn = document.querySelector('#sendBtn');
+//const clearBtn = document.querySelector('#clearBtn'); 
+
+//Variables for errors  FIX: Rename the errors maybe?
+const error1 = document.querySelector('#error1');
+const error2 = document.querySelector('#error2');
+const error3 = document.querySelector('#error3');
+const error4 = document.querySelector('#error4');
+const error5 = document.querySelector('#error5');
+const error6 = document.querySelector('#error6');
+const error7 = document.querySelector('#error7');
+//const error8 = document.querySelector('error8'); this error is for when the user has not selected a method of payment
+const error9 = document.querySelector('#error9');
+const error10 = document.querySelector('#error10');
+const error11 = document.querySelector('#error11');
+
+//Keep track if fields have correct values
+let validName = false;
+let validLastName = false; 
+let validAddress = false;
+let validPostNumber = false;
+let validLocality = false;
+let validPhoneNumber = false;
+let validEMail = false;
+let validCardNumber = false;
+let validDate = false;
+let validCvc = false;
+/*let validDiscount = false; */
+
+
+
+//Activates the button "skicka beställning" if all values are true
+function activateSendBtn() {
+  if (validName && validLastName && validAddress && validLocality && validCardNumber && validDate && validCvc) { //add the other functions
+    sendBtn.removeAttribute('disabled');
+  } else {                              
+    sendBtn.setAttribute('disabled', '');
+  }
+}
+
+
+//Functions to check if the input fields are valid
+function checkName() {
+  if (firstNameField.value !== '' || firstNameField.value == null) { //if there's something written in the namefield it's valid
+    validName = true;
+    error1.classList.add('error-hidden1');
+  } else {
+    validName = false;
+    error1.classList.remove('error-hidden1');
+  }
+  activateSendBtn();
+}
+
+function checkLastName() {
+  if (lastNameField.value !== '' || lastNameField.value == null) { //if there's something written in the lastnamefield it's valid
+    validLastName = true;
+    error2.classList.add('error-hidden2');
+  } else {
+    validLastName = false;
+    error2.classList.remove('error-hidden2');
+  }
+  activateSendBtn();
+}
+
+function checkAddress() {
+  if(addressField.value.indexOf(' ') > -1) { //address is valid if there's a space in the field, change with RegEx?
+    validAddress = true; 
+    error3.classList.add('error-hidden3');
+  } else {
+    validAddress = false;
+    error3.classList.remove('error-hidden3');
+  }
+  activateSendBtn();
+}
+
+function checkPostNumber() {
+  if(postNumberField.value === /^[0-9]{3}\s?[0-9]{2}$/) { //FIX! regex does not work
+    validPostNumber = true;
+    error4.classList.add('error-hidden4');
+  } else {
+    validPostNumber = false;
+    error4.classList.remove('error-hidden4');
+  }
+  //activateSendBtn();
+}
+
+function checkLocality() {
+  if(localityField.value !== '' || localityField.value == null) { //if there's something written in the locality field it's valid
+    validLocality = true;
+    error5.classList.add('error-hidden5');
+  } else {
+    validLocality = false;
+    error5.classList.remove('error-hidden5');
+  }
+  activateSendBtn();
+}
+
+function checkPhoneNumber() {
+  if(phoneNumberField.value === /^07[\d]{1}-?[\d]{7}$/) { //FIX! regex does not work
+    validPhoneNumber = true;
+    error6.classList.add('error-hidden6');
+  } else {
+    validPhoneNumber = false;
+    error6.classList.remove('error-hidden6');
+  }
+  //activateSendBtn();
+}
+
+const regExEMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
+
+function checkEMail() {
+  if(eMailField.value === regExEMail) { //FIX! regex does not work
+    validEMail = true;
+    error7.classList.add('error-hidden7');
+  } else {
+    validEMail = false;
+    error7.classList.remove('error-hidden7');
+  }
+}
+
+function checkCardNumber() {
+  if(cardNumberField.value !== 'hej') { //FIX! use regex
+    validCardNumber = true;
+    error9.classList.add('error-hidden9');
+  } else {
+    validCardNumber = false;
+    error9.classList.remove('error-hidden9');
+  }
+  activateSendBtn();
+}
+
+function checkDate() {
+  if(dateField.value !== null) { //FIX! change input type in html and use regex to 
+    validDate = true;            //validate dates in this format: mm/yy
+    error10.classList.add('error-hidden10');
+  } else {
+    validDate = false;
+    error10.classList.remove('error-hidden10');
+  }
+  activateSendBtn();
+}
+
+function checkCvc() {
+  if(cvcField.value !== 'hej') { //FIX! use regex
+    validCvc = true;
+    error11.classList.add('error-hidden11');
+  } else {
+    validCvc = false;
+    error11.classList.remove('error-hidden11');
+  }
+  activateSendBtn();
+}
+
+//Check values on input field
+firstNameField.addEventListener('change', checkName);
+lastNameField.addEventListener('change', checkLastName);
+addressField.addEventListener('change', checkAddress);
+postNumberField.addEventListener('change', checkPostNumber);
+localityField.addEventListener('change', checkLocality);
+//doorCodeField.addEventListener('change', checkDoorCode); No need to validate doorcode?
+phoneNumberField.addEventListener('change', checkPhoneNumber);
+eMailField.addEventListener('change', checkEMail);
+cardNumberField.addEventListener('change', checkCardNumber);
+dateField.addEventListener('change', checkDate);
+cvcField.addEventListener('change', checkCvc);
+/*discountField.addEventListener('change', checkDiscount); */
+
+
+methodOfPayment.addEventListener('change', (event) => { //If card is chosen as method of payment
+  if(event.target.value === 'card') {                   //the hidden input fields will be displayed as blocks
+    hiddenInputs[0].style.display = 'block';
+    hiddenInputs[1].style.display = 'block';
+    hiddenInputs[2].style.display = 'block';
+  } else {
+    hiddenInputs[0].style.display = 'none';
+    hiddenInputs[1].style.display = 'none';
+    hiddenInputs[2].style.display = 'none';
+  }
+})  
+
+methodOfPayment.addEventListener('change', (event) => { 
+  if(event.target.value === 'bill' &&                     //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
+  cardNumberField.value === '' || cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
+  dateField.value === '' || dateField.value == null &&
+  cvcField.value === '' || cvcField.value == null) {
+    validCardNumber= true;
+    validDate = true;
+    validCvc = true;
+  } else {
+    validCardNumber= false;
+    validDate = false;
+    validCvc = false;
+  }
+  activateSendBtn();
+})
