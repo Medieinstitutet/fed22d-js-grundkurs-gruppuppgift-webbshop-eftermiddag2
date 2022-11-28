@@ -21,7 +21,6 @@ tempDonutContainer.forEach((donut) => {
     price: donut.childNodes[3].childNodes[5].childNodes[0].innerHTML,
     rating: donut.childNodes[3].childNodes[9].childNodes[1].innerHTML,
   });
-
 });
 donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
 
@@ -400,7 +399,7 @@ inputRight.addEventListener('input', setRightValue);
 // [] timer 15 min => rensa/tömma formulär
 // [] meddela kund att denne är för långsam
 
- // The form will only be visible if you click on "Beställ"
+// The form will only be visible if you click on "Beställ"
 
 //Slideshow
 //God has abandoned me
@@ -415,17 +414,20 @@ const slideshowBtnRight = (e) => {
   const imageSrc = image.getAttribute('src'); //Får attribut src
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
-  if (checkEnd !== "side") { //Kollar ifall checkEnd redan är i "side"
-    image.setAttribute('src', `${imageSrc.slice(0, imageSrc.length - 4)  }-side.svg`); //Tar bort .svg från slutet, sätter in -side.svg
+  if (checkEnd !== 'side') {
+    //Kollar ifall checkEnd redan är i "side"
+    image.setAttribute(
+      'src',
+      `${imageSrc.slice(0, imageSrc.length - 4)}-side.svg`
+    ); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
   }
-
-}
+};
 const slideshowBtnLeft = (e) => {
-  const image = e.currentTarget.nextElementSibling;//Samma sak som förra
+  const image = e.currentTarget.nextElementSibling; //Samma sak som förra
   const imageSrc = image.getAttribute('src');
-  image.setAttribute('src', imageSrc.replace('-side', ''));//Om den hittar -side, ta bort den
-}
+  image.setAttribute('src', imageSrc.replace('-side', '')); //Om den hittar -side, ta bort den
+};
 //Eventlisteners
 slideshowLeft.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnLeft);
@@ -435,3 +437,4 @@ slideshowRight.forEach((btn) => {
 });
 //Potentiella ändringar: Göra så den loopar runt om man trycker mer, alt. göra knapparna greyed out efter ha tryckt på den.
 
+//hej
