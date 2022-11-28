@@ -33,10 +33,8 @@ const getDonutCount = () => {
   let sum = 0; // sum starts at 0
   for (let i = 0; i < donutsContainer.length; i++) {
     //loop
-    console.log(donutsContainer[i].querySelector('.donut-count').innerHTML);
     sum += parseInt(donutsContainer[i].querySelector('.donut-count').innerHTML, 10);
   }
-  console.log(sum);
   return sum;
 };
 function getDonutCost() {
@@ -435,22 +433,29 @@ inputRight.addEventListener('input', setRightValue);
 const slideshowLeft = document.querySelectorAll('.btn-left');
 const slideshowRight = document.querySelectorAll('.btn-right');
 
-//Functioner för knapparna
-const slideshowBtnRight = (e) => {
-  const image = e.currentTarget.previousElementSibling; //Får sibling(bilden)
+
+
+function switchImage(image) {
   const imageSrc = image.getAttribute('src'); //Får attribut src
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
   if (checkEnd !== "side") { //Kollar ifall checkEnd redan är i "side"
     image.setAttribute('src', `${imageSrc.slice(0, imageSrc.length - 4)  }-side.svg`); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
+  } else { 
+    image.setAttribute('src', imageSrc.replace('-side', ''));//Om den hittar -side, ta bort den
   }
+}
+
+//Functioner för knapparna
+const slideshowBtnRight = (e) => {
+  const image = e.currentTarget.previousElementSibling; //Får sibling(bilden)
+  switchImage(image);
 
 }
 const slideshowBtnLeft = (e) => {
   const image = e.currentTarget.nextElementSibling;//Samma sak som förra
-  const imageSrc = image.getAttribute('src');
-  image.setAttribute('src', imageSrc.replace('-side', ''));//Om den hittar -side, ta bort den
+  switchImage(image);
 }
 //Eventlisteners
 slideshowLeft.forEach((btn) => {
