@@ -47,7 +47,6 @@ const getDonutSum = () => {
 //
 const basketSum = document.getElementsByClassName('basket-sum');
 const discountText = document.getElementsByClassName('discount-text');
-console.log(discountText[0].innerHTML);
 
 const isMonday3to10AM = () => {
   const date = new Date();
