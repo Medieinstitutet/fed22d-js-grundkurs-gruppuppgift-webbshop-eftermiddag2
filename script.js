@@ -31,14 +31,14 @@ donutCountCart.style.visibility = 'visible'; //check with group layout ---------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
 
 const getDonutSum = () => {
-  let sum = 0; // sum starts at 0
-  for (let i = 0; i < donutsContainer.length; i++) {
-    //loop
-    sum +=
-      donutsContainer[i].querySelector('.donut-price').innerHTML *
-      donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
-  }
-  return sum;
+  const sum = donuts.reduce((acc, { price, count }) => {
+    if (count >= 10) {
+      return acc + price * count * 0.9;
+    }
+    return acc + price * count;
+  }, 0);
+
+  return Math.round(sum);
 };
 
 //   ---------------------------------------------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ const getDonutSum = () => {
 const basketSum = document.getElementsByClassName('basket-sum');
 const discountText = document.getElementsByClassName('discount-text');
 
-const isMonday3to10AM = () => {
+const isMonday03to10 = () => {
   const date = new Date();
 
   const time = date.getHours();
@@ -57,11 +57,35 @@ const isMonday3to10AM = () => {
   return isMonday && time >= 3 && time < 10; // if true + true + true = return true, if true + true + false = return false
 };
 
+const isFriday15toMonday03 = () => {
+  const date = new Date();
+
+  const time = date.getHours();
+
+  const isMonday = date.getDay() === 1; // check if its monday
+  const isFriday = date.getDay() === 5; // check if its friday
+  const isSaturday = date.getDay() === 6;
+  const isSunday = date.getDay() === 0;
+
+  return (
+    (isFriday && time >= 15) || isSaturday || isSunday || (isMonday && time < 3)
+  ); // one part has to be true to retun true, otherwise return false
+};
+
+//FORMULÄRKNAPP
+// sendBtn.removeAttribute('disabled');
+// } else {
+//   sendBtn.setAttribute('disabled', '');
+// }
+
 const updateCarts = () => {
   let sum = getDonutSum();
-  if (isMonday3to10AM()) {
-    sum *= 0.9;
+  if (isMonday03to10()) {
+    sum = Math.round(sum * 0.9);
     discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen';
+  }
+  if (isFriday15toMonday03()) {
+    sum = Math.round(sum * 1.15);
   }
 
   donutCountCart.innerHTML = sum;
@@ -319,6 +343,25 @@ const cartContent = document.querySelector('.cart-content');
 let cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
 let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
 let cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
+const deliveryFee = document.getElementsByClassName('delivery-fee');
+const totalFee = document.getElementsByClassName('basket-total');
+
+const updateFeesCart = () => {
+  const sumPrice = getDonutSum();
+  const totalDonutCount = donuts.reduce((acc, { count }) => {
+    return acc + count;
+  }, 0);
+
+  if (totalDonutCount >= 15) {
+    deliveryFee[0].innerHTML = 0;
+  }
+
+  if (totalDonutCount < 15) {
+    deliveryFee[0].innerHTML = Math.round(25 + 0.1 * sumPrice);
+  }
+
+  totalFee[0].innerHTML = Number(deliveryFee[0].innerHTML) + sumPrice;
+};
 
 const createDonut = () => {
   for (let i = 0; i < 10; i++) {
@@ -347,6 +390,7 @@ const createDonut = () => {
    </tr>`;
     }
   }
+
   cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
   cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
   cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
@@ -376,10 +420,17 @@ const createDonut = () => {
         indexOfDonutFrontPage
       ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount; // set front page counter equal to cart counter
 
-      partSum.innerHTML =
+      const tempPartSum = Math.round(
         cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
-        donuts[indexOfDonutCart].count;
+          donuts[indexOfDonutCart].count
+      );
 
+      partSum.innerHTML = tempPartSum;
+
+      if (donuts[indexOfDonutCart].count >= 10) {
+        partSum.innerHTML = Math.round(tempPartSum * 0.9);
+      }
+      updateFeesCart();
       updateCarts();
     });
   });
@@ -417,6 +468,17 @@ const createDonut = () => {
           cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
           donuts[indexOfDonutCart].count;
 
+        const tempPartSum = Math.round(
+          cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
+            donuts[indexOfDonutCart].count
+        );
+
+        partSum.innerHTML = tempPartSum;
+
+        if (donuts[indexOfDonutCart].count >= 10) {
+          partSum.innerHTML = Math.round(tempPartSum * 0.9);
+        }
+        updateFeesCart();
         updateCarts();
       }
     });
@@ -464,6 +526,7 @@ openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
   filterAll();
   createDonut();
+  updateFeesCart();
 }); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
