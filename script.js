@@ -30,7 +30,7 @@ donutCountCart.style.visibility = 'visible'; //check with group layout ---------
 //   ---------------------------------------------------------------------------------------------------------------------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
 
-const getDonutCount = () => {
+const getDonutSum = () => {
   let sum = 0; // sum starts at 0
   for (let i = 0; i < donutsContainer.length; i++) {
     //loop
@@ -45,11 +45,33 @@ const getDonutCount = () => {
 //   --------------------------------------------INCREASE & DECREASE BUTTON--------------------------------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 //
+const basketSum = document.getElementsByClassName('basket-sum');
+const discountText = document.getElementsByClassName('discount-text');
+console.log(discountText[0].innerHTML);
+
+const isMonday3to10AM = () => {
+  const date = new Date();
+
+  const time = date.getHours();
+
+  const isMonday = date.getDay() === 1;
+  return isMonday && time >= 3 && time < 10; // if true + true + true = return true, if true + true + false = return false
+};
+
+const updateCarts = () => {
+  let sum = getDonutSum();
+  if (isMonday3to10AM()) {
+    sum *= 0.9;
+    discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen';
+  }
+
+  donutCountCart.innerHTML = sum;
+  basketSum[0].innerHTML = sum;
+};
 
 const clickPlus = (e) => {
   e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
-  donutCountCart.innerHTML = getDonutCount(); //Updates cart text
-
+  //Updates cart text
   const iOfName = ({ name }) => {
     return (
       name ===
@@ -60,6 +82,7 @@ const clickPlus = (e) => {
   const iOfDonut = donuts.findIndex(iOfName);
 
   donuts[iOfDonut].count++;
+  updateCarts();
 };
 
 const clickMinus = (e) => {
@@ -67,7 +90,6 @@ const clickMinus = (e) => {
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0
   ) {
     e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // donutAmount[index].innerHTML++; //Adds -1 amount to property 'count' in object
-    donutCountCart.innerHTML = getDonutCount(); //Updates cart text
 
     const iOfName = ({ name }) => {
       return (
@@ -79,6 +101,7 @@ const clickMinus = (e) => {
     const iOfDonut = donuts.findIndex(iOfName);
 
     donuts[iOfDonut].count--;
+    updateCarts(); //Updates cart text
   }
 };
 
@@ -299,7 +322,6 @@ let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
 let cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
 
 const createDonut = () => {
-  // donuts.forEach((donut) => {});
   for (let i = 0; i < 10; i++) {
     if (donuts[i].count > 0) {
       cartContent.innerHTML += `
@@ -330,17 +352,19 @@ const createDonut = () => {
   cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
   cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
 
+  // every plus btns in cart
   cartPlusBtns.forEach((plusBtn) => {
     plusBtn.addEventListener('click', (e) => {
-      // const cartAddCount = document.body.childNodes[9].childNodes[11]
-      //   .childNodes[3].childNodes[7].childNodes[0].innerHTML++;
-
-      e.currentTarget.parentElement.childNodes[1].innerHTML++;
-      const cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML; // + cart count
-      const cartDonutName =
+      const cartDonutCount = e.currentTarget.parentElement.childNodes[1];
+      const cartDonutContainer = e.currentTarget.parentElement.parentElement;
+      const cartDonutName = //name of donut from cart
         e.currentTarget.parentElement.previousElementSibling.childNodes[1]
-          .innerHTML; //name of donut from cart
-      // donutsContainerArray[0].childNodes[3].childNodes[1].innerHTML name of donut from front page
+          .innerHTML;
+      const partSum = cartDonutContainer.childNodes[7].childNodes[0];
+
+      cartDonutCount.innerHTML++; // + add cart count
+      const newCartDonutCount = cartDonutCount.innerHTML; // set NEW cart counter
+
       const indexOfDonutCart = donuts.findIndex(
         (donut) => donut.name === cartDonutName
       );
@@ -351,15 +375,26 @@ const createDonut = () => {
       );
       donutsContainer[
         indexOfDonutFrontPage
-      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount; // set front page counter equal to cart counter
-      // console.log(donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML) // hitta countern. jag ska göra min macka brb
+      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount; // set front page counter equal to cart counter
+
+      partSum.innerHTML =
+        cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
+        donuts[indexOfDonutCart].count;
+
+      updateCarts();
     });
   });
   cartMinusBtns.forEach((minusBtn) => {
     minusBtn.addEventListener('click', (e) => {
+      const cartDonutCount = e.currentTarget.parentElement.childNodes[1];
+
       if (e.currentTarget.parentElement.childNodes[1].innerHTML > 0) {
-        e.currentTarget.parentElement.childNodes[1].innerHTML--;
-        const cartCount = e.currentTarget.parentElement.childNodes[1].innerHTML;
+        const cartDonutContainer = e.currentTarget.parentElement.parentElement;
+        const partSum = cartDonutContainer.childNodes[7].childNodes[0];
+
+        cartDonutCount.innerHTML--;
+
+        const newCartDonutCount = cartDonutCount.innerHTML;
         const cartDonutName =
           e.currentTarget.parentElement.previousElementSibling.childNodes[1]
             .innerHTML; //name of donut from cart
@@ -367,18 +402,27 @@ const createDonut = () => {
         const indexOfDonutCart = donuts.findIndex(
           (donut) => donut.name === cartDonutName
         );
+
         donuts[indexOfDonutCart].count--;
         const donutsContainerArray = Array.from(donutsContainer);
         const indexOfDonutFrontPage = donutsContainerArray.findIndex(
           (donut) =>
             donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
         );
+
         donutsContainer[
           indexOfDonutFrontPage
-        ].childNodes[3].childNodes[7].childNodes[0].innerHTML = cartCount; // set front page counter equal to cart counter
+        ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount; // set front page counter equal to cart counter
+
+        partSum.innerHTML = //update "delsumma"
+          cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
+          donuts[indexOfDonutCart].count;
+
+        updateCarts();
       }
     });
   });
+
   cartDeleteBtn.forEach((deleteBtn) => {
     deleteBtn.addEventListener('click', (e) => {
       const cartDonutName =
@@ -399,6 +443,8 @@ const createDonut = () => {
       ].childNodes[3].childNodes[7].childNodes[0].innerHTML = 0;
 
       e.currentTarget.parentElement.parentElement.remove();
+
+      updateCarts();
     });
   });
 };
