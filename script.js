@@ -433,8 +433,6 @@ inputRight.addEventListener('input', setRightValue);
 const slideshowLeft = document.querySelectorAll('.btn-left');
 const slideshowRight = document.querySelectorAll('.btn-right');
 
-
-
 function switchImage(image) {
   const imageSrc = image.getAttribute('src'); //Får attribut src
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
