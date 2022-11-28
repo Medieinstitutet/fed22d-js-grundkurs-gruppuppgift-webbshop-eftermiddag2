@@ -657,3 +657,4 @@ slideshowRight.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnRight);
 });
 //Potentiella ändringar: Göra så den loopar runt om man trycker mer, alt. göra knapparna greyed out efter ha tryckt på den.
+
