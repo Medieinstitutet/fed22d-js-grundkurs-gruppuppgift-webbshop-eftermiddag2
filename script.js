@@ -546,6 +546,7 @@ const createDonut = () => {
 
       e.currentTarget.parentElement.parentElement.remove();
 
+      updateFeesCart();
       updateCarts();
     });
   });
