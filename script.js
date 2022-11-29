@@ -625,6 +625,7 @@ function checkEMail() {
     validEMail = false;
     error7.classList.remove('error-hidden7');
   }
+  console.log(regExEMail);
 }
 
 function checkCardNumber() {
