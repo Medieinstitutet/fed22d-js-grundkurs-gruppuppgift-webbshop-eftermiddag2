@@ -468,9 +468,9 @@ slideshowRight.forEach((btn) => {
 //-------------------------------------------------------------------------------------
 
 /**
- * Kontrollera att alla fält är korrekt ifyllda
+ * [X]Kontrollera att alla fält är korrekt ifyllda
  * 
- * Hitta och lägg in regex för mobilnummer, postnummer, email och personnummer
+ * [X]Hitta och lägg in regex för mobilnummer, postnummer, email och personnummer
  * 
  * [X]Visa ett felmeddelande om fälten inte är korrekt ifyllda
  * 
@@ -537,12 +537,9 @@ let validCvc = false;
 /*let validDiscount = false; */
 let validSocialNumber = false;
 
-//Variables for regex
-const regExEMail = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
-
 //Activates the button "skicka beställning" if all values are true
 function activateSendBtn() {
-  if (validName && validLastName && validAddress && validLocality && validCardNumber && validDate && validCvc && validSocialNumber) { //add the other functions
+  if (validName && validLastName && validAddress && validPostNumber && validLocality && validPhoneNumber && validEMail && validCardNumber && validDate && validCvc && validSocialNumber) { //add the other functions
     sendBtn.removeAttribute('disabled');
   } else {                              
     sendBtn.setAttribute('disabled', '');
@@ -585,14 +582,14 @@ function checkAddress() {
 }
 
 function checkPostNumber() {
-  if(postNumberField.value === /^[0-9]{3}\s?[0-9]{2}$/) { //FIX! regex does not work
+  if(/^[0-9]{3}\s?[0-9]{2}$/.test(postNumberField.value)) { 
     validPostNumber = true;
     error4.classList.add('error-hidden4');
   } else {
     validPostNumber = false;
     error4.classList.remove('error-hidden4');
   }
-  //activateSendBtn();
+  activateSendBtn();
 }
 
 function checkLocality() {
@@ -607,14 +604,14 @@ function checkLocality() {
 }
 
 function checkPhoneNumber() {
-  if(phoneNumberField.value === /^07[\d]{1}-?[\d]{7}$/) { //FIX! regex does not work
+  if(/^07[\d]{1}-?[\d]{7}$/.test(phoneNumberField.value)) {
     validPhoneNumber = true;
     error6.classList.add('error-hidden6');
   } else {
     validPhoneNumber = false;
     error6.classList.remove('error-hidden6');
   }
-  //activateSendBtn();
+  activateSendBtn();
 }
 
 function checkEMail() {
@@ -625,7 +622,7 @@ function checkEMail() {
     validEMail = false;
     error7.classList.remove('error-hidden7');
   }
-  console.log(validEMail);
+  activateSendBtn();
 }
 
 function checkCardNumber() {
@@ -662,7 +659,7 @@ function checkCvc() {
 }
 
 function checkSocialNumber() {
-  if(socialNumberField.value === 'hej') { //FIX! Use regex to validate
+  if(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/.test(socialNumberField.value)) { //FIX! Use regex to validate
     validSocialNumber = true;
     error12.classList.add('error-hidden12');
   } else {
