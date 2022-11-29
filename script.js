@@ -538,7 +538,7 @@ let validCvc = false;
 let validSocialNumber = false;
 
 //Variables for regex
-const regExEMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
+const regExEMail = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
 
 //Activates the button "skicka beställning" if all values are true
 function activateSendBtn() {
@@ -618,14 +618,14 @@ function checkPhoneNumber() {
 }
 
 function checkEMail() {
-  if(eMailField.value === regExEMail) { //FIX! regex does not work
+  if(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(eMailField.value)) { //It's working
     validEMail = true;
     error7.classList.add('error-hidden7');
   } else {
     validEMail = false;
     error7.classList.remove('error-hidden7');
   }
-  console.log(regExEMail);
+  console.log(validEMail);
 }
 
 function checkCardNumber() {
