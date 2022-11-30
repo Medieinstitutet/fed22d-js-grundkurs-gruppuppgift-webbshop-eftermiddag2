@@ -565,6 +565,9 @@ const backdropShadow = document.querySelector('#shadowcast');
 
 const cart = document.querySelectorAll('#shoppingCart');
 
+
+
+
 openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
 
@@ -590,6 +593,17 @@ orderBtn[0].addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
 }); // The form will only be visible if you click on "Beställ"
+
+backdropShadow.addEventListener('click', () => {
+  if (cart[0].classList.contains('hidden') == false) {
+    cart[0].classList.add('hidden');
+  }
+  if (showForm[0].classList.contains('hidden') == false) {
+    showForm[0].classList.add('hidden');
+  }
+  backdropShadow.classList.add('hidden');
+});
+
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
