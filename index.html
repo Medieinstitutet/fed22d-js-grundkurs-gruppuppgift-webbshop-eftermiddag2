@@ -22,6 +22,7 @@
   </nav>
 
   <div id="shoppingCart" class="cart hidden">
+
     <table class="cart-content">
       <caption>Varukorg</caption>
       <tr>
@@ -47,6 +48,7 @@
         </td>
       </tr>
     </table>
+
   </div>
 
   <!--Main content falls in here-->
@@ -56,22 +58,26 @@
       <h1>Gottfrids munkar</h1>
     </header>
     <!--filter & sorting-->
-    <div class="sorting-box">
-      <button class="filter-btn">Filtrera efter</button>
-      <div class="filter-content">
-        <button class="filter-type">Glasyr</button>
-        <button class="filter-type">Strössel</button>
-        <button class="filter-type">Övrigt</button>
-        <button class="filter-type">Alla munkar</button>
+    <div class="master-sorting-box">
+      <div class="sorting-box">
+        <button class="filter-btn dropdown-style">Filtrera efter</button>
+        <div class="filter-content">
+          <button class="filter-type dropdown-style">Glasyr</button>
+          <button class="filter-type dropdown-style">Strössel</button>
+          <button class="filter-type dropdown-style">Övrigt</button>
+          <button class="filter-type dropdown-style">Alla munkar</button>
+        </div>
       </div>
-      <button class="sort-btn">Sortera efter:</button>
-      <div class="sort-content">
-        <button><span class="sorting-type">Pris &uarr;</span></button>
-        <button><span class="sorting-type">Pris &darr;</span></button>
-        <button><span class="sorting-type">Namn &uarr;</span></button>
-        <button><span class="sorting-type">Namn &darr;</span></button>
-        <button><span class="sorting-type">Ratings &uarr;</span></button>
-        <button><span class="sorting-type">Ratings &darr;</span></button>
+        <div class="sorting-box">
+          <button class="sort-btn dropdown-style">Sortera efter:</button>
+            <div class="sort-content">
+          <button class="dropdown-style"><span class="sorting-type">Pris &uarr;</span></button>
+          <button class="dropdown-style"><span class="sorting-type">Pris &darr;</span></button>
+          <button class="dropdown-style"><span class="sorting-type">Namn &uarr;</span></button>
+          <button class="dropdown-style"><span class="sorting-type">Namn &darr;</span></button>
+          <button class="dropdown-style"><span class="sorting-type">Ratings &uarr;</span></button>
+          <button class="dropdown-style"><span class="sorting-type">Ratings &darr;</span></button>
+        </div>
       </div>
       <div class="sort-range">
         <p class="range-text">Prisintervall</p>
@@ -91,7 +97,7 @@
         </div>
       </div>
     </div>
-
+  </div>
     <!--donuts-->
     <section class="flex-content category-none">
       <button class="donut-amount-reduce material-symbols-outlined">remove</button>
@@ -389,10 +395,16 @@
         <span class="error-hidden11" id="error11">Felaktigt CVC</span>
       </label>
 
+      <label class="hide" id="hideInput4">
+        <span>Personnummer</span><br>
+        <input type="text" id="socialNumber"><br>
+        <span class="error-hidden12" id="error12">Felaktigt personnummer</span>
+      </label>
+
       <label>
         <span>Rabattkod</span><br>
         <input type="text" id="discount"><br>
-        <span class="error-hidden12" id="error12">Felaktig rabattkod</span>
+        <span class="error-hidden13" id="error13">Felaktig rabattkod</span>
       </label>
 
       <!--checkboxes-->
