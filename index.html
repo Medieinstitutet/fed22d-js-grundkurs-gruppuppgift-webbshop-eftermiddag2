@@ -41,7 +41,7 @@
         </td>
 
         <td>
-          <a href="#formContainer"><button id="order">Beställ</button></a>
+          <button id="order">Beställ</button>
         </td>
         <td>
           <button id="closeCart">Stäng</button>
@@ -318,7 +318,9 @@
     </section>
 
     <!--form-->
+    
     <form id="formContainer" class="hidden">
+      <button id="closeFormBtn" class="close-form-button">Stäng</button>
       <label>
         <span>Förnamn</span><br>
         <input type="text" id="name"><br>
@@ -413,7 +415,7 @@
         <span>Jag godkänner behandling av personuppgifter</span>
       </label>
       <label>
-        <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
+        <input type="checkbox" checked id="wantNews" name="wantNews" value="wantNews">
         <span>Jag vill ha nyhetsbrev</span>
       </label>
       <p>Summa:</p>

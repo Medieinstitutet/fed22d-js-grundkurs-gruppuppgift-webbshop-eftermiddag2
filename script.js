@@ -585,11 +585,17 @@ closeBtn[0].addEventListener('click', () => {
 
 const orderBtn = document.querySelectorAll('#order');
 const showForm = document.querySelectorAll('#formContainer');
+const closeFormBtn = document.querySelector('#closeFormBtn');
 
 orderBtn[0].addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
 }); // The form will only be visible if you click on "Beställ"
+
+closeFormBtn.addEventListener('click', () => {
+  showForm[0].classList.toggle('hidden');
+  backdropShadow.classList.add('hidden');
+})
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
