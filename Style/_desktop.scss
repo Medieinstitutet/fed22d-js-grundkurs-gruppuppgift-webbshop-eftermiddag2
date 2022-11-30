@@ -7,10 +7,13 @@
 
 /*Donut boxes*/
 .flex-content{
-    min-width: 50%;
-    max-width: 50%;
+    min-width: calc(33% - 60px);
+    max-width: calc(33% - 60px);
 
     flex-direction: row;
+    button {
+      min-width: 40px;
+    }
 }
 
 
