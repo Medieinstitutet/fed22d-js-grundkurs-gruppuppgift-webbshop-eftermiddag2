@@ -470,7 +470,7 @@ slideshowRight.forEach((btn) => {
 /**
  * Kontrollera att alla fält är korrekt ifyllda
  * 
- * Hitta och lägg in regex för mobilnummer, postnummer, email, datum för kort, kortnummer och cvc
+ * Hitta och lägg in regex för mobilnummer, postnummer, email och personnummer
  * 
  * [X]Visa ett felmeddelande om fälten inte är korrekt ifyllda
  * 
@@ -499,10 +499,11 @@ const cardNumberField = document.querySelector('#cardNumber');
 const dateField = document.querySelector('#date'); 
 const cvcField = document.querySelector('#cvc');
 /*const discountField = document.querySelector('#discount'); */
+const socialNumberField = document.querySelector('#socialNumber');
 
 //Variables used for hiding some inputs
 const methodOfPayment = document.querySelector('#payMethod');
-const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3');
+const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3, #hideInput4');
 
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
@@ -520,6 +521,7 @@ const error7 = document.querySelector('#error7');
 const error9 = document.querySelector('#error9');
 const error10 = document.querySelector('#error10');
 const error11 = document.querySelector('#error11');
+const error12 = document.querySelector('#error12');
 
 //Keep track if fields have correct values
 let validName = false;
@@ -533,12 +535,14 @@ let validCardNumber = false;
 let validDate = false;
 let validCvc = false;
 /*let validDiscount = false; */
+let validSocialNumber = false;
 
-
+//Variables for regex
+const regExEMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
 
 //Activates the button "skicka beställning" if all values are true
 function activateSendBtn() {
-  if (validName && validLastName && validAddress && validLocality && validCardNumber && validDate && validCvc) { //add the other functions
+  if (validName && validLastName && validAddress && validLocality && validCardNumber && validDate && validCvc && validSocialNumber) { //add the other functions
     sendBtn.removeAttribute('disabled');
   } else {                              
     sendBtn.setAttribute('disabled', '');
@@ -613,8 +617,6 @@ function checkPhoneNumber() {
   //activateSendBtn();
 }
 
-const regExEMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
-
 function checkEMail() {
   if(eMailField.value === regExEMail) { //FIX! regex does not work
     validEMail = true;
@@ -623,10 +625,11 @@ function checkEMail() {
     validEMail = false;
     error7.classList.remove('error-hidden7');
   }
+  console.log(regExEMail);
 }
 
 function checkCardNumber() {
-  if(cardNumberField.value !== 'hej') { //FIX! use regex
+  if(cardNumberField.value !== null) {
     validCardNumber = true;
     error9.classList.add('error-hidden9');
   } else {
@@ -637,8 +640,8 @@ function checkCardNumber() {
 }
 
 function checkDate() {
-  if(dateField.value !== null) { //FIX! change input type in html and use regex to 
-    validDate = true;            //validate dates in this format: mm/yy
+  if(dateField.value !== null) {  
+    validDate = true;           
     error10.classList.add('error-hidden10');
   } else {
     validDate = false;
@@ -648,12 +651,23 @@ function checkDate() {
 }
 
 function checkCvc() {
-  if(cvcField.value !== 'hej') { //FIX! use regex
+  if(cvcField.value !== null) { 
     validCvc = true;
     error11.classList.add('error-hidden11');
   } else {
     validCvc = false;
     error11.classList.remove('error-hidden11');
+  }
+  activateSendBtn();
+}
+
+function checkSocialNumber() {
+  if(socialNumberField.value === 'hej') { //FIX! Use regex to validate
+    validSocialNumber = true;
+    error12.classList.add('error-hidden12');
+  } else {
+    validSocialNumber = false;
+    error12.classList.remove('error-hidden12');
   }
   activateSendBtn();
 }
@@ -671,6 +685,7 @@ cardNumberField.addEventListener('change', checkCardNumber);
 dateField.addEventListener('change', checkDate);
 cvcField.addEventListener('change', checkCvc);
 /*discountField.addEventListener('change', checkDiscount); */
+socialNumberField.addEventListener('change', checkSocialNumber);
 
 
 methodOfPayment.addEventListener('change', (event) => { //If card is chosen as method of payment
@@ -685,6 +700,14 @@ methodOfPayment.addEventListener('change', (event) => { //If card is chosen as m
   }
 })  
 
+methodOfPayment.addEventListener('change', (event) => { //If bill is chosen as method of payment
+  if(event.target.value ==='bill') {                    //the hidden input field "social number" will be dispalyed as a block
+    hiddenInputs[3].style.display = 'block';
+  } else {
+    hiddenInputs[3].style.display = 'none';
+  }
+})
+
 methodOfPayment.addEventListener('change', (event) => { 
   if(event.target.value === 'bill' &&                     //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
   cardNumberField.value === '' || cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
@@ -697,6 +720,16 @@ methodOfPayment.addEventListener('change', (event) => {
     validCardNumber= false;
     validDate = false;
     validCvc = false;
+  }
+  activateSendBtn();
+})
+
+
+methodOfPayment.addEventListener('change', (event) => { 
+  if(event.target.value === 'card' && socialNumberField.value === '' || socialNumberField == null) {
+    validSocialNumber = true;
+  } else {
+    validSocialNumber = false;
   }
   activateSendBtn();
 })

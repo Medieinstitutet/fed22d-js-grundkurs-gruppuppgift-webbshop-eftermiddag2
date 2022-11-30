@@ -454,7 +454,7 @@ select {
   display: none !important;
 }
 
-
+/*hiding some input fields*/
 .hide{
   display: none;
 }
@@ -508,6 +508,9 @@ select {
   visibility: hidden;
 }
 
+.error-hidden13{
+  visibility: hidden;
+}
 
 /*Keep at bottom to make sure it overrides default behavior*/
 @media screen and (min-width: 1024px) {
