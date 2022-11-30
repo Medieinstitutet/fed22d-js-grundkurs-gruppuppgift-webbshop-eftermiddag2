@@ -424,6 +424,8 @@ form {
   position: fixed;
   z-index: 60;
   left: 25%;
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 label {
