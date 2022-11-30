@@ -3,7 +3,9 @@
 const donutIncrease = document.querySelectorAll('.donut-amount-increase'); //all + btns
 const donutDecrease = document.querySelectorAll('.donut-amount-reduce'); //all - btns
 const donutCountCart = document.getElementById('donut-counter-cart'); //text in cart
-const donutCostSummary = document.getElementById('donut-cost-summary-container');
+const donutCostSummary = document.getElementById(
+  'donut-cost-summary-container'
+);
 const sortingButtons = document.querySelectorAll('.sorting-type'); //filter btns
 
 const donutsContainer = document.getElementsByClassName('flex-content'); //array med div:en med ALLA munkar
@@ -21,36 +23,102 @@ tempDonutContainer.forEach((donut) => {
     name: donut.childNodes[3].childNodes[1].innerHTML,
     price: donut.childNodes[3].childNodes[5].childNodes[0].innerHTML,
     rating: donut.childNodes[3].childNodes[9].childNodes[1].innerHTML,
+    count: Number(donut.childNodes[3].childNodes[7].childNodes[0].innerHTML),
+    img: donut.childNodes[3].childNodes[3].childNodes[3].attributes[1]
+      .nodeValue,
   });
-
 });
-donutCountCart.style.visibility = 'none'; //check with group layout --------------------------
 
+donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 //   ---------------------------------------------CART SUM-------------------------------------------------------
 
-const getDonutCount = () => {
-  let sum = 0; // sum starts at 0
-  for (let i = 0; i < donutsContainer.length; i++) {
-    //loop
-    sum += parseInt(donutsContainer[i].querySelector('.donut-count').innerHTML, 10);
-  }
-  return sum;
+const getDonutSum = () => {
+  //total price of all donuts including discount for >10 donuts
+  const sum = donuts.reduce((acc, { price, count }) => {
+    //reduce function
+    if (count >= 10) {
+      return acc + price * count * 0.9; // 10% off the price for the donut that has more than 10 count
+    }
+    return acc + price * count;
+  }, 0);
+
+  return Math.round(sum); //round to nearest integer
 };
-function getDonutCost() {
-  let sum = 0;
-  for (let i = 0; i < donutsContainer.length; i++){
-    sum += 
-    donutsContainer[i].querySelector('.donut-price').innerHTML *
-    donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
-  }
-  return sum;
-}
+
+const getDonutCount = () => {
+  // total count for all donuts
+  const totalCount = donuts.reduce((acc, { count }) => {
+    // reduce function
+    return acc + count;
+  }, 0);
+  return totalCount;
+};
+
+// function getDonutCost() {
+//   let sum = 0;
+//   for (let i = 0; i < donutsContainer.length; i++) {
+//     sum +=
+//       donutsContainer[i].querySelector('.donut-price').innerHTML *
+//       donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
+//   }
+//   return sum;
+// }
 
 //   ---------------------------------------------------------------------------------------------------------------------
 //   --------------------------------------------INCREASE & DECREASE BUTTON--------------------------------------------------
 //   ---------------------------------------------------------------------------------------------------------------------
 //
+
+const basketSum = document.getElementsByClassName('basket-sum'); //variables for basket-sum
+const discountText = document.getElementsByClassName('discount-text'); //variables for discount text
+
+const isMonday03to10 = () => {
+  //return true if it is monday 03:00-10:00, else return false
+  const date = new Date(); // get today's date
+  const time = date.getHours(); // get today's hours
+  const isMonday = date.getDay() === 1; // if today is monday return true, else false
+
+  return isMonday && time >= 3 && time < 10; // if true + true + true = return true, if true + true + false = return false
+};
+
+const isFriday15toMonday03 = () => {
+  //return true if it is friday after 15:00 and before monday 03:00, else return false
+  const date = new Date();
+  const time = date.getHours();
+  const isMonday = date.getDay() === 1; // check if its monday
+  const isFriday = date.getDay() === 5; // check if its friday
+  const isSaturday = date.getDay() === 6;
+  const isSunday = date.getDay() === 0;
+
+  return (
+    (isFriday && time >= 15) || isSaturday || isSunday || (isMonday && time < 3)
+  ); // one part has to be true to retun true, otherwise return false
+};
+
+//FORMULÄRKNAPP
+// sendBtn.removeAttribute('disabled');
+// } else {
+//   sendBtn.setAttribute('disabled', '');
+// }
+
+const updateCarts = () => {
+  //update basketSum, donutCountCart and donutCostSummery in HTML.
+  let sum = getDonutSum();
+  if (isMonday03to10()) {
+    sum = Math.round(sum * 0.9);
+    discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen'; //adds discount text if isMonday03to10 is true
+  }
+  if (isFriday15toMonday03()) {
+    // scam prices on weekends
+    sum = Math.round(sum * 1.15); // + 15% hidden price on total sum
+  }
+
+  basketSum[0].innerHTML = sum;
+  donutCountCart.innerHTML = getDonutCount();
+  donutCostSummary.childNodes[0].innerHTML = sum;
+};
+
 function detailsVisbility() {
   if (getDonutCount() <= 0) {
     donutCountCart.classList.add('hidden');
@@ -59,33 +127,54 @@ function detailsVisbility() {
     donutCountCart.classList.remove('hidden');
     donutCostSummary.classList.remove('hidden');
   }
-  
-
 }
 const clickPlus = (e) => {
-  e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; // donutAmount[index].innerHTML++; //Adds +1 amount to property 'count' in object
-  donutCountCart.innerHTML = getDonutCount(); //Updates cart text
-  donutCostSummary.childNodes[0].innerHTML = getDonutCost();
+  e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; //Adds +1 amount to property 'count' in html
+  const iOfName = ({ name }) => {
+    //callback function to findIndex below
+    // find index where html donut-names matches with names in 'donuts'-object
+    return (
+      name ===
+      e.currentTarget.parentElement.querySelector('.donut-name').innerHTML
+    );
+  };
+
+  const iOfDonut = donuts.findIndex(iOfName); //'findIndex()' uses a function. function written obove
+
+  donuts[iOfDonut].count++; // Where found match -> Adds +1 amount to property 'count' in 'donuts'-object
+
+  updateCarts(); //updates cart text
   detailsVisbility();
 };
+
 const clickMinus = (e) => {
   if (
-    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0
+    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0 //only do if count is bigger than 0
   ) {
-    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // donutAmount[index].innerHTML++; //Adds -1 amount to property 'count' in object
-    donutCountCart.innerHTML = getDonutCount(); //Updates cart text
-    donutCostSummary.childNodes[0].innerHTML = getDonutCost();
+    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // -1 amount to property 'count' in object
+
+    const iOfName = ({ name }) => {
+      return (
+        name ===
+        e.currentTarget.parentElement.querySelector('.donut-name').innerHTML
+      );
+    };
+
+    const iOfDonut = donuts.findIndex(iOfName);
+
+    donuts[iOfDonut].count--; // Where found match -> Adds -1 amount to property 'count' in 'donuts'-object
+    updateCarts(); //Updates cart text
     detailsVisbility();
   }
 };
 
+//Loops over all increase buttons
 donutIncrease.forEach((button) => {
-  //Loops over all increase buttons
   button.addEventListener('click', clickPlus); //On click (on plus button), run function 'clickPlus'
 });
 
+//loops over all decrease btns
 donutDecrease.forEach((button) => {
-  //loops over all decrease btns
   button.addEventListener('click', clickMinus);
 });
 
@@ -140,7 +229,6 @@ const sortByType = (type, index) => {
     }
   }
 };
-
 // sort name
 const sortNameAscFn = (a, b) => {
   // sort array with objects of ascending proprerty name, from A-Ö.
@@ -291,9 +379,185 @@ filterBtnAll.addEventListener('click', filterAll);
 //----------------------------------SHOPPING CART--------------------------------------
 //-------------------------------------------------------------------------------------
 
-/**
- * []Summeringen av beställningen ska visas i varukorgen
- */
+const cartContent = document.querySelector('.cart-content');
+let cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
+let cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
+let cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
+const deliveryFee = document.getElementsByClassName('delivery-fee');
+const totalFee = document.getElementsByClassName('basket-total');
+
+const updateFeesCart = () => {
+  const sumPrice = getDonutSum();
+  const totalDonutCount = getDonutCount();
+
+  if (totalDonutCount >= 15) {
+    deliveryFee[0].innerHTML = 0;
+  }
+
+  if (totalDonutCount < 15) {
+    deliveryFee[0].innerHTML = Math.round(25 + 0.1 * sumPrice);
+  }
+
+  totalFee[0].innerHTML = Number(deliveryFee[0].innerHTML) + sumPrice;
+};
+
+const createDonut = () => {
+  for (let i = 0; i < 10; i++) {
+    if (donuts[i].count > 0) {
+      cartContent.innerHTML += `
+   <tr class="cart-delete">
+   <td>
+   <span>${donuts[i].name}</span>
+   <br>
+   <img class="donut-img" src="${donuts[i].img}
+   " alt="Munk med socker" height="100" width="100" />
+   </td>
+   <td>
+     <span class="cart-donut-count">${donuts[i].count}</span> st
+     <br>
+     <button class="cart-amount-decrease">-</button>
+     <button class="cart-amount-increase">+</button>
+   </td>
+   <td><span>${donuts[i].price}</span> kr/st</td>
+   <td><span class="cart-count">${
+     donuts[i].price * donuts[i].count
+   }</span> kr</td>
+   <td>
+     <button class="cart-delete-donut">Ta bort</button>
+   </td>
+   </tr>`;
+    }
+  }
+
+  cartPlusBtns = document.querySelectorAll('.cart-amount-increase');
+  cartMinusBtns = document.querySelectorAll('.cart-amount-decrease');
+  cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
+
+  // every plus btns in cart
+  cartPlusBtns.forEach((plusBtn) => {
+    plusBtn.addEventListener('click', (e) => {
+      const cartDonutCount = e.currentTarget.parentElement.childNodes[1];
+      const cartDonutContainer = e.currentTarget.parentElement.parentElement;
+      const cartDonutName = //name of donut from cart
+        e.currentTarget.parentElement.previousElementSibling.childNodes[1]
+          .innerHTML;
+      const partSum = cartDonutContainer.childNodes[7].childNodes[0]; // cannot create global cause cartDonutContainer uses 'e'?
+
+      cartDonutCount.innerHTML++; // + add cart count
+      const newCartDonutCount = cartDonutCount.innerHTML; // set NEW cart counter
+
+      const indexOfDonutCart = donuts.findIndex(
+        (donut) => donut.name === cartDonutName
+      );
+      donuts[indexOfDonutCart].count++;
+      const donutsContainerArray = Array.from(donutsContainer);
+      const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+        (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+      );
+      donutsContainer[
+        indexOfDonutFrontPage
+      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount; // set front page counter equal to cart counter
+
+      const tempPartSum = Math.round(
+        cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
+          donuts[indexOfDonutCart].count
+      );
+
+      partSum.innerHTML = tempPartSum;
+
+      if (donuts[indexOfDonutCart].count >= 10) {
+        partSum.innerHTML = Math.round(tempPartSum * 0.9);
+      }
+
+      updateFeesCart();
+      updateCarts();
+    });
+  });
+
+  cartMinusBtns.forEach((minusBtn) => {
+    minusBtn.addEventListener('click', (e) => {
+      const cartDonutCount = e.currentTarget.parentElement.childNodes[1];
+
+      if (e.currentTarget.parentElement.childNodes[1].innerHTML > 0) {
+        const cartDonutContainer = e.currentTarget.parentElement.parentElement;
+        const partSum = cartDonutContainer.childNodes[7].childNodes[0];
+
+        cartDonutCount.innerHTML--;
+
+        const newCartDonutCount = cartDonutCount.innerHTML;
+        const cartDonutName =
+          e.currentTarget.parentElement.previousElementSibling.childNodes[1]
+            .innerHTML; //name of donut from cart
+
+        const indexOfDonutCart = donuts.findIndex(
+          (donut) => donut.name === cartDonutName
+        );
+
+        donuts[indexOfDonutCart].count--;
+        const donutsContainerArray = Array.from(donutsContainer);
+        const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+          (donut) =>
+            donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+        );
+
+        donutsContainer[
+          indexOfDonutFrontPage
+        ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount; // set front page counter equal to cart counter
+
+        partSum.innerHTML = //update "delsumma"
+          cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
+          donuts[indexOfDonutCart].count;
+
+        const tempPartSum = Math.round(
+          cartDonutContainer.childNodes[5].childNodes[0].innerHTML *
+            donuts[indexOfDonutCart].count
+        );
+
+        partSum.innerHTML = tempPartSum;
+
+        if (donuts[indexOfDonutCart].count >= 10) {
+          partSum.innerHTML = Math.round(tempPartSum * 0.9);
+        }
+
+        updateFeesCart();
+        updateCarts();
+      }
+    });
+  });
+
+  cartDeleteBtn.forEach((deleteBtn) => {
+    deleteBtn.addEventListener('click', (e) => {
+      const cartDonutName =
+        e.currentTarget.parentElement.parentElement.childNodes[1].childNodes[1]
+          .innerHTML;
+      //name of donut from cart
+
+      const indexOfDonutCart = donuts.findIndex(
+        (donut) => donut.name === cartDonutName
+      );
+      donuts[indexOfDonutCart].count = 0;
+      const donutsContainerArray = Array.from(donutsContainer);
+      const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+        (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
+      );
+      donutsContainer[
+        indexOfDonutFrontPage
+      ].childNodes[3].childNodes[7].childNodes[0].innerHTML = 0;
+
+      e.currentTarget.parentElement.parentElement.remove();
+
+      updateFeesCart();
+      updateCarts();
+    });
+  });
+};
+//when closing cart, remove all existing donuts in cart
+const defaultCart = () => {
+  const cartDonuts = document.querySelectorAll('.cart-delete');
+  cartDonuts.forEach((cartDonut) => {
+    cartDonut.remove();
+  });
+};
 
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
@@ -301,14 +565,21 @@ const backdropShadow = document.querySelector('#shadowcast');
 
 const cart = document.querySelectorAll('#shoppingCart');
 
-
 openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+
+  filterAll();
+  createDonut();
+  updateFeesCart();
+
   backdropShadow.classList.remove('hidden');
 }); // If you click on "Varukorg" the shopping cart will open
 
 closeBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
+
+  defaultCart();
+
   backdropShadow.classList.add('hidden');
 }); // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
 
@@ -318,7 +589,6 @@ const showForm = document.querySelectorAll('#formContainer');
 orderBtn[0].addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
-
 }); // The form will only be visible if you click on "Beställ"
 
 //filter price range
@@ -327,6 +597,10 @@ const inputRight = document.getElementById('range-right');
 const range = document.getElementById('range');
 const priceFrom = document.querySelector('.price-from');
 const priceTo = document.querySelector('.price-to');
+const minLeft = Number(inputLeft.min);
+const maxLeft = Number(inputLeft.max);
+const minRight = Number(inputRight.min);
+const maxRight = Number(inputRight.max);
 
 const filterPriceLeft = () => {
   // destruct donuts.price
@@ -352,79 +626,52 @@ const filterPriceLeft = () => {
 
 const setLeftValue = () => {
   //convert to number because 'inputLeft.min' is a string
-  const minLeft = Number(inputLeft.min);
-  const maxLeft = Number(inputLeft.max);
   //Math.min return smalles number of given values
   inputLeft.value = Math.min(
-    // the limit of how the left knob can be. This case always 1 less than right knob
     Number(inputLeft.value),
-    Number(inputRight.value) - 1
+    Number(inputRight.value) - 1 // can only be 1 in difference between left slider and right slider
   );
-  priceFrom.textContent = `${inputLeft.value}`; // change left value text
+  priceFrom.textContent = `${inputLeft.value}`; // change left slider value text
   const percent = ((inputLeft.value - minLeft) / (maxLeft - minLeft)) * 100; // calculating the % of the html-bar
-  range.style.left = `${percent}%`; //moves the pink bar % from left
+  range.style.left = `${percent}%`; //moves the yellow bar % from left
 
   filterPriceLeft();
 };
 
-
 const filterPriceRight = () => {
   donuts.forEach(({ price }, i) => {
     if (
-      Number(inputRight.value) < Number(price) &&
-      Number(inputLeft.value) < Number(price)
+      Number(inputRight.value) < Number(price) && // if donut price is bigger than right slider's (of 'prisintervall') value AND
+      Number(inputLeft.value) < Number(price) // if donut price is bigger than left slider's value
     ) {
-      donutsContainer[i].style.display = 'none';
+      donutsContainer[i].style.display = 'none'; //display none if statements above is true
     }
     if (
-      Number(inputRight.value) > Number(price) &&
-      Number(inputLeft.value) < Number(price)
+      Number(inputRight.value) > Number(price) && //if right slider's value is bigger than donut price AND
+      Number(inputLeft.value) < Number(price) // if donut price is bigger than left slider's value
     ) {
-      donutsContainer[i].style.display = 'flex';
+      donutsContainer[i].style.display = 'flex'; // display flex on donutsContainer
     }
   });
 };
 
 const setRightValue = () => {
-  const minRight = Number(inputRight.min);
-  const maxRight = Number(inputRight.max);
-
   inputRight.value = Math.max(
     Number(inputRight.value),
-    Number(inputLeft.value) + 1
+    Number(inputLeft.value) + 1 // can only be 1 in difference between left slider and right slider
   );
-  priceTo.textContent = `${inputRight.value}`;
+
+  priceTo.textContent = `${inputRight.value}`; // change right slider value text
+  //changes background of bar when left/right sliders moves
   const percent = ((inputRight.value - minRight) / (maxRight - minRight)) * 100;
   range.style.right = `${100 - percent}%`;
 
   filterPriceRight();
 };
 
-
 inputLeft.addEventListener('input', setLeftValue);
 inputRight.addEventListener('input', setRightValue);
 
-//discounts
-
-// [] frakt: 25kr + 10% av totalbeloppet
-
-// [] mån kl 3:00-10:00 => -10% på hela beställningssumman
-// [] Display "Måndagsrabatt: 10 % på hela beställningen"
-
-// [] Fre kl 15:00 - mån kl 03:00 => +15% på alla munkar (kund ska ej se detta)
-
-// [] >800kr => ej faktura
-
-// [] <= 10 samma sort munkar => -10% rabatt
-
-// [] >15 munkar => fri frakt
-
-// [] timer 15 min => rensa/tömma formulär
-// [] meddela kund att denne är för långsam
-
- // The form will only be visible if you click on "Beställ"
-
-//Slideshow
 //God has abandoned me
 
 //variabler för knappar
@@ -435,11 +682,15 @@ function switchImage(image) {
   const imageSrc = image.getAttribute('src'); //Får attribut src
   let checkEnd = imageSrc.substr(imageSrc.length - 8); //Kollar av sista tecknerna
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
-  if (checkEnd !== "side") { //Kollar ifall checkEnd redan är i "side"
-    image.setAttribute('src', `${imageSrc.slice(0, imageSrc.length - 4)  }-side.svg`); //Tar bort .svg från slutet, sätter in -side.svg
+  if (checkEnd !== 'side') {
+    //Kollar ifall checkEnd redan är i "side"
+    image.setAttribute(
+      'src',
+      `${imageSrc.slice(0, imageSrc.length - 4)}-side.svg`
+    ); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
-  } else { 
-    image.setAttribute('src', imageSrc.replace('-side', ''));//Om den hittar -side, ta bort den
+  } else {
+    image.setAttribute('src', imageSrc.replace('-side', '')); //Om den hittar -side, ta bort den
   }
 }
 
@@ -447,12 +698,12 @@ function switchImage(image) {
 const slideshowBtnRight = (e) => {
   const image = e.currentTarget.previousElementSibling; //Får sibling(bilden)
   switchImage(image);
-
-}
+};
 const slideshowBtnLeft = (e) => {
-  const image = e.currentTarget.nextElementSibling;//Samma sak som förra
+  const image = e.currentTarget.nextElementSibling; //Samma sak som förra
   switchImage(image);
-}
+};
+
 //Eventlisteners
 slideshowLeft.forEach((btn) => {
   btn.addEventListener('click', slideshowBtnLeft);
@@ -462,33 +713,30 @@ slideshowRight.forEach((btn) => {
 });
 //Potentiella ändringar: Göra så den loopar runt om man trycker mer, alt. göra knapparna greyed out efter ha tryckt på den.
 
-
 //-------------------------------------------------------------------------------------
 //---------------------------------------FORM------------------------------------------
 //-------------------------------------------------------------------------------------
 
 /**
  * Kontrollera att alla fält är korrekt ifyllda
- * 
- * Hitta och lägg in regex för mobilnummer, postnummer, email och personnummer
- * 
+
  * [X]Visa ett felmeddelande om fälten inte är korrekt ifyllda
- * 
+ *
  * [X]Om betalsätt kort är valt, visa kortnummer, datum/år och cvc annars göm fälten
- * 
+ *
  * [X]Kortnummer, datum/år och cvc ska endast valideras och påverka "skicka" knappen
  * om betalsätt kort är valt
- * 
+ *
  * Rabattkod & specialregler
- * 
+ *
  * Visa summan av beställningen
- * 
+ *
  * Gör så att knappen "Rensa beställning" rensar beställningen
  */
 
 //Variables for the input fields
 const firstNameField = document.querySelector('#name');
-const lastNameField = document.querySelector('#lastName'); 
+const lastNameField = document.querySelector('#lastName');
 const addressField = document.querySelector('#address');
 const postNumberField = document.querySelector('#postNumber');
 const localityField = document.querySelector('#locality');
@@ -496,18 +744,20 @@ const localityField = document.querySelector('#locality');
 const phoneNumberField = document.querySelector('#phoneNumber');
 const eMailField = document.querySelector('#eMail');
 const cardNumberField = document.querySelector('#cardNumber');
-const dateField = document.querySelector('#date'); 
+const dateField = document.querySelector('#date');
 const cvcField = document.querySelector('#cvc');
 /*const discountField = document.querySelector('#discount'); */
 const socialNumberField = document.querySelector('#socialNumber');
 
 //Variables used for hiding some inputs
 const methodOfPayment = document.querySelector('#payMethod');
+
 const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3, #hideInput4');
+
 
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
-//const clearBtn = document.querySelector('#clearBtn'); 
+//const clearBtn = document.querySelector('#clearBtn');
 
 //Variables for errors  FIX: Rename the errors maybe?
 const error1 = document.querySelector('#error1');
@@ -525,7 +775,7 @@ const error12 = document.querySelector('#error12');
 
 //Keep track if fields have correct values
 let validName = false;
-let validLastName = false; 
+let validLastName = false;
 let validAddress = false;
 let validPostNumber = false;
 let validLocality = false;
@@ -537,22 +787,24 @@ let validCvc = false;
 /*let validDiscount = false; */
 let validSocialNumber = false;
 
+
 //Variables for regex
 const regExEMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/; //tried creating a variable with the regex code, still does not work
 
 //Activates the button "skicka beställning" if all values are true
 function activateSendBtn() {
   if (validName && validLastName && validAddress && validLocality && validCardNumber && validDate && validCvc && validSocialNumber) { //add the other functions
+
     sendBtn.removeAttribute('disabled');
-  } else {                              
+  } else {
     sendBtn.setAttribute('disabled', '');
   }
 }
 
-
 //Functions to check if the input fields are valid
 function checkName() {
-  if (firstNameField.value !== '' || firstNameField.value == null) { //if there's something written in the namefield it's valid
+  if (firstNameField.value !== '' || firstNameField.value == null) {
+    //if there's something written in the namefield it's valid
     validName = true;
     error1.classList.add('error-hidden1');
   } else {
@@ -563,7 +815,8 @@ function checkName() {
 }
 
 function checkLastName() {
-  if (lastNameField.value !== '' || lastNameField.value == null) { //if there's something written in the lastnamefield it's valid
+  if (lastNameField.value !== '' || lastNameField.value == null) {
+    //if there's something written in the lastnamefield it's valid
     validLastName = true;
     error2.classList.add('error-hidden2');
   } else {
@@ -574,8 +827,9 @@ function checkLastName() {
 }
 
 function checkAddress() {
-  if(addressField.value.indexOf(' ') > -1) { //address is valid if there's a space in the field, change with RegEx?
-    validAddress = true; 
+  if (addressField.value.indexOf(' ') > -1) {
+    //address is valid if there's a space in the field, change with RegEx?
+    validAddress = true;
     error3.classList.add('error-hidden3');
   } else {
     validAddress = false;
@@ -585,7 +839,8 @@ function checkAddress() {
 }
 
 function checkPostNumber() {
-  if(postNumberField.value === /^[0-9]{3}\s?[0-9]{2}$/) { //FIX! regex does not work
+  if (postNumberField.value === /^[0-9]{3}\s?[0-9]{2}$/) {
+    //FIX! regex does not work
     validPostNumber = true;
     error4.classList.add('error-hidden4');
   } else {
@@ -596,7 +851,8 @@ function checkPostNumber() {
 }
 
 function checkLocality() {
-  if(localityField.value !== '' || localityField.value == null) { //if there's something written in the locality field it's valid
+  if (localityField.value !== '' || localityField.value == null) {
+    //if there's something written in the locality field it's valid
     validLocality = true;
     error5.classList.add('error-hidden5');
   } else {
@@ -607,7 +863,8 @@ function checkLocality() {
 }
 
 function checkPhoneNumber() {
-  if(phoneNumberField.value === /^07[\d]{1}-?[\d]{7}$/) { //FIX! regex does not work
+  if (phoneNumberField.value === /^07[\d]{1}-?[\d]{7}$/) {
+    //FIX! regex does not work
     validPhoneNumber = true;
     error6.classList.add('error-hidden6');
   } else {
@@ -618,7 +875,8 @@ function checkPhoneNumber() {
 }
 
 function checkEMail() {
-  if(eMailField.value === regExEMail) { //FIX! regex does not work
+  if (eMailField.value === regExEMail) {
+    //FIX! regex does not work
     validEMail = true;
     error7.classList.add('error-hidden7');
   } else {
@@ -629,7 +887,9 @@ function checkEMail() {
 }
 
 function checkCardNumber() {
+
   if(cardNumberField.value !== null) {
+
     validCardNumber = true;
     error9.classList.add('error-hidden9');
   } else {
@@ -640,8 +900,10 @@ function checkCardNumber() {
 }
 
 function checkDate() {
+
   if(dateField.value !== null) {  
     validDate = true;           
+
     error10.classList.add('error-hidden10');
   } else {
     validDate = false;
@@ -651,7 +913,9 @@ function checkDate() {
 }
 
 function checkCvc() {
+
   if(cvcField.value !== null) { 
+
     validCvc = true;
     error11.classList.add('error-hidden11');
   } else {
@@ -687,9 +951,10 @@ cvcField.addEventListener('change', checkCvc);
 /*discountField.addEventListener('change', checkDiscount); */
 socialNumberField.addEventListener('change', checkSocialNumber);
 
-
-methodOfPayment.addEventListener('change', (event) => { //If card is chosen as method of payment
-  if(event.target.value === 'card') {                   //the hidden input fields will be displayed as blocks
+methodOfPayment.addEventListener('change', (event) => {
+  //If card is chosen as method of payment
+  if (event.target.value === 'card') {
+    //the hidden input fields will be displayed as blocks
     hiddenInputs[0].style.display = 'block';
     hiddenInputs[1].style.display = 'block';
     hiddenInputs[2].style.display = 'block';
@@ -698,7 +963,8 @@ methodOfPayment.addEventListener('change', (event) => { //If card is chosen as m
     hiddenInputs[1].style.display = 'none';
     hiddenInputs[2].style.display = 'none';
   }
-})  
+});
+
 
 methodOfPayment.addEventListener('change', (event) => { //If bill is chosen as method of payment
   if(event.target.value ==='bill') {                    //the hidden input field "social number" will be dispalyed as a block
@@ -714,14 +980,16 @@ methodOfPayment.addEventListener('change', (event) => {
   dateField.value === '' || dateField.value == null &&
   cvcField.value === '' || cvcField.value == null) {
     validCardNumber= true;
+
     validDate = true;
     validCvc = true;
   } else {
-    validCardNumber= false;
+    validCardNumber = false;
     validDate = false;
     validCvc = false;
   }
   activateSendBtn();
+
 })
 
 
@@ -733,3 +1001,4 @@ methodOfPayment.addEventListener('change', (event) => {
   }
   activateSendBtn();
 })
+
