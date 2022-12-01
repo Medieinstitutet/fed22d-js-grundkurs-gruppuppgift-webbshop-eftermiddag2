@@ -596,6 +596,7 @@ orderBtn[0].addEventListener('click', () => {
 
 backdropShadow.addEventListener('click', () => {
   if (cart[0].classList.contains('hidden') == false) {
+    defaultCart();
     cart[0].classList.add('hidden');
   }
   if (showForm[0].classList.contains('hidden') == false) {
