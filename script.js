@@ -418,7 +418,7 @@ const createDonut = () => {
      <button class="cart-amount-decrease">-</button>
      <button class="cart-amount-increase">+</button>
    </td>
-   <td><span>${donuts[i].price}</span> kr/st</td>
+   <td class="price-text"><span>${donuts[i].price}</span> kr/st</td>
    <td><span class="cart-count">${
      donuts[i].price * donuts[i].count
    }</span> kr</td>
@@ -574,7 +574,7 @@ openBtn[0].addEventListener('click', () => {
   filterAll();
   createDonut();
   updateFeesCart();
-
+  christmasCheck();
   backdropShadow.classList.remove('hidden');
 }); // If you click on "Varukorg" the shopping cart will open
 
@@ -1029,7 +1029,7 @@ function layoutChristmas() {
   const backgroundStyle = document.querySelector('.content-container');
   const banner = document.querySelector('.banner');
   const bannerText = document.querySelector('.banner>h1');
-  
+
   //Går igenom alla pristexter och ändrar färgen till rött
   priceText.forEach(element => {
     element.style.color = "red";
@@ -1059,6 +1059,9 @@ function isItChristmas() {
 }
 
 //Om det är jul, ändra till jultema!
-if (isItChristmas()) {
-  layoutChristmas();
+function christmasCheck(){
+  if (isItChristmas()) {
+    layoutChristmas();
+  }
 }
+christmasCheck();
