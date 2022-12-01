@@ -303,7 +303,7 @@
         <div class="img-space">
 
           <button class="slideshow-button btn-left material-symbols-outlined">chevron_left</button>
-          <img src="assets/donuts/donut-none.svg" alt="Munk" height="300" width="300" />
+          <img class="donut-img" src="assets/donuts/donut-none.svg" alt="Munk" height="300" width="300" />
           <button class="slideshow-button btn-right material-symbols-outlined">chevron_right</button>
 
         </div>
@@ -372,7 +372,7 @@
         <select id="payMethod">
           <option selected disabled id="canNotSelect">Välj betalsätt</option>
           <option value="card" id="optionCard">Kort</option>
-          <option value="bill">Faktura</option>
+          <option value="bill" class="bill">Faktura</option>
         </select><br>
         <span class="error-hidden8" id="error8">Måste välja ett betalsätt</span>
       </label>
@@ -405,6 +405,7 @@
         <span>Rabattkod</span><br>
         <input type="text" id="discount"><br>
         <span class="error-hidden13" id="error13">Felaktig rabattkod</span>
+        <button class="discount-check">Lägg till rabattkod</button>
       </label>
 
       <!--checkboxes-->
@@ -416,7 +417,7 @@
         <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
         <span>Jag vill ha nyhetsbrev</span>
       </label>
-      <p>Summa:</p>
+      <p>Summa:<span class="form-sum"> 0</span> kr</p>
 
       <button type="submit" disabled id="sendBtn">Skicka beställning</button>
       <button id="clearBtn">Rensa beställning</button>

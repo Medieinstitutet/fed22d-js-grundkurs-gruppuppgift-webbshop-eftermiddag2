@@ -43,6 +43,20 @@ const getDonutSum = () => {
     return acc + price * count;
   }, 0);
 
+  if (evenTuesday() && sum > 25) {
+    sum -= 25;
+  }
+
+  if (isMonday03to10()) {
+    //if it is mondag between 03 to 10 o'clock -> sum - 10% off
+    sum = Math.round(sum * 0.9);
+    discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen'; //adds discount text if isMonday03to10 is true
+  }
+  if (isFriday15toMonday03()) {
+    // scam prices on weekends
+    sum = Math.round(sum * 1.15); // + 15% hidden price on total sum
+  }
+
   return Math.round(sum); //round to nearest integer
 };
 
@@ -134,7 +148,6 @@ const checkLucia = () => {
   return isDec && isLucia; // if both true -> return true
 };
 
-// [] Om det är julafton, så ska alla priser visas med röd text och bakgrundsbilden på sidan ska ha jultema.
 // [] Om rabattkoden a_damn_fine-cup_of-coffee matas in, blir hela beställningen 0 kr oavsett övriga gällande specialregler.
 //FORMULÄRKNAPP
 // sendBtn.removeAttribute('disabled');
@@ -145,21 +158,7 @@ const checkLucia = () => {
 const updateCarts = () => {
   //update basketSum, donutCountCart and donutCostSummery in HTML.
   let sum = getDonutSum();
-  if (evenTuesday && sum > 25) {
-    sum -= 25;
-  }
 
-  if (isMonday03to10()) {
-    //if it is mondag between 03 to 10 o'clock -> sum - 10% off
-    sum = Math.round(sum * 0.9);
-    discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen'; //adds discount text if isMonday03to10 is true
-  }
-  if (isFriday15toMonday03()) {
-    // scam prices on weekends
-    sum = Math.round(sum * 1.15); // + 15% hidden price on total sum
-  }
-
-  basketSum[0].innerHTML = sum; //set basketSum to sum
   donutCountCart.innerHTML = getDonutCount(); //set donutCountCart to getDonutCount
   donutCostSummary.childNodes[0].innerHTML = sum;
 };
@@ -453,10 +452,9 @@ const updateFeesCart = () => {
     // if there is LESS than 15 donuts -> deliverFee + 10% of sumPrice
     deliveryFee[0].innerHTML = Math.round(25 + 0.1 * sumPrice); // deliveryFee is by default 25kr
   }
-
+  basketSum[0].innerHTML = sumPrice;
   totalFee[0].innerHTML = Number(deliveryFee[0].innerHTML) + sumPrice; // totalFee = deliveryFee + sumPrice
 };
-
 const createDonut = () => {
   // creates a new donut in cart with HTML below. Uses for loop so that we dont need to re-write code for multiple donuts
   for (let i = 0; i < 10; i++) {
@@ -496,7 +494,7 @@ const createDonut = () => {
         <img src="assets/donuts/donut-lucia.jpg" alt="LuciaMunk" height="100" width="100" />
       </td>
       <td class ="lucia-donut">
-          Du har fått en gratis Luciamunk!
+          Du har fått en gratis <br>Luciamunk!
       </td>
     </tr>`;
   }
@@ -641,9 +639,6 @@ const backdropShadow = document.querySelector('#shadowcast');
 
 const cart = document.querySelectorAll('#shoppingCart');
 
-
-
-
 openBtn[0].addEventListener('click', () => {
   cart[0].classList.toggle('hidden');
 
@@ -662,12 +657,34 @@ closeBtn[0].addEventListener('click', () => {
   backdropShadow.classList.add('hidden');
 }); // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
 
+const discountInput = document.getElementById('discount');
+const discountCheckBtn = document.getElementsByClassName('discount-check');
+const billOpt = document.getElementsByClassName('bill');
+console.log();
+//move to error group but higher
+const error13 = document.getElementById('error13');
+
 const orderBtn = document.querySelectorAll('#order');
 const showForm = document.querySelectorAll('#formContainer');
+const formSum = document.getElementsByClassName('form-sum'); // sum in form
+
+//when click on btn
+discountCheckBtn[0].addEventListener('click', () => {
+  error13.style.visibility = 'visible'; // show msg because input-field is empty
+  if (discountInput.value === 'a_damn_fine-cup_of-coffee') {
+    error13.innerHTML = 'Giltig rabattkod'; //change msg for discount
+    formSum[0].innerHTML = 0; // change formSum to 0kr
+    billOpt[0].removeAttribute('disabled'); // when sum is 0, billing option is enabled
+  }
+});
 
 orderBtn[0].addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
+  formSum[0].innerHTML = totalFee[0].innerHTML; // set sum in form to total fee in cart
+  if (Number(formSum[0].innerHTML) >= 800) {
+    billOpt[0].setAttribute('disabled', ''); // disabled billing option
+  }
 }); // The form will only be visible if you click on "Beställ"
 
 backdropShadow.addEventListener('click', () => {
@@ -679,7 +696,6 @@ backdropShadow.addEventListener('click', () => {
   }
   backdropShadow.classList.add('hidden');
 });
-
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
@@ -851,8 +867,18 @@ const hiddenInputs = document.querySelectorAll(
 );
 
 //Variables for the buttons
-const sendBtn = document.querySelector('#sendBtn');
-//const clearBtn = document.querySelector('#clearBtn');
+const sendBtn = document.querySelector('#sendBtn'); // 'skicka beställning'
+const clearBtn = document.getElementById('clearBtn'); //'rensa beställning' btn
+const resetForm = document.getElementById('formContainer'); // form
+
+clearBtn.addEventListener('click', () => {
+  resetForm.reset(); // reset form
+  cartDeleteBtn.forEach((deleteBtn) => {
+    // delete donuts in cart when clearBtn is clicked on
+    deleteBtn.click();
+  });
+  defaultCart();
+});
 
 //Variables for errors  FIX: Rename the errors maybe?
 const error1 = document.querySelector('#error1');
