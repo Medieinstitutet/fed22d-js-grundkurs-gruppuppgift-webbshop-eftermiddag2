@@ -595,7 +595,7 @@ orderBtn[0].addEventListener('click', () => {
 closeFormBtn.addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   backdropShadow.classList.add('hidden');
-})
+}) //Clicking on the close button will close the form and get rid of backdrop shadow
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
@@ -946,6 +946,55 @@ function checkSocialNumber() {
   activateSendBtn();
 }
 
+//Functions to check what method of payment is chosen
+function payByCard(e) {
+  //If card is chosen as method of payment the hidden input fields will be displayed as blocks
+  if (e.target.value === 'card') {
+    hiddenInputs[0].style.display = 'block';
+    hiddenInputs[1].style.display = 'block';
+    hiddenInputs[2].style.display = 'block';
+  } else {
+    hiddenInputs[0].style.display = 'none';
+    hiddenInputs[1].style.display = 'none';
+    hiddenInputs[2].style.display = 'none';
+  }
+}
+
+function payByBill(e) {
+//If bill is chosen as method of payment the hidden input field "social number" will be dispalyed as a block
+  if(e.target.value ==='bill') {              
+    hiddenInputs[3].style.display = 'block';
+  } else {
+    hiddenInputs[3].style.display = 'none';
+  }
+}
+
+function skipCardFields(e) {
+  //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty because those inputs are not needed if you don't pay with card
+  if(e.target.value === 'bill' &&                     
+  cardNumberField.value === '' || cardNumberField.value == null && 
+  dateField.value === '' || dateField.value == null &&
+  cvcField.value === '' || cvcField.value == null) {
+    validCardNumber= true;
+    validDate = true;
+    validCvc = true;
+  } else {
+    validCardNumber = false;
+    validDate = false;
+    validCvc = false;
+  }
+  activateSendBtn();
+}
+
+function skipBillFields(e) {
+  if(e.target.value === 'card' && socialNumberField.value === '' || socialNumberField == null) {
+    validSocialNumber = true;
+  } else {
+    validSocialNumber = false;
+  }
+  activateSendBtn();
+}
+
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
 lastNameField.addEventListener('change', checkLastName);
@@ -961,54 +1010,9 @@ cvcField.addEventListener('change', checkCvc);
 /*discountField.addEventListener('change', checkDiscount); */
 socialNumberField.addEventListener('change', checkSocialNumber);
 
-methodOfPayment.addEventListener('change', (event) => {
-  //If card is chosen as method of payment
-  if (event.target.value === 'card') {
-    //the hidden input fields will be displayed as blocks
-    hiddenInputs[0].style.display = 'block';
-    hiddenInputs[1].style.display = 'block';
-    hiddenInputs[2].style.display = 'block';
-  } else {
-    hiddenInputs[0].style.display = 'none';
-    hiddenInputs[1].style.display = 'none';
-    hiddenInputs[2].style.display = 'none';
-  }
-});
-
-
-methodOfPayment.addEventListener('change', (event) => { //If bill is chosen as method of payment
-  if(event.target.value ==='bill') {                    //the hidden input field "social number" will be dispalyed as a block
-    hiddenInputs[3].style.display = 'block';
-  } else {
-    hiddenInputs[3].style.display = 'none';
-  }
-})
-
-methodOfPayment.addEventListener('change', (event) => { 
-  if(event.target.value === 'bill' &&                     //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
-  cardNumberField.value === '' || cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
-  dateField.value === '' || dateField.value == null &&
-  cvcField.value === '' || cvcField.value == null) {
-    validCardNumber= true;
-
-    validDate = true;
-    validCvc = true;
-  } else {
-    validCardNumber = false;
-    validDate = false;
-    validCvc = false;
-  }
-  activateSendBtn();
-
-})
-
-
-methodOfPayment.addEventListener('change', (event) => { 
-  if(event.target.value === 'card' && socialNumberField.value === '' || socialNumberField == null) {
-    validSocialNumber = true;
-  } else {
-    validSocialNumber = false;
-  }
-  activateSendBtn();
-})
+//Checking wich method of payment is chosen
+methodOfPayment.addEventListener('change', payByCard);
+methodOfPayment.addEventListener('change', payByBill);
+methodOfPayment.addEventListener('change', skipCardFields);
+methodOfPayment.addEventListener('change', skipBillFields);
 
