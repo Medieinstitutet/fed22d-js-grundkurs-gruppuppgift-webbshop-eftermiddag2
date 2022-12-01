@@ -823,10 +823,10 @@ function checkName() {
   if (firstNameField.value !== '' || firstNameField.value == null) {
     //if there's something written in the namefield it's valid
     validName = true;
-    error1.classList.add('error-hidden1');
+    error1.classList.add('error-hidden');
   } else {
     validName = false;
-    error1.classList.remove('error-hidden1');
+    error1.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -835,10 +835,10 @@ function checkLastName() {
   if (lastNameField.value !== '' || lastNameField.value == null) {
     //if there's something written in the lastnamefield it's valid
     validLastName = true;
-    error2.classList.add('error-hidden2');
+    error2.classList.add('error-hidden');
   } else {
     validLastName = false;
-    error2.classList.remove('error-hidden2');
+    error2.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -847,10 +847,10 @@ function checkAddress() {
   if (addressField.value.indexOf(' ') > -1) {
     //address is valid if there's a space in the input field
     validAddress = true;
-    error3.classList.add('error-hidden3');
+    error3.classList.add('error-hidden');
   } else {
     validAddress = false;
-    error3.classList.remove('error-hidden3');
+    error3.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -858,10 +858,10 @@ function checkAddress() {
 function checkPostNumber() {
   if(/^[0-9]{3}\s?[0-9]{2}$/.test(postNumberField.value)) { 
     validPostNumber = true;
-    error4.classList.add('error-hidden4');
+    error4.classList.add('error-hidden');
   } else {
     validPostNumber = false;
-    error4.classList.remove('error-hidden4');
+    error4.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -870,10 +870,10 @@ function checkLocality() {
   if (localityField.value !== '' || localityField.value == null) {
     //if there's something written in the locality field it's valid
     validLocality = true;
-    error5.classList.add('error-hidden5');
+    error5.classList.add('error-hidden');
   } else {
     validLocality = false;
-    error5.classList.remove('error-hidden5');
+    error5.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -881,10 +881,10 @@ function checkLocality() {
 function checkPhoneNumber() {
   if(/^07[\d]{1}-?[\d]{7}$/.test(phoneNumberField.value)) {
     validPhoneNumber = true;
-    error6.classList.add('error-hidden6');
+    error6.classList.add('error-hidden');
   } else {
     validPhoneNumber = false;
-    error6.classList.remove('error-hidden6');
+    error6.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -892,10 +892,10 @@ function checkPhoneNumber() {
 function checkEMail() {
   if(/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(eMailField.value)) { 
     validEMail = true;
-    error7.classList.add('error-hidden7');
+    error7.classList.add('error-hidden');
   } else {
     validEMail = false;
-    error7.classList.remove('error-hidden7');
+    error7.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -903,10 +903,10 @@ function checkEMail() {
 function checkCardNumber() {
   if(cardNumberField.value !== null) {
     validCardNumber = true;
-    error9.classList.add('error-hidden9');
+    error9.classList.add('error-hidden');
   } else {
     validCardNumber = false;
-    error9.classList.remove('error-hidden9');
+    error9.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -914,23 +914,21 @@ function checkCardNumber() {
 function checkDate() {
   if(dateField.value !== null) {  
     validDate = true;           
-    error10.classList.add('error-hidden10');
+    error10.classList.add('error-hidden');
   } else {
     validDate = false;
-    error10.classList.remove('error-hidden10');
+    error10.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
 
 function checkCvc() {
-
   if(cvcField.value !== null) { 
-
     validCvc = true;
-    error11.classList.add('error-hidden11');
+    error11.classList.add('error-hidden');
   } else {
     validCvc = false;
-    error11.classList.remove('error-hidden11');
+    error11.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -938,10 +936,10 @@ function checkCvc() {
 function checkSocialNumber() {
   if(/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/.test(socialNumberField.value)) { //FIX! Use regex to validate
     validSocialNumber = true;
-    error12.classList.add('error-hidden12');
+    error12.classList.add('error-hidden');
   } else {
     validSocialNumber = false;
-    error12.classList.remove('error-hidden12');
+    error12.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
