@@ -436,6 +436,7 @@ const createDonut = () => {
     if (donuts[i].count > 0) {
       // add html in cartContent
       cartContent.innerHTML += `
+
     <tr class="cart-delete">
       <td>
         <span>${donuts[i].name}</span>
@@ -454,12 +455,13 @@ const createDonut = () => {
         <span>${donuts[i].price}</span> kr/st
       </td>
       <td>
-        <span class="cart-count">${donuts[i].price * donuts[i].count}</span> kr
+        <span class="cart-count price-text">${donuts[i].price * donuts[i].count}</span> kr
       </td>
       <td>
         <button class="cart-delete-donut">Ta bort</button>
       </td>
     </tr>`;
+
     }
   }
   //if its lucia day -> create a lucia donut
@@ -599,11 +601,13 @@ const cart = document.querySelectorAll('#shoppingCart');
 // If you click on "Varukorg" the shopping cart will open
 const openCart = () => {
   cart[0].classList.toggle('hidden');
+
   backdropShadow.classList.remove('hidden');
 
   filterAll(); //when open cart: show all donuts
   createDonut(); // when open cart: create ordered donuts from main in cart
   updateFeesCart(); // when open cart: update all fees in cart including discounts
+  christmasCheck();
 };
 
 // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
@@ -645,8 +649,11 @@ const finalOrderSum = () => {
   }
 };
 
+
 const isbackDropShadow = () => {
   if (cart[0].classList.contains('hidden') === false) {
+
+    defaultCart();
     cart[0].classList.add('hidden');
   }
   if (showForm[0].classList.contains('hidden') === false) {
@@ -1072,4 +1079,52 @@ methodOfPayment.addEventListener('change', (event) => {
     validSocialNumber = false;
   }
   activateSendBtn();
+
 });
+
+
+//God jul
+//Funktion kallas ifall det är jul
+function layoutChristmas() {
+  //Hämtar element som ska ändras
+  const priceText = document.querySelectorAll('.price-text');
+  const backgroundStyle = document.querySelector('.content-container');
+  const banner = document.querySelector('.banner');
+  const bannerText = document.querySelector('.banner>h1');
+
+  //Går igenom alla pristexter och ändrar färgen till rött
+  priceText.forEach(element => {
+    element.style.color = "red";
+  });
+  //Backgrundsbild!
+  backgroundStyle.style.backgroundImage = 'url("assets/christmas/christmas-background.png")';
+  //Gömmer banner bakgrunden och gör texten vit.
+  banner.style.backgroundColor = 'rgba(0,0,0,0)';
+  bannerText.style.color = 'white';
+
+}
+//funktion som kollar ifall det är jul.
+function isItChristmas() {
+  // now = dagens datum
+  let now = new Date();
+
+  //Vilken dag ska vi kolla? Efter julafton såklart!
+  let christmas = {
+    //Månaderna börjar på 0, och slutar på 11 för någon anledning, så det är 11 för december...
+    month: 11,
+    //Men dagar börjar på 1.... så det blir den 24e
+    day: 24
+  }
+  //Kollar av ifall månad och dag stämmer av med den dag vi kollar efter, isf return true.
+  return (now.getMonth() == christmas.month && now.getDate() == christmas.day);
+
+}
+
+//Om det är jul, ändra till jultema!
+function christmasCheck(){
+  if (isItChristmas()) {
+    layoutChristmas();
+  }
+}
+christmasCheck();
+
