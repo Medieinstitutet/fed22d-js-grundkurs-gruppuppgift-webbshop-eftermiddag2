@@ -526,15 +526,15 @@ const createDonut = () => {
       indexOfDonutFrontPage
     ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount;
 
-    // tempPartSum + if + partSum.innerHTML = tempPartSum has to be in this order for the fn to work
+    // tempPartSum + if + partSum.innerHTML = tempPartSum.
     // round to nearest integer
-    const tempPartSum = Math.round(
-      Number(cartDonutContainer.childNodes[5].childNodes[1].innerHTML) *
+    let tempPartSum = Math.round(
+      cartDonutContainer.childNodes[5].childNodes[1].innerHTML *
         donuts[indexOfDonutCart].count
     );
 
+    //if there is 10 or more of the same donut -> tempPartSum and 10% price off
     if (donuts[indexOfDonutCart].count >= 10) {
-      //if there is 10 or more of the same donut -> tempPartSum and 10% price off
       tempPartSum = Math.round(tempPartSum * 0.9);
     }
 
