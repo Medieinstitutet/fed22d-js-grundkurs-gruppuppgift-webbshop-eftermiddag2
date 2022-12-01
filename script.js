@@ -741,7 +741,7 @@ slideshowRight.forEach((btn) => {
  *
  * Gör så att knappen "Rensa beställning" rensar beställningen
  *
- *Lägg till en "stäng" knapp på formuläret
+ *[X]Lägg till en "stäng" knapp på formuläret
  */
 
 //Variables for the input fields
@@ -768,6 +768,9 @@ const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideI
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
 //const clearBtn = document.querySelector('#clearBtn');
+
+//Variable for the confirmation
+const confirmationMessage = document.querySelector('#orderConfirm');
 
 //Variables for errors  FIX: Rename the errors maybe?
 const error1 = document.querySelector('#error1');
@@ -993,6 +996,13 @@ function skipBillFields(e) {
   activateSendBtn();
 }
 
+//Button functions
+function sendOrder() {
+  //The confirmation will be displayed as a block when clicking on the send button
+  //FIX! The button reloads the page and the confirmation disappears immediately
+  confirmationMessage.style.display = 'block';
+}
+
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
 lastNameField.addEventListener('change', checkLastName);
@@ -1014,3 +1024,5 @@ methodOfPayment.addEventListener('change', payByBill);
 methodOfPayment.addEventListener('change', skipCardFields);
 methodOfPayment.addEventListener('change', skipBillFields);
 
+//Send and clear buttons
+sendBtn.addEventListener('click', sendOrder);
