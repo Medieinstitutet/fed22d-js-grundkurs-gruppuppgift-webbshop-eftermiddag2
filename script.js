@@ -1020,3 +1020,45 @@ methodOfPayment.addEventListener('change', (event) => {
   activateSendBtn();
 })
 
+
+//God jul
+//Funktion kallas ifall det är jul
+function layoutChristmas() {
+  //Hämtar element som ska ändras
+  const priceText = document.querySelectorAll('.price-text');
+  const backgroundStyle = document.querySelector('.content-container');
+  const banner = document.querySelector('.banner');
+  const bannerText = document.querySelector('.banner>h1');
+  
+  //Går igenom alla pristexter och ändrar färgen till rött
+  priceText.forEach(element => {
+    element.style.color = "red";
+  });
+  //Backgrundsbild!
+  backgroundStyle.style.backgroundImage = 'url("assets/christmas/christmas-background.png")';
+  //Gömmer banner bakgrunden och gör texten vit.
+  banner.style.backgroundColor = 'rgba(0,0,0,0)';
+  bannerText.style.color = 'white';
+
+}
+//funktion som kollar ifall det är jul.
+function isItChristmas() {
+  // now = dagens datum
+  let now = new Date();
+
+  //Vilken dag ska vi kolla? Efter julafton såklart!
+  let christmas = {
+    //Månaderna börjar på 0, och slutar på 11 för någon anledning, så det är 11 för december...
+    month: 11,
+    //Men dagar börjar på 1.... så det blir den 24e
+    day: 1
+  }
+  //Kollar av ifall månad och dag stämmer av med den dag vi kollar efter, isf return true.
+  return (now.getMonth() == christmas.month && now.getDate() == christmas.day);
+
+}
+
+//Om det är jul, ändra till jultema!
+if (isItChristmas()) {
+  layoutChristmas();
+}
