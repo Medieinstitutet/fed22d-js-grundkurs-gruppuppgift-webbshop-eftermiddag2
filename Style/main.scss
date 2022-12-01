@@ -22,7 +22,8 @@ html {
     border: none;
     cursor: pointer;
   }
-  button:hover{
+
+  button:hover {
 
     text-shadow: 1px 0px 5px rgba(0, 0, 0, 0.2);
   }
@@ -51,6 +52,9 @@ html {
   background-color: rgb(255, 255, 255);
   z-index: 30;
   box-shadow: 2px 0px 10px rgba($color: #000000, $alpha: 0.5);
+  max-height: 100vh;
+  overflow-y: scroll;
+
 }
 
 
@@ -71,7 +75,9 @@ html {
   margin-top: 50px;
   min-width: 100%;
   height: 150px;
+
   z-index: 0;
+
   h1 {
     font-size: 3rem;
     text-align: center;
@@ -83,48 +89,54 @@ html {
 }
 
 .master-sorting-box {
-  
+
   min-width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  
+
 }
+
 .dropdown-style {
   border: none;
   color: rgb(40, 40, 40);
   background-color: rgb(248, 252, 255);
   cursor: pointer;
   text-decoration: none;
-  
+
 }
+
 .dropdown-style:hover {
 
   background-color: rgb(243, 243, 243);
   text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-  
+
 }
+
 .sorting-box {
-  
+
   height: 50px;
-  position:relative;
+  position: relative;
   float: left;
   align-items: center;
   // filter btn
   margin: 10px;
+
   .filter-btn {
     min-height: 30px;
     height: 30px;
     width: 120px;
   }
-    //sort btn
+
+  //sort btn
   .sort-btn {
     min-height: 30px;
     height: 30px;
     width: 120px;
   }
+
   .filter-content {
-    
+
     flex-direction: column;
     display: none;
     position: absolute;
@@ -134,7 +146,7 @@ html {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 2;
     align-items: center;
-    
+
 
     .filter-type {
       height: 30px;
@@ -142,6 +154,7 @@ html {
       font-size: 1.2rem;
     }
   }
+
   .sort-content {
     // display: flex;
     flex-direction: column;
@@ -153,9 +166,9 @@ html {
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 2;
     align-items: center;
-    
-    
-    
+
+
+
     button {
       height: 30px;
       width: 120px;
@@ -163,131 +176,133 @@ html {
     }
   }
 }
-  //sort range
-  .sort-range {
-    width: 30%;
-    position: relative;
-    float: right;
-    margin-right: 40px;
-    .range-text {
-      display: inline;
-    }
 
-    .range-bar-holder {
+//sort range
+.sort-range {
+  width: 30%;
+  position: relative;
+  float: right;
+  margin-right: 40px;
+
+  .range-text {
+    display: inline;
+  }
+
+  .range-bar-holder {
+    width: 100%;
+
+    .range-bar {
+      position: relative;
       width: 100%;
+      height: 2rem;
+      display: block;
+      margin-left: 20px;
 
-      .range-bar {
-        position: relative;
+      input[type="range"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
         width: 100%;
-        height: 2rem;
-        display: block;
-        margin-left: 20px;
-
-        input[type="range"] {
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          width: 100%;
-          background: transparent;
-          appearance: none;
-          position: absolute;
-          z-index: 2;
-          height: 100%;
-          pointer-events: none;
-        }
-
-        input[type="range"]::-ms-track {
-          width: 100%;
-          cursor: pointer;
-          background: transparent;
-          border-color: transparent;
-          color: transparent;
-        }
-
-        //safari + chrome
-        input[type="range"]::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          pointer-events: all;
-          cursor: pointer;
-          border: 0 none;
-          width: 1px;
-          height: 1px;
-          background: grey;
-          border: 10px solid rgb(0, 0, 0);
-          border-radius: 50%;
-        }
-
-        //mozilla firefox
-        input[type="range"]::-moz-range-thumb {
-          pointer-events: all;
-          cursor: pointer;
-          border: 0 none;
-          width: 1px;
-          height: 1px;
-          background: grey;
-          border: 10px solid black;
-          border-radius: 50%;
-        }
-
-        //edge
-        input[type="range"]::-ms-thumb {
-          pointer-events: all;
-          cursor: pointer;
-          border: 0 none;
-          width: 1px;
-          height: 1px;
-          background: grey;
-          border: 10px solid black;
-          border-radius: 50%;
-        }
-
-        .range-bg {
-          position: absolute;
-          width: 100%;
-          top: 0.6rem;
-          z-index: 1;
-          height: 0.8rem;
-
-          .track {
-            position: absolute;
-            // z-index: 1;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            top: 0;
-            border-radius: 5rem;
-            background-color: rgb(212, 212, 212);
-          }
-
-          .range {
-            position: absolute;
-            // z-index: 2;
-            top: 0;
-            bottom: 0;
-            border-radius: 5rem;
-            background: rgb(255, 245, 102);
-            left: 0%;
-            right: 0%;
-          }
-        }
+        background: transparent;
+        appearance: none;
+        position: absolute;
+        z-index: 2;
+        height: 100%;
+        pointer-events: none;
       }
 
-      .range-price {
+      input[type="range"]::-ms-track {
         width: 100%;
-        color: black;
-        display: flex;
-        position: absolute;
-        left: 3%;
-        top: 60%;
-        gap: 90%;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+      }
 
-        .price-from {
-          margin-left: 5px;
-          
+      //safari + chrome
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        pointer-events: all;
+        cursor: pointer;
+        border: 0 none;
+        width: 1px;
+        height: 1px;
+        background: grey;
+        border: 10px solid rgb(0, 0, 0);
+        border-radius: 50%;
+      }
+
+      //mozilla firefox
+      input[type="range"]::-moz-range-thumb {
+        pointer-events: all;
+        cursor: pointer;
+        border: 0 none;
+        width: 1px;
+        height: 1px;
+        background: grey;
+        border: 10px solid black;
+        border-radius: 50%;
+      }
+
+      //edge
+      input[type="range"]::-ms-thumb {
+        pointer-events: all;
+        cursor: pointer;
+        border: 0 none;
+        width: 1px;
+        height: 1px;
+        background: grey;
+        border: 10px solid black;
+        border-radius: 50%;
+      }
+
+      .range-bg {
+        position: absolute;
+        width: 100%;
+        top: 0.6rem;
+        z-index: 1;
+        height: 0.8rem;
+
+        .track {
+          position: absolute;
+          // z-index: 1;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: 0;
+          border-radius: 5rem;
+          background-color: rgb(212, 212, 212);
         }
+
+        .range {
+          position: absolute;
+          // z-index: 2;
+          top: 0;
+          bottom: 0;
+          border-radius: 5rem;
+          background: rgb(255, 245, 102);
+          left: 0%;
+          right: 0%;
+        }
+      }
+    }
+
+    .range-price {
+      width: 100%;
+      color: black;
+      display: flex;
+      position: absolute;
+      left: 3%;
+      top: 60%;
+      gap: 90%;
+
+      .price-from {
+        margin-left: 5px;
+
       }
     }
   }
+}
 
 
 
@@ -328,10 +343,10 @@ html {
 
   .material-symbols-outlined {
     font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 48
   }
 
   button {
@@ -348,13 +363,14 @@ html {
     transition: 0.3s;
     z-index: 1;
   }
+
   button:hover {
-      font-variation-settings:
+    font-variation-settings:
       'FILL' 1,
       'wght' 600,
       'GRAD' 0,
       'opsz' 48;
-      opacity: 1;
+    opacity: 1;
   }
 
   button:active {
@@ -370,19 +386,23 @@ html {
     margin: 0;
     padding: 0;
   }
+
   .slideshow-button:active {
     background-color: rgba(255, 255, 255, 0);
     text-shadow: 1px 0px 0px black;
 
   }
+
   .btn-left {
     position: relative;
     left: calc(70px - 5%);
   }
+
   .btn-right {
     position: relative;
     right: calc(70px - 5%);
   }
+
   .donut-info {
     display: flex;
     flex-wrap: wrap;
@@ -404,7 +424,8 @@ html {
       align-items: center;
       margin: -40px 0;
       z-index: 0;
-      img{
+
+      img {
         min-width: 80%;
         max-width: 90%;
         min-height: 80%;
@@ -421,6 +442,8 @@ html {
     }
   }
 }
+
+
 
 /*Form*/
 
@@ -464,60 +487,60 @@ select {
 }
 
 /*hiding some input fields*/
-.hide{
+.hide {
   display: none;
 }
 
 /*Form errors*/
-.error-hidden1{
+.error-hidden1 {
   visibility: hidden;
 }
 
-.error-hidden2{
+.error-hidden2 {
   visibility: hidden;
 }
 
-.error-hidden3{
+.error-hidden3 {
   visibility: hidden;
 }
 
-.error-hidden4{
+.error-hidden4 {
   visibility: hidden;
 }
 
-.error-hidden5{
+.error-hidden5 {
   visibility: hidden;
 }
 
-.error-hidden6{
+.error-hidden6 {
   visibility: hidden;
 }
 
-.error-hidden7{
+.error-hidden7 {
   visibility: hidden;
 }
 
-.error-hidden8{
+.error-hidden8 {
   visibility: hidden;
 }
 
-.error-hidden9{
+.error-hidden9 {
   visibility: hidden;
 }
 
-.error-hidden10{
+.error-hidden10 {
   visibility: hidden;
 }
 
-.error-hidden11{
+.error-hidden11 {
   visibility: hidden;
 }
 
-.error-hidden12{
+.error-hidden12 {
   visibility: hidden;
 }
 
-.error-hidden13{
+.error-hidden13 {
   visibility: hidden;
 }
 
