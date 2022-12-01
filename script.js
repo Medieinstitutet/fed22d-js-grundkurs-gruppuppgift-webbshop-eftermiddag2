@@ -1052,7 +1052,7 @@ function isItChristmas() {
     //Månaderna börjar på 0, och slutar på 11 för någon anledning, så det är 11 för december...
     month: 11,
     //Men dagar börjar på 1.... så det blir den 24e
-    day: 1
+    day: 24
   }
   //Kollar av ifall månad och dag stämmer av med den dag vi kollar efter, isf return true.
   return (now.getMonth() == christmas.month && now.getDate() == christmas.day);
