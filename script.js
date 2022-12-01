@@ -595,7 +595,7 @@ orderBtn[0].addEventListener('click', () => {
 closeFormBtn.addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   backdropShadow.classList.add('hidden');
-}) //Clicking on the close button will close the form and get rid of backdrop shadow
+}); //Clicking on the close button will close the form and get rid of backdrop shadow
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
@@ -768,6 +768,7 @@ const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideI
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn');
 //const clearBtn = document.querySelector('#clearBtn');
+const closeConfirmBtn = document.querySelector('#closeConfirmBtn');
 
 //Variable for the confirmation
 const confirmationMessage = document.querySelector('#orderConfirm');
@@ -785,6 +786,9 @@ const error9 = document.querySelector('#error9');
 const error10 = document.querySelector('#error10');
 const error11 = document.querySelector('#error11');
 const error12 = document.querySelector('#error12');
+
+//Variable for the form container
+const formContainer = document.querySelector('#formContainer');
 
 //Keep track if fields have correct values
 let validName = false;
@@ -996,11 +1000,23 @@ function skipBillFields(e) {
   activateSendBtn();
 }
 
+//Function that prevents page refreshing when clicking on the send button
+function preventRefresh(e) {
+  e.preventDefault()
+}
+
 //Button functions
 function sendOrder() {
   //The confirmation will be displayed as a block when clicking on the send button
-  //FIX! The button reloads the page and the confirmation disappears immediately
+  //The form will be hidden
   confirmationMessage.style.display = 'block';
+  showForm[0].classList.toggle('hidden');
+}
+
+function closeConfirm() {
+  confirmationMessage.style.display = 'none';
+  backdropShadow.classList.add('hidden');
+  document.location.reload();
 }
 
 //Check values on input field
@@ -1024,5 +1040,9 @@ methodOfPayment.addEventListener('change', payByBill);
 methodOfPayment.addEventListener('change', skipCardFields);
 methodOfPayment.addEventListener('change', skipBillFields);
 
-//Send and clear buttons
+//Buttons
 sendBtn.addEventListener('click', sendOrder);
+closeConfirmBtn.addEventListener('click', closeConfirm);
+
+//Form 
+formContainer.addEventListener('submit', preventRefresh);
