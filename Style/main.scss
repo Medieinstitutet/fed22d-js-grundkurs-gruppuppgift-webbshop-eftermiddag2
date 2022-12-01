@@ -381,7 +381,7 @@ html {
     height: 40px;
     min-width: 40px;
     width: 40px;
-    font-size: 48px;
+    font-size: 3em;
     background-color: rgba(255, 255, 255, 0);
     margin: 0;
     padding: 0;
@@ -395,12 +395,13 @@ html {
 
   .btn-left {
     position: relative;
-    left: calc(70px - 5%);
+
+    left: 0px;
   }
 
   .btn-right {
     position: relative;
-    right: calc(70px - 5%);
+    right: 0px;
   }
 
   .donut-info {
@@ -409,7 +410,7 @@ html {
     min-width: calc(100% - 200px);
     justify-content: space-evenly;
 
-    h3 {
+    h2 {
       font-size: 1.5rem;
       margin: 10px auto;
       min-width: calc(100% - 200px);
@@ -419,6 +420,7 @@ html {
 
     .img-space {
       min-width: 100%;
+      max-width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
