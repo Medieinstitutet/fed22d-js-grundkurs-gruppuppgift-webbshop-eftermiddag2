@@ -3,9 +3,8 @@
 const donutIncrease = document.querySelectorAll('.donut-amount-increase'); //all + btns
 const donutDecrease = document.querySelectorAll('.donut-amount-reduce'); //all - btns
 const donutCountCart = document.getElementById('donut-counter-cart'); //text in cart
-const donutCostSummary = document.getElementById(
-  'donut-cost-summary-container'
-);
+// prettier-ignore
+const donutCostSummary = document.getElementById('donut-cost-summary-container');
 const sortingButtons = document.querySelectorAll('.sorting-type'); //filter btns
 
 const donutsContainer = document.getElementsByClassName('flex-content'); //array med div:en med ALLA munkar
@@ -30,54 +29,6 @@ tempDonutContainer.forEach((donut) => {
 });
 
 donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
-//   ---------------------------------------------------------------------------------------------------------------------
-//   ---------------------------------------------CART SUM-------------------------------------------------------
-
-const getDonutSum = () => {
-  //total price of all donuts including discount for >10 donuts
-  const sum = donuts.reduce((acc, { price, count }) => {
-    //reduce function
-    if (count >= 10) {
-      return acc + price * count * 0.9; // 10% off the price for the donut that has more than 10 count
-    }
-    return acc + price * count;
-  }, 0);
-
-  if (evenTuesday() && sum > 25) {
-    sum -= 25;
-  }
-
-  if (isMonday03to10()) {
-    //if it is mondag between 03 to 10 o'clock -> sum - 10% off
-    sum = Math.round(sum * 0.9);
-    discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen'; //adds discount text if isMonday03to10 is true
-  }
-  if (isFriday15toMonday03()) {
-    // scam prices on weekends
-    sum = Math.round(sum * 1.15); // + 15% hidden price on total sum
-  }
-
-  return Math.round(sum); //round to nearest integer
-};
-
-const getDonutCount = () => {
-  // total count for all donuts
-  const totalCount = donuts.reduce((acc, { count }) => {
-    // reduce function
-    return acc + count;
-  }, 0);
-  return totalCount;
-};
-
-// function getDonutCost() {
-//   let sum = 0;
-//   for (let i = 0; i < donutsContainer.length; i++) {
-//     sum +=
-//       donutsContainer[i].querySelector('.donut-price').innerHTML *
-//       donutsContainer[i].querySelector('.donut-count').innerHTML; // sum = sum+price*st
-//   }
-//   return sum;
-// }
 
 //   ---------------------------------------------------------------------------------------------------------------------
 //   --------------------------------------------INCREASE & DECREASE BUTTON--------------------------------------------------
@@ -117,7 +68,7 @@ const evenTuesday = () => {
 
   if (startDate.getDay() !== 1) {
     // if startDate IS NOT a monday, run code below
-    for (let i = 2; i <= 7; i++) {
+    for (let i = 2; i <= 7; i += 1) {
       startDate = new Date(currentDate.getFullYear(), 0, i); //change startDate to next day
       // when day matches monday -> break loop
       if (startDate.getDay() === 1) {
@@ -142,22 +93,54 @@ const checkLucia = () => {
   const monthDate = date.getMonth() + 1; // +1 because jan starts on 0
   const dayDate = date.getDate(); // get day of month
 
-  const isDec = monthDate == 12; // if the month is 12 (december)
-  const isLucia = dayDate == 13; // if day is 13
+  const isDec = monthDate === 12; // if the month is 12 (december)
+  const isLucia = dayDate === 13; // if day is 13
 
   return isDec && isLucia; // if both true -> return true
 };
 
-// [] Om rabattkoden a_damn_fine-cup_of-coffee matas in, blir hela beställningen 0 kr oavsett övriga gällande specialregler.
-//FORMULÄRKNAPP
-// sendBtn.removeAttribute('disabled');
-// } else {
-//   sendBtn.setAttribute('disabled', '');
-// }
+//   ---------------------------------------------------------------------------------------------------------------------
+//   ---------------------------------------------CART SUM-------------------------------------------------------
+
+const getDonutSum = () => {
+  //total price of all donuts including discount for >10 donuts
+  let sum = donuts.reduce((acc, { price, count }) => {
+    //reduce function
+    if (count >= 10) {
+      return acc + price * count * 0.9; // 10% off the price for the donut that has more than 10 count
+    }
+    return acc + price * count;
+  }, 0);
+
+  if (evenTuesday() && sum > 25) {
+    sum -= 25;
+  }
+
+  if (isMonday03to10()) {
+    //if it is mondag between 03 to 10 o'clock -> sum - 10% off
+    sum = Math.round(sum * 0.9);
+    discountText[0].innerHTML = 'Måndagsrabatt: 10 % på hela beställningen'; //adds discount text if isMonday03to10 is true
+  }
+  if (isFriday15toMonday03()) {
+    // scam prices on weekends
+    sum = Math.round(sum * 1.15); // + 15% hidden price on total sum
+  }
+
+  return Math.round(sum); //round to nearest integer
+};
+
+const getDonutCount = () => {
+  // total count for all donuts
+  const totalCount = donuts.reduce((acc, { count }) => {
+    // reduce function
+    return acc + count;
+  }, 0);
+  return totalCount;
+};
 
 const updateCarts = () => {
   //update basketSum, donutCountCart and donutCostSummery in HTML.
-  let sum = getDonutSum();
+  const sum = getDonutSum();
 
   donutCountCart.innerHTML = getDonutCount(); //set donutCountCart to getDonutCount
   donutCostSummary.childNodes[0].innerHTML = sum;
@@ -173,9 +156,13 @@ function detailsVisbility() {
   }
 }
 const clickPlus = (e) => {
-  e.currentTarget.parentElement.querySelector('.donut-count').innerHTML++; //Adds +1 amount to property 'count' in html
-  const iOfName = ({ name }) => {
-    //callback function to findIndex below
+  const donutCounter =
+    e.currentTarget.parentElement.querySelector('.donut-count');
+  donutCounter.innerHTML = Number(donutCounter.innerHTML) + 1;
+
+  //callback function to findIndex below
+  const indexOfName = ({ name }) => {
+    // search for index of donut name
 
     return (
       // find index where html donut-names matches with names in 'donuts'-object
@@ -184,22 +171,24 @@ const clickPlus = (e) => {
     );
   };
 
-  const iOfDonut = donuts.findIndex(iOfName); //'findIndex()' uses a function. function written obove
+  const indexOfDonut = donuts.findIndex(indexOfName); //'findIndex()' uses a function. function written obove
 
-  donuts[iOfDonut].count++; // Where found match -> Adds +1 amount to property 'count' in 'donuts'-object
+  donuts[indexOfDonut].count += 1; // Where found match -> Adds +1 amount to property 'count' in 'donuts'-object
 
   updateCarts(); //updates cart text
   detailsVisbility();
 };
 
 const clickMinus = (e) => {
+  const donutCounter =
+    e.currentTarget.parentElement.querySelector('.donut-count');
   if (
-    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML > 0 //only do if count is bigger than 0
+    donutCounter.innerHTML > 0 //only do if count is bigger than 0
   ) {
-    e.currentTarget.parentElement.querySelector('.donut-count').innerHTML--; // -1 amount to property 'count' in object
-
-    const iOfName = ({ name }) => {
-      //callback function to findIndex below
+    donutCounter.innerHTML = Number(donutCounter.innerHTML) - 1; // -1 amount to property 'count' in object
+    //callback function to findIndex below
+    const indexOfName = ({ name }) => {
+      // search for index of donut name
       return (
         // find index where html donut-names matches with names in 'donuts'-object
         name ===
@@ -207,9 +196,9 @@ const clickMinus = (e) => {
       );
     };
 
-    const iOfDonut = donuts.findIndex(iOfName);
+    const indexOfDonut = donuts.findIndex(indexOfName);
 
-    donuts[iOfDonut].count--; // Where found match -> Adds -1 amount to property 'count' in 'donuts'-object
+    donuts[indexOfDonut].count -= 1; // Where found match -> Adds -1 amount to property 'count' in 'donuts'-object
     updateCarts(); //Updates cart text
     detailsVisbility();
   }
@@ -239,10 +228,9 @@ const sortRatingBtnDesc = sortingButtons[5]; // btn sort rating low to high
 
 //For sortByType to work, index MUST start at 1 ---> Bubble sort
 const sortByType = (type, index) => {
-  //creates a function for sorting types (e.g name + price)
-
   const sortedArray = []; //  empty array for sorted preferences
   const unSortedArray = []; //  empty array for comparison
+  //creates a function for sorting types (e.g name + price)
   donuts.forEach((donut, j) => {
     // '.forEach' loops for every donut in 'donutsContainer'
     sortedArray.push(donut[type]); //extracts type from donuts into 'sortedArray'
@@ -374,31 +362,31 @@ const glazeArray = document.getElementsByClassName('category-glaze');
 
 const showNone = () => {
   // function to set 'display = flex' on all donuts with 'category-none' (noneArray)
-  for (let i = 0; i < noneArray.length; i++) {
+  for (let i = 0; i < noneArray.length; i += 1) {
     noneArray[i].style.display = 'flex';
   }
 };
 const showGlaze = () => {
   // function to set 'display = flex' on all donuts with 'category-glaze' (glazeArray)
-  for (let i = 0; i < glazeArray.length; i++) {
+  for (let i = 0; i < glazeArray.length; i += 1) {
     glazeArray[i].style.display = 'flex';
   }
 };
 const showSprinkle = () => {
   // function to set 'display = flex' on all donuts with 'category-sprinkle' (sprinkleArray)
-  for (let i = 0; i < sprinkleArray.length; i++) {
+  for (let i = 0; i < sprinkleArray.length; i += 1) {
     sprinkleArray[i].style.display = 'flex';
   }
 };
 const hideAll = () => {
   // 'display = none on all donuts
-  for (let i = 0; i < noneArray.length; i++) {
+  for (let i = 0; i < noneArray.length; i += 1) {
     noneArray[i].style.display = 'none';
   }
-  for (let i = 0; i < glazeArray.length; i++) {
+  for (let i = 0; i < glazeArray.length; i += 1) {
     glazeArray[i].style.display = 'none';
   }
-  for (let i = 0; i < sprinkleArray.length; i++) {
+  for (let i = 0; i < sprinkleArray.length; i += 1) {
     sprinkleArray[i].style.display = 'none';
   }
 };
@@ -457,31 +445,34 @@ const updateFeesCart = () => {
 };
 const createDonut = () => {
   // creates a new donut in cart with HTML below. Uses for loop so that we dont need to re-write code for multiple donuts
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 10; i += 1) {
     if (donuts[i].count > 0) {
       // add html in cartContent
       cartContent.innerHTML += `
-   <tr class="cart-delete">
-   <td>
-   <span>${donuts[i].name}</span>
-   <br>
-   <img class="donut-img" src="${donuts[i].img}
-   " alt="Munk med socker" height="100" width="100" />
-   </td>
-   <td>
-     <span class="cart-donut-count">${donuts[i].count}</span> st
-     <br>
-     <button class="cart-amount-decrease">-</button>
-     <button class="cart-amount-increase">+</button>
-   </td>
-   <td><span>${donuts[i].price}</span> kr/st</td>
-   <td><span class="cart-count">${
-     donuts[i].price * donuts[i].count
-   }</span> kr</td>
-   <td>
-     <button class="cart-delete-donut">Ta bort</button>
-   </td>
-   </tr>`;
+    <tr class="cart-delete">
+      <td>
+        <span>${donuts[i].name}</span>
+        <br>
+        <img class="donut-img" src="${
+          donuts[i].img
+        }" alt="Munk med socker" height="100" width="100" />
+      </td>
+      <td>
+        <span class="cart-donut-count">${donuts[i].count}</span> st
+        <br>
+        <button class="cart-amount-decrease">-</button>
+        <button class="cart-amount-increase">+</button>
+      </td>
+      <td>
+        <span>${donuts[i].price}</span> kr/st
+      </td>
+      <td>
+        <span class="cart-count">${donuts[i].price * donuts[i].count}</span> kr
+      </td>
+      <td>
+        <button class="cart-delete-donut">Ta bort</button>
+      </td>
+    </tr>`;
     }
   }
   //if its lucia day -> create a lucia donut
@@ -513,20 +504,28 @@ const createDonut = () => {
           .innerHTML;
       const partSum = cartDonutContainer.childNodes[7].childNodes[0];
 
-      cartDonutCount.innerHTML++; // + add cart count
+      cartDonutCount.innerHTML = Number(cartDonutCount.innerHTML) + 1; // + add cart count
       const newCartDonutCount = cartDonutCount.innerHTML; // set NEW cart counter
 
+      // part of backround click
       const indexOfDonutCart = donuts.findIndex(
-        (donut) => donut.name === cartDonutName
+        // find index in donuts-array where donut.name matches the button
+        ({ name }) => name === cartDonutName
       );
-      donuts[indexOfDonutCart].count++; // also add count in main so that cart and main is same
+      // part of backround click
+      donuts[indexOfDonutCart].count += 1; // also add count in main so that cart and main is same
+
       const donutsContainerArray = Array.from(donutsContainer); // convert donutsContainer to an array so that we can use 'findIndex'. Doesnt work on HTMLCollection
       const indexOfDonutFrontPage = donutsContainerArray.findIndex(
+        // find index in donutsContainer-array where
         (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
       );
+
       donutsContainer[
         indexOfDonutFrontPage
       ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount; // set main page counter equal to cart counter
+
+      // donutsContainer[indexOfDonutFrontPage].childNodes[5].click(); // click correct donut on main page
 
       const tempPartSum = Math.round(
         // round to nearest integer
@@ -554,7 +553,7 @@ const createDonut = () => {
         const cartDonutContainer = e.currentTarget.parentElement.parentElement;
         const partSum = cartDonutContainer.childNodes[7].childNodes[0];
 
-        cartDonutCount.innerHTML--; // -1 amount count in cart
+        cartDonutCount.innerHTML -= 1; // -1 amount count in cart
 
         const newCartDonutCount = cartDonutCount.innerHTML;
         const cartDonutName = //name of donut from cart
@@ -565,7 +564,7 @@ const createDonut = () => {
           (donut) => donut.name === cartDonutName
         );
 
-        donuts[indexOfDonutCart].count--;
+        donuts[indexOfDonutCart].count -= 1;
         const donutsContainerArray = Array.from(donutsContainer);
         const indexOfDonutFrontPage = donutsContainerArray.findIndex(
           (donut) =>
@@ -660,7 +659,6 @@ closeBtn[0].addEventListener('click', () => {
 const discountInput = document.getElementById('discount');
 const discountCheckBtn = document.getElementsByClassName('discount-check');
 const billOpt = document.getElementsByClassName('bill');
-console.log();
 //move to error group but higher
 const error13 = document.getElementById('error13');
 
@@ -688,10 +686,10 @@ orderBtn[0].addEventListener('click', () => {
 }); // The form will only be visible if you click on "Beställ"
 
 backdropShadow.addEventListener('click', () => {
-  if (cart[0].classList.contains('hidden') == false) {
+  if (cart[0].classList.contains('hidden') === false) {
     cart[0].classList.add('hidden');
   }
-  if (showForm[0].classList.contains('hidden') == false) {
+  if (showForm[0].classList.contains('hidden') === false) {
     showForm[0].classList.add('hidden');
   }
   backdropShadow.classList.add('hidden');

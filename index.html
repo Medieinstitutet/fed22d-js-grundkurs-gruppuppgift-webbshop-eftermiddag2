@@ -35,13 +35,27 @@
     </table>
     <table>
       <tr>
-        <td>Summa: <span class="basket-sum">0</span> kr <span class="discount-text"></span> <br>
-          Frakt: <span class="delivery-fee">25</span> kr <br>
-          Totalt: <span class="basket-total">25</span> kr
+        <td>Summa: <span class="basket-sum">0</span> kr
         </td>
-
         <td>
-          <a href="#formContainer"><button id="order">Beställ</button></a>
+        </td>
+        <td>
+          <span class="discount-text"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Frakt: <span class="delivery-fee">25</span> kr
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Totalt: <span class="basket-total">25</span> kr
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+          <button href="#formContainer" id="order">Beställ</button>
         </td>
         <td>
           <button id="closeCart">Stäng</button>
@@ -60,7 +74,7 @@
     <!--filter & sorting-->
     <div class="master-sorting-box">
       <div class="sorting-box">
-        <button class="filter-btn dropdown-style">Filtrera efter</button>
+        <nav class="filter-btn dropdown-style">Filtrera efter</nav>
         <div class="filter-content">
           <button class="filter-type dropdown-style">Glasyr</button>
           <button class="filter-type dropdown-style">Strössel</button>
@@ -69,7 +83,7 @@
         </div>
       </div>
       <div class="sorting-box">
-        <button class="sort-btn dropdown-style">Sortera efter:</button>
+        <nav class="sort-btn dropdown-style">Sortera efter:</nav>
         <div class="sort-content">
           <button class="dropdown-style"><span class="sorting-type">Pris &uarr;</span></button>
           <button class="dropdown-style"><span class="sorting-type">Pris &darr;</span></button>
