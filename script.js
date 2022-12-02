@@ -854,6 +854,7 @@ const resetForm = document.getElementById('formContainer'); // form
 const closeConfirmBtn = document.querySelector('#closeConfirmBtn');
 //Variable for the confirmation
 const confirmationMessage = document.querySelector('#orderConfirm');
+const orderConfirm = document.querySelector('#orderConfirm');
 
 //FIX! anonym funktion
 /*clearBtn.addEventListener('click', () => {
@@ -1095,25 +1096,6 @@ function skipCardFields(e) {
    activateSendBtn()
   }
 
-/*function skipCardFields(e) {
-  if (
-    (e.target.value === 'bill' && //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
-      cardNumberField.value === '') ||
-    (cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
-      dateField.value === '') ||
-    (dateField.value == null && cvcField.value === '') ||
-    cvcField.value == null
-  ) {
-    validCardNumber = true;
-    validDate = true;
-    validCvc = true;
-  } else {
-    validCardNumber = false;
-    validDate = false;
-    validCvc = false;
-  }
-  activateSendBtn();
-}*/
 
 function skipBillFields(e) {
   if(e.target.value === 'card') {
@@ -1122,6 +1104,21 @@ function skipBillFields(e) {
     validSocialNumber = false;
   }
   activateSendBtn();
+}
+
+const confirmationDonuts = () => {
+  //Shows the ordered donuts in the comfirmation
+  for (let i = 0; i < 10; i += 1) {
+    if (donuts[i].count > 0) {
+      // add html in cartContent
+      orderConfirm.innerHTML += `
+      <p>${donuts[i].name} ${donuts[i].count} st</p>
+      <br>
+      <img class="donut-img" src="${
+        donuts[i].img
+      }" alt="Munk med socker" height="100" width="100" />`
+    }
+  }
 }
 
 //Function that prevents page refreshing when clicking on the send button
@@ -1135,6 +1132,7 @@ function sendOrder() {
   //The form will be hidden
   confirmationMessage.style.display = 'block';
   showForm[0].classList.toggle('hidden');
+  confirmationDonuts();
 }
 
 function closeConfirm() {
@@ -1142,6 +1140,8 @@ function closeConfirm() {
   backdropShadow.classList.add('hidden');
   document.location.reload();
 }
+
+
 
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
