@@ -668,6 +668,7 @@ discountCheckBtn[0].addEventListener('click', checkDiscount);
 orderBtn[0].addEventListener('click', finalOrderSum); // The form will only be visible if you click on "Beställ"
 backdropShadow.addEventListener('click', isbackDropShadow);
 
+//FIX! anonym funktion
 closeFormBtn.addEventListener('click', () => {
   showForm[0].classList.toggle('hidden');
   backdropShadow.classList.add('hidden');
@@ -851,6 +852,7 @@ const closeConfirmBtn = document.querySelector('#closeConfirmBtn');
 //Variable for the confirmation
 const confirmationMessage = document.querySelector('#orderConfirm');
 
+//FIX! anonym funktion
 clearBtn.addEventListener('click', () => {
   resetForm.reset(); // reset form
   cartDeleteBtn.forEach((deleteBtn) => {
@@ -1209,3 +1211,8 @@ christmasCheck();
 
 
 
+function clearSite(){
+  document.location.reload();
+  }
+  
+setTimeout(clearSite, 1000*60*15)
