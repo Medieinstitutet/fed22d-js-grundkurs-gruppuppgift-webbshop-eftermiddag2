@@ -34,10 +34,18 @@ Prettier
 
 ### HTML Validering
 
+![HTML Valideringskonfirmation](screenshots/validations/validatedhtml.png)
+
 ### CSS Validering
+
+![CSS Valideringskonfirmation](screenshots/validations/validatedcss.png)
 
 ### Lighthouse
 
+Desktop  
+![Lighthouse desktop](screenshots/validations/lighthousedesktop.png)  
+Mobil  
+![Lighthouse mobil](screenshots/validations/lighthousemobile.png)  
 **Instruktioner**
 
 1. write "npm install" i terminalen för att installera eslint+prettier package. Installera även extensions (eslint & prettier) i VS-code.
