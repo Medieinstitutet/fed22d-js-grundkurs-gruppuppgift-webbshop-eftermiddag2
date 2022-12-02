@@ -3,7 +3,7 @@
 #**Gottfrids munkar**
 [Länk till sidan](https://www.example.com)
 
-##**Teknikstack**
+## **Teknikstack**
 
 **User interface**
 HTML
@@ -21,18 +21,18 @@ Visual Studio Code
 Eslint
 Prettier
 
-##**Bilder**
+## **Bilder**
 
 ![Mobil landningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-29%20Gottfrids%20Munkar.png)
 ![Mobil beställningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-48%20Gottfrids%20Munkar.png)
 
-##**Validering / Lighthouse**
+## **Validering / Lighthouse**
 
-###HTML Validering
+### HTML Validering
 
-###CSS Validering
+### CSS Validering
 
-###Lighthouse
+### Lighthouse
 
 **Instruktioner**
 
