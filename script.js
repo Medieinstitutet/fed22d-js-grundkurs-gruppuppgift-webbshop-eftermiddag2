@@ -1076,11 +1076,12 @@ function skipCardFields(e) {
   dateField.value === '' || dateField.value == null &&
   cvcField.value === '' || cvcField.value == null) {
     validCardNumber= true;
-});
+   }
+  }
 
-methodOfPayment.addEventListener('change', (event) => {
+/*function skipCardFields(e) {
   if (
-    (event.target.value === 'bill' && //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
+    (e.target.value === 'bill' && //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
       cardNumberField.value === '') ||
     (cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
       dateField.value === '') ||
@@ -1096,7 +1097,7 @@ methodOfPayment.addEventListener('change', (event) => {
     validCvc = false;
   }
   activateSendBtn();
-}
+}*/
 
 function skipBillFields(e) {
   if(e.target.value === 'card' && socialNumberField.value === '' || socialNumberField == null) {
@@ -1154,7 +1155,7 @@ closeConfirmBtn.addEventListener('click', closeConfirm);
 //Form 
 formContainer.addEventListener('submit', preventRefresh);
 
-});
+
 
 
 //God jul
@@ -1167,7 +1168,7 @@ function layoutChristmas() {
   const bannerText = document.querySelector('.banner>h1');
 
   //Går igenom alla pristexter och ändrar färgen till rött
-  priceText.forEach(element => {
+  priceText.forEach((element) => {
     element.style.color = "red";
   });
   //Backgrundsbild!
@@ -1180,17 +1181,17 @@ function layoutChristmas() {
 //funktion som kollar ifall det är jul.
 function isItChristmas() {
   // now = dagens datum
-  let now = new Date();
+  const now = new Date();
 
   //Vilken dag ska vi kolla? Efter julafton såklart!
-  let christmas = {
+  const christmas = {
     //Månaderna börjar på 0, och slutar på 11 för någon anledning, så det är 11 för december...
     month: 11,
     //Men dagar börjar på 1.... så det blir den 24e
     day: 24
   }
   //Kollar av ifall månad och dag stämmer av med den dag vi kollar efter, isf return true.
-  return (now.getMonth() == christmas.month && now.getDate() == christmas.day);
+  return (now.getMonth() === christmas.month && now.getDate() === christmas.day);
 
 }
 
