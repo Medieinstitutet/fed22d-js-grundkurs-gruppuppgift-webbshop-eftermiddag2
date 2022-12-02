@@ -1071,12 +1071,16 @@ function payByBill(e) {
 
 function skipCardFields(e) {
   //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty because those inputs are not needed if you don't pay with card
-  if(e.target.value === 'bill' &&                     
-  cardNumberField.value === '' || cardNumberField.value == null && 
-  dateField.value === '' || dateField.value == null &&
-  cvcField.value === '' || cvcField.value == null) {
-    validCardNumber= true;
+  if(e.target.value === 'bill') {
+    validCardNumber = true;
+    validCvc = true;
+    validDate = true;
+   } else {
+    validCardNumber = false;
+    validCvc = false;
+    validDate = false;
    }
+   activateSendBtn()
   }
 
 /*function skipCardFields(e) {
@@ -1100,7 +1104,7 @@ function skipCardFields(e) {
 }*/
 
 function skipBillFields(e) {
-  if(e.target.value === 'card' && socialNumberField.value === '' || socialNumberField == null) {
+  if(e.target.value === 'card') {
     validSocialNumber = true;
   } else {
     validSocialNumber = false;
