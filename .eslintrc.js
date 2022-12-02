@@ -13,6 +13,5 @@ module.exports = {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'arrow-body-style': ['error', 'as-needed'],
     'spaced-comment': ['error', 'never'],
-    'no-plusplus': [0],
   },
 };
