@@ -26,6 +26,9 @@ Prettier
 
 ![Mobil landningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-29%20Gottfrids%20Munkar.png)  
 ![Mobil beställningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-48%20Gottfrids%20Munkar.png)
+![Desktop landningssida](screenshots/firefox/desktop/Screenshot%202022-12-02%20at%2015-23-49%20Gottfrids%20Munkar.png)  
+![Desktop varukorg](screenshots/firefox/desktop/Screenshot%202022-12-02%20at%2015-24-00%20Gottfrids%20Munkar.png)  
+![Desktop beställningssida](screenshots/firefox/desktop/Screenshot%202022-12-02%20at%2015-24-19%20Gottfrids%20Munkar.png)
 
 ## **Validering / Lighthouse**
 
