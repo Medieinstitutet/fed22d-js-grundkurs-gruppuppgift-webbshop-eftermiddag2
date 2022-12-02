@@ -472,10 +472,10 @@ select {
   visibility: hidden;
 }
 
-/*Confirm*/
+/*Confirmation*/
 .order-confirm {
   display: none;
-  position: absolute;
+  position: fixed;
   height: 50vh;
   width: 50vw;
   padding: 1rem;
@@ -492,11 +492,10 @@ select {
 }
 
 .close-confirm-btn {
-  display: flex;
-  align-items: right;
   background-color: rgb(237, 171, 237);
   border-radius: 1rem;
   border-color: rgb(241, 153, 222);
+  margin-left: 35vw;
 }
 
 /*Keep at bottom to make sure it overrides default behavior*/
