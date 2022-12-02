@@ -1,29 +1,30 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=9231674&assignment_repo_type=AssignmentRepo)
 
-#**Gottfrids munkar**
+# **Gottfrids munkar**
+
 [Länk till sidan](https://www.example.com)
 
 ## **Teknikstack**
 
-**User interface**
-HTML
-CSS
+**User interface**  
+HTML  
+CSS  
 SASS
 
-**Funktionalitet**
+**Funktionalitet**  
 Javscript
 
-**Versionshantering**
+**Versionshantering**  
 Git
 
-**Verktyg**
-Visual Studio Code
-Eslint
+**Verktyg**  
+Visual Studio Code  
+Eslint  
 Prettier
 
 ## **Bilder**
 
-![Mobil landningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-29%20Gottfrids%20Munkar.png)
+![Mobil landningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-29%20Gottfrids%20Munkar.png)  
 ![Mobil beställningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-48%20Gottfrids%20Munkar.png)
 
 ## **Validering / Lighthouse**
