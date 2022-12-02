@@ -448,8 +448,8 @@ const createDonut = () => {
       <td>
         <span class="cart-donut-count">${donuts[i].count}</span> st
         <br>
-        <button class="cart-amount-decrease">-</button>
-        <button class="cart-amount-increase">+</button>
+        <button class="cart-amount-decrease button-style">-</button>
+        <button class="cart-amount-increase button-style">+</button>
       </td>
       <td>
         <span>${donuts[i].price}</span> kr/st
@@ -458,7 +458,7 @@ const createDonut = () => {
         <span class="cart-count price-text">${donuts[i].price * donuts[i].count}</span> kr
       </td>
       <td>
-        <button class="cart-delete-donut">Ta bort</button>
+        <button class="cart-delete-donut button-style">Ta bort</button>
       </td>
     </tr>`;
 
@@ -668,11 +668,14 @@ discountCheckBtn[0].addEventListener('click', checkDiscount);
 orderBtn[0].addEventListener('click', finalOrderSum); // The form will only be visible if you click on "Beställ"
 backdropShadow.addEventListener('click', isbackDropShadow);
 
-//FIX! anonym funktion
-closeFormBtn.addEventListener('click', () => {
+
+function closeForm() {
+  //Clicking on the close button will close the form and get rid of backdrop shadow
   showForm[0].classList.toggle('hidden');
   backdropShadow.classList.add('hidden');
-}); //Clicking on the close button will close the form and get rid of backdrop shadow
+}
+
+closeFormBtn.addEventListener('click', closeForm);
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
@@ -853,15 +856,25 @@ const closeConfirmBtn = document.querySelector('#closeConfirmBtn');
 const confirmationMessage = document.querySelector('#orderConfirm');
 
 //FIX! anonym funktion
-clearBtn.addEventListener('click', () => {
+/*clearBtn.addEventListener('click', () => {
   resetForm.reset(); // reset form
   cartDeleteBtn.forEach((deleteBtn) => {
     // delete donuts in cart when clearBtn is clicked on
     deleteBtn.click();
   });
   defaultCart();
-});
+}); */
 
+function clearOrder() {
+  resetForm.reset(); // reset form
+  cartDeleteBtn.forEach((deleteBtn) => {
+    // delete donuts in cart when clearBtn is clicked on
+    deleteBtn.click();
+  });
+  defaultCart();
+}
+
+clearBtn.addEventListener('click', clearOrder);
 
 //Variables for errors  FIX: Rename the errors maybe?
 const error1 = document.querySelector('#error1');
@@ -891,7 +904,6 @@ let validEMail = false;
 let validCardNumber = false;
 let validDate = false;
 let validCvc = false;
-/*let validDiscount = false; */
 let validSocialNumber = false;
 
 //Activates the button "skicka beställning" if all values are true
