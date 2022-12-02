@@ -921,8 +921,6 @@ function activateSendBtn() {
     validCvc &&
     validSocialNumber
   ) {
-    //add the other functions
-
     sendBtn.removeAttribute('disabled');
   } else {
     sendBtn.setAttribute('disabled', '');
