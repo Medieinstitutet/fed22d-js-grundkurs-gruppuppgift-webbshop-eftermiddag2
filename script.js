@@ -802,29 +802,6 @@ slideshowRight.forEach((btn) => {
 //---------------------------------------FORM------------------------------------------
 //-------------------------------------------------------------------------------------
 
-
-/**
- * [X]Kontrollera att alla fält är korrekt ifyllda
- * 
- * [X]Hitta och lägg in regex för mobilnummer, postnummer, email och personnummer
- * 
- * [X]Visa ett felmeddelande om fälten inte är korrekt ifyllda
- *
- * [X]Om betalsätt kort är valt, visa kortnummer, datum/år och cvc annars göm fälten
- *
- * [X]Kortnummer, datum/år och cvc ska endast valideras och påverka "skicka" knappen
- * om betalsätt kort är valt
- *
- * Rabattkod & specialregler
- *
- * Visa summan av beställningen
- *
- * Gör så att knappen "Rensa beställning" rensar beställningen
- *
- *[X]Lägg till en "stäng" knapp på formuläret
- */
-
-
 //Variables for the input fields
 const firstNameField = document.querySelector('#name');
 const lastNameField = document.querySelector('#lastName');
@@ -1049,7 +1026,6 @@ function checkSocialNumber() {
       socialNumberField.value
     )
   ) {
-    //FIX! Use regex to validate
     validSocialNumber = true;
     error12.classList.add('error-hidden');
   } else {
@@ -1110,16 +1086,22 @@ const confirmationDonuts = () => {
   //Shows the ordered donuts in the comfirmation
   for (let i = 0; i < 10; i += 1) {
     if (donuts[i].count > 0) {
-      // add html in cartContent
       orderConfirm.innerHTML += `
-      <p>${donuts[i].name} ${donuts[i].count} st</p>
+      <p class="confirm-donuts">${donuts[i].name} ${donuts[i].count} st</p>
       <br>
-      <img class="donut-img" src="${
+      <img class="donut-img confirm-donuts" src="${
         donuts[i].img
       }" alt="Munk med socker" height="100" width="100" />`
     }
   }
 }
+
+const defaultConfirm = () => {
+  const cartDonuts = document.querySelectorAll('.cart-delete');
+  cartDonuts.forEach((cartDonut) => {
+    cartDonut.remove();
+  });
+};
 
 //Function that prevents page refreshing when clicking on the send button
 function preventRefresh(e) {
@@ -1136,12 +1118,22 @@ function sendOrder() {
 }
 
 function closeConfirm() {
-  confirmationMessage.style.display = 'none';
-  backdropShadow.classList.add('hidden');
+  //Closes the confirmation and refreshes page
+  defaultConfirm();
   document.location.reload();
+  console.log('hej');
 }
 
 
+function preventEnterFromClosing(e) {
+  //Disables the Enter key in form, stops form from closing when using the Enter key
+  //The Enter key does not work at all in form, fix maybe?
+  const key = e.charCode || e.keyCode || 0;
+  if (key === 13) {
+  e.preventDefault();
+  }
+}
+ 
 
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
@@ -1170,9 +1162,7 @@ closeConfirmBtn.addEventListener('click', closeConfirm);
 
 //Form 
 formContainer.addEventListener('submit', preventRefresh);
-
-
-
+formContainer.addEventListener('keydown', preventEnterFromClosing);
 
 //God jul
 //Funktion kallas ifall det är jul
