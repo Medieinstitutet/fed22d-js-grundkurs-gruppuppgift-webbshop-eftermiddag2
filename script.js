@@ -629,6 +629,7 @@ const error13 = document.getElementById('error13');
 
 const orderBtn = document.querySelectorAll('#order');
 const showForm = document.querySelectorAll('#formContainer');
+const closeFormBtn = document.querySelector('#closeFormBtn');
 const formSum = document.getElementsByClassName('form-sum'); // sum in form
 
 const checkDiscount = () => {
@@ -639,6 +640,7 @@ const checkDiscount = () => {
     billOpt[0].removeAttribute('disabled'); // when sum is 0, billing option is enabled
   }
 };
+
 
 const finalOrderSum = () => {
   showForm[0].classList.toggle('hidden');
@@ -665,6 +667,11 @@ const isbackDropShadow = () => {
 discountCheckBtn[0].addEventListener('click', checkDiscount);
 orderBtn[0].addEventListener('click', finalOrderSum); // The form will only be visible if you click on "Beställ"
 backdropShadow.addEventListener('click', isbackDropShadow);
+
+closeFormBtn.addEventListener('click', () => {
+  showForm[0].classList.toggle('hidden');
+  backdropShadow.classList.add('hidden');
+}); //Clicking on the close button will close the form and get rid of backdrop shadow
 
 //filter price range
 const inputLeft = document.getElementById('range-left');
@@ -791,6 +798,29 @@ slideshowRight.forEach((btn) => {
 //---------------------------------------FORM------------------------------------------
 //-------------------------------------------------------------------------------------
 
+
+/**
+ * [X]Kontrollera att alla fält är korrekt ifyllda
+ * 
+ * [X]Hitta och lägg in regex för mobilnummer, postnummer, email och personnummer
+ * 
+ * [X]Visa ett felmeddelande om fälten inte är korrekt ifyllda
+ *
+ * [X]Om betalsätt kort är valt, visa kortnummer, datum/år och cvc annars göm fälten
+ *
+ * [X]Kortnummer, datum/år och cvc ska endast valideras och påverka "skicka" knappen
+ * om betalsätt kort är valt
+ *
+ * Rabattkod & specialregler
+ *
+ * Visa summan av beställningen
+ *
+ * Gör så att knappen "Rensa beställning" rensar beställningen
+ *
+ *[X]Lägg till en "stäng" knapp på formuläret
+ */
+
+
 //Variables for the input fields
 const firstNameField = document.querySelector('#name');
 const lastNameField = document.querySelector('#lastName');
@@ -817,6 +847,9 @@ const hiddenInputs = document.querySelectorAll(
 const sendBtn = document.querySelector('#sendBtn'); // 'skicka beställning'
 const clearBtn = document.getElementById('clearBtn'); //'rensa beställning' btn
 const resetForm = document.getElementById('formContainer'); // form
+const closeConfirmBtn = document.querySelector('#closeConfirmBtn');
+//Variable for the confirmation
+const confirmationMessage = document.querySelector('#orderConfirm');
 
 clearBtn.addEventListener('click', () => {
   resetForm.reset(); // reset form
@@ -826,6 +859,7 @@ clearBtn.addEventListener('click', () => {
   });
   defaultCart();
 });
+
 
 //Variables for errors  FIX: Rename the errors maybe?
 const error1 = document.querySelector('#error1');
@@ -840,6 +874,9 @@ const error9 = document.querySelector('#error9');
 const error10 = document.querySelector('#error10');
 const error11 = document.querySelector('#error11');
 const error12 = document.querySelector('#error12');
+
+//Variable for the form container
+const formContainer = document.querySelector('#formContainer');
 
 //Keep track if fields have correct values
 let validName = false;
@@ -883,10 +920,10 @@ function checkName() {
   if (firstNameField.value !== '' || firstNameField.value == null) {
     //if there's something written in the namefield it's valid
     validName = true;
-    error1.classList.add('error-hidden1');
+    error1.classList.add('error-hidden');
   } else {
     validName = false;
-    error1.classList.remove('error-hidden1');
+    error1.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -895,10 +932,10 @@ function checkLastName() {
   if (lastNameField.value !== '' || lastNameField.value == null) {
     //if there's something written in the lastnamefield it's valid
     validLastName = true;
-    error2.classList.add('error-hidden2');
+    error2.classList.add('error-hidden');
   } else {
     validLastName = false;
-    error2.classList.remove('error-hidden2');
+    error2.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -907,10 +944,10 @@ function checkAddress() {
   if (addressField.value.indexOf(' ') > -1) {
     //address is valid if there's a space in the input field
     validAddress = true;
-    error3.classList.add('error-hidden3');
+    error3.classList.add('error-hidden');
   } else {
     validAddress = false;
-    error3.classList.remove('error-hidden3');
+    error3.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -918,10 +955,10 @@ function checkAddress() {
 function checkPostNumber() {
   if (/^[0-9]{3}\s?[0-9]{2}$/.test(postNumberField.value)) {
     validPostNumber = true;
-    error4.classList.add('error-hidden4');
+    error4.classList.add('error-hidden');
   } else {
     validPostNumber = false;
-    error4.classList.remove('error-hidden4');
+    error4.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -930,10 +967,10 @@ function checkLocality() {
   if (localityField.value !== '' || localityField.value == null) {
     //if there's something written in the locality field it's valid
     validLocality = true;
-    error5.classList.add('error-hidden5');
+    error5.classList.add('error-hidden');
   } else {
     validLocality = false;
-    error5.classList.remove('error-hidden5');
+    error5.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -941,10 +978,10 @@ function checkLocality() {
 function checkPhoneNumber() {
   if (/^07[\d]{1}-?[\d]{7}$/.test(phoneNumberField.value)) {
     validPhoneNumber = true;
-    error6.classList.add('error-hidden6');
+    error6.classList.add('error-hidden');
   } else {
     validPhoneNumber = false;
-    error6.classList.remove('error-hidden6');
+    error6.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -952,10 +989,10 @@ function checkPhoneNumber() {
 function checkEMail() {
   if (/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(eMailField.value)) {
     validEMail = true;
-    error7.classList.add('error-hidden7');
+    error7.classList.add('error-hidden');
   } else {
     validEMail = false;
-    error7.classList.remove('error-hidden7');
+    error7.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -963,32 +1000,32 @@ function checkEMail() {
 function checkCardNumber() {
   if (cardNumberField.value !== null) {
     validCardNumber = true;
-    error9.classList.add('error-hidden9');
+    error9.classList.add('error-hidden');
   } else {
     validCardNumber = false;
-    error9.classList.remove('error-hidden9');
+    error9.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
 
 function checkDate() {
-  if (dateField.value !== null) {
-    validDate = true;
-    error10.classList.add('error-hidden10');
+  if(dateField.value !== null) {  
+    validDate = true;           
+    error10.classList.add('error-hidden');
   } else {
     validDate = false;
-    error10.classList.remove('error-hidden10');
+    error10.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
 
 function checkCvc() {
-  if (cvcField.value !== null) {
+  if(cvcField.value !== null) { 
     validCvc = true;
-    error11.classList.add('error-hidden11');
+    error11.classList.add('error-hidden');
   } else {
     validCvc = false;
-    error11.classList.remove('error-hidden11');
+    error11.classList.remove('error-hidden');
   }
   activateSendBtn();
 }
@@ -1001,12 +1038,92 @@ function checkSocialNumber() {
   ) {
     //FIX! Use regex to validate
     validSocialNumber = true;
-    error12.classList.add('error-hidden12');
+    error12.classList.add('error-hidden');
   } else {
     validSocialNumber = false;
-    error12.classList.remove('error-hidden12');
+    error12.classList.remove('error-hidden');
   }
   activateSendBtn();
+}
+
+//Functions to check what method of payment is chosen
+function payByCard(e) {
+  //If card is chosen as method of payment the hidden input fields will be displayed as blocks
+  if (e.target.value === 'card') {
+    hiddenInputs[0].style.display = 'block';
+    hiddenInputs[1].style.display = 'block';
+    hiddenInputs[2].style.display = 'block';
+  } else {
+    hiddenInputs[0].style.display = 'none';
+    hiddenInputs[1].style.display = 'none';
+    hiddenInputs[2].style.display = 'none';
+  }
+}
+
+function payByBill(e) {
+//If bill is chosen as method of payment the hidden input field "social number" will be dispalyed as a block
+  if(e.target.value ==='bill') {              
+    hiddenInputs[3].style.display = 'block';
+  } else {
+    hiddenInputs[3].style.display = 'none';
+  }
+}
+
+function skipCardFields(e) {
+  //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty because those inputs are not needed if you don't pay with card
+  if(e.target.value === 'bill' &&                     
+  cardNumberField.value === '' || cardNumberField.value == null && 
+  dateField.value === '' || dateField.value == null &&
+  cvcField.value === '' || cvcField.value == null) {
+    validCardNumber= true;
+});
+
+methodOfPayment.addEventListener('change', (event) => {
+  if (
+    (event.target.value === 'bill' && //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
+      cardNumberField.value === '') ||
+    (cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
+      dateField.value === '') ||
+    (dateField.value == null && cvcField.value === '') ||
+    cvcField.value == null
+  ) {
+    validCardNumber = true;
+    validDate = true;
+    validCvc = true;
+  } else {
+    validCardNumber = false;
+    validDate = false;
+    validCvc = false;
+  }
+  activateSendBtn();
+}
+
+function skipBillFields(e) {
+  if(e.target.value === 'card' && socialNumberField.value === '' || socialNumberField == null) {
+    validSocialNumber = true;
+  } else {
+    validSocialNumber = false;
+  }
+  activateSendBtn();
+}
+
+//Function that prevents page refreshing when clicking on the send button
+function preventRefresh(e) {
+  e.preventDefault()
+}
+
+//Button functions
+function sendOrder() {
+  //The confirmation will be displayed as a block when clicking on the send button
+  //The form will be hidden
+  confirmationMessage.style.display = 'block';
+  showForm[0].classList.toggle('hidden');
+}
+
+function closeConfirm() {
+  confirmationMessage.style.display = 'none';
+  backdropShadow.classList.add('hidden');
+  document.location.reload();
 }
 
 //Check values on input field
@@ -1024,61 +1141,18 @@ cvcField.addEventListener('change', checkCvc);
 /*discountField.addEventListener('change', checkDiscount); */
 socialNumberField.addEventListener('change', checkSocialNumber);
 
-methodOfPayment.addEventListener('change', (event) => {
-  //If card is chosen as method of payment
-  if (event.target.value === 'card') {
-    //the hidden input fields will be displayed as blocks
-    hiddenInputs[0].style.display = 'block';
-    hiddenInputs[1].style.display = 'block';
-    hiddenInputs[2].style.display = 'block';
-  } else {
-    hiddenInputs[0].style.display = 'none';
-    hiddenInputs[1].style.display = 'none';
-    hiddenInputs[2].style.display = 'none';
-  }
-});
+//Checking wich method of payment is chosen
+methodOfPayment.addEventListener('change', payByCard);
+methodOfPayment.addEventListener('change', payByBill);
+methodOfPayment.addEventListener('change', skipCardFields);
+methodOfPayment.addEventListener('change', skipBillFields);
 
-methodOfPayment.addEventListener('change', (event) => {
-  //If bill is chosen as method of payment
-  if (event.target.value === 'bill') {
-    //the hidden input field "social number" will be dispalyed as a block
-    hiddenInputs[3].style.display = 'block';
-  } else {
-    hiddenInputs[3].style.display = 'none';
-  }
-});
+//Buttons
+sendBtn.addEventListener('click', sendOrder);
+closeConfirmBtn.addEventListener('click', closeConfirm);
 
-methodOfPayment.addEventListener('change', (event) => {
-  if (
-    (event.target.value === 'bill' && //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty
-      cardNumberField.value === '') ||
-    (cardNumberField.value == null && //because those inputs are not needed if you don't pay with card
-      dateField.value === '') ||
-    (dateField.value == null && cvcField.value === '') ||
-    cvcField.value == null
-  ) {
-    validCardNumber = true;
-
-    validDate = true;
-    validCvc = true;
-  } else {
-    validCardNumber = false;
-    validDate = false;
-    validCvc = false;
-  }
-  activateSendBtn();
-});
-
-methodOfPayment.addEventListener('change', (event) => {
-  if (
-    (event.target.value === 'card' && socialNumberField.value === '') ||
-    socialNumberField == null
-  ) {
-    validSocialNumber = true;
-  } else {
-    validSocialNumber = false;
-  }
-  activateSendBtn();
+//Form 
+formContainer.addEventListener('submit', preventRefresh);
 
 });
 
@@ -1127,4 +1201,6 @@ function christmasCheck(){
   }
 }
 christmasCheck();
+
+
 

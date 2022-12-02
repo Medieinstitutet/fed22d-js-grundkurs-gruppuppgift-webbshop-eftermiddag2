@@ -454,7 +454,7 @@ form {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  background-color: rgba(176, 254, 255, 0.765);
+  background-image: linear-gradient(43deg, #7c8bd6 0%, #c865c1 46%, #FFCC70 100%);
   position: fixed;
   z-index: 60;
   left: 25%;
@@ -494,56 +494,35 @@ select {
 }
 
 /*Form errors*/
-.error-hidden1 {
+
+.error-hidden {
   visibility: hidden;
 }
 
-.error-hidden2 {
-  visibility: hidden;
+/*Confirmation*/
+.order-confirm {
+  display: none;
+  position: fixed;
+  height: 50vh;
+  width: 50vw;
+  padding: 1rem;
+  z-index: 62;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color: #fdecfc;
+  border: 0.4rem;
+  border-style: solid;
+  border-radius: 2rem;
+  border-color: rgb(241, 153, 222);
 }
 
-.error-hidden3 {
-  visibility: hidden;
-}
-
-.error-hidden4 {
-  visibility: hidden;
-}
-
-.error-hidden5 {
-  visibility: hidden;
-}
-
-.error-hidden6 {
-  visibility: hidden;
-}
-
-.error-hidden7 {
-  visibility: hidden;
-}
-
-.error-hidden8 {
-  visibility: hidden;
-}
-
-.error-hidden9 {
-  visibility: hidden;
-}
-
-.error-hidden10 {
-  visibility: hidden;
-}
-
-.error-hidden11 {
-  visibility: hidden;
-}
-
-.error-hidden12 {
-  visibility: hidden;
-}
-
-.error-hidden13 {
-  visibility: hidden;
+.close-confirm-btn {
+  background-color: rgb(237, 171, 237);
+  border-radius: 1rem;
+  border-color: rgb(241, 153, 222);
+  margin-left: 35vw;
 }
 
 /*Keep at bottom to make sure it overrides default behavior*/

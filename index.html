@@ -40,6 +40,7 @@
         <td>Summa: <span class="basket-sum">0</span> kr
         </td>
         <td>
+
         </td>
         <td>
           <span class="discount-text"></span>
@@ -58,6 +59,7 @@
         <td></td>
         <td>
           <button href="#formContainer" id="order">Beställ</button>
+
         </td>
         <td>
           <button id="closeCart">Stäng</button>
@@ -334,35 +336,37 @@
     </section>
 
     <!--form-->
+    
     <form id="formContainer" class="hidden">
+      <button id="closeFormBtn" class="close-form-button">Stäng</button>
       <label>
         <span>Förnamn</span><br>
         <input type="text" id="name"><br>
-        <span class="error-hidden1" id="error1">Obligatoriskt fält</span>
+        <span class="error-hidden1 error-hidden" id="error1">Obligatoriskt fält</span>
       </label>
 
       <label>
         <span>Efternamn</span><br>
         <input type="text" id="lastName"><br>
-        <span class="error-hidden2" id="error2">Obligatoriskt fält</span>
+        <span class="error-hidden2 error-hidden" id="error2">Obligatoriskt fält</span>
       </label>
 
       <label>
         <span>Adress(gata)</span><br>
         <input type="text" id="address"><br>
-        <span class="error-hidden3" id="error3">Felaktig adress</span>
+        <span class="error-hidden3 error-hidden" id="error3">Felaktig adress</span>
       </label>
 
       <label>
         <span>Postnummer</span><br>
         <input type="text" id="postNumber"><br>
-        <span class="error-hidden4" id="error4">Felaktigt postnummer</span>
+        <span class="error-hidden4 error-hidden" id="error4" >Felaktigt postnummer</span>
       </label>
 
       <label>
         <span>Postort</span><br>
         <input type="text" id="locality"><br>
-        <span class="error-hidden5" id="error5">Obligatoriskt fält</span>
+        <span class="error-hidden5 error-hidden" id="error5">Obligatoriskt fält</span>
       </label>
 
       <label>
@@ -373,13 +377,13 @@
       <label>
         <span>Telefon(mobil)</span><br>
         <input type="tel" id="phoneNumber"><br>
-        <span class="error-hidden6" id="error6">Felaktigt telefonnummer</span>
+        <span class="error-hidden6 error-hidden" id="error6">Felaktigt telefonnummer</span>
       </label>
 
       <label>
         <span>E-postadress</span><br>
         <input type="email" id="eMail"><br>
-        <span class="error-hidden7" id="error7">Felaktig E-postadress</span>
+        <span class="error-hidden7 error-hidden" id="error7">Felaktig E-postadress</span>
       </label>
 
       <!--method of payment-->
@@ -390,38 +394,40 @@
           <option value="card" id="optionCard">Kort</option>
           <option value="bill" class="bill">Faktura</option>
         </select><br>
-        <span class="error-hidden8" id="error8">Måste välja ett betalsätt</span>
+        <span class="error-hidden8 error-hidden" id="error8">Måste välja ett betalsätt</span>
       </label>
 
       <label class="hide" id="hideInput1">
         <span>Kortnummer</span><br>
         <input type="text" id="cardNumber"><br>
-        <span class="error-hidden9" id="error9">Felaktigt Kortnummer</span>
+        <span class="error-hidden9 error-hidden" id="error9">Felaktigt Kortnummer</span>
       </label>
 
       <label class="hide" id="hideInput2">
         <span>Datum/år</span><br>
         <input type="date" id="date"><br>
-        <span class="error-hidden10" id="error10">Felaktigt datum</span>
+        <span class="error-hidden10 error-hidden" id="error10">Felaktigt datum</span>
       </label>
 
       <label class="hide" id="hideInput3">
         <span>CVC</span><br>
         <input type="text" id="cvc"><br>
-        <span class="error-hidden11" id="error11">Felaktigt CVC</span>
+        <span class="error-hidden11 error-hidden" id="error11">Felaktigt CVC</span>
       </label>
 
       <label class="hide" id="hideInput4">
         <span>Personnummer</span><br>
         <input type="text" id="socialNumber"><br>
-        <span class="error-hidden12" id="error12">Felaktigt personnummer</span>
+        <span class="error-hidden12 error-hidden" id="error12">Felaktigt personnummer</span>
       </label>
 
       <label>
         <span>Rabattkod</span><br>
         <input type="text" id="discount"><br>
-        <span class="error-hidden13" id="error13">Felaktig rabattkod</span>
+        
+        <span class="error-hidden13 error-hidden" id="error13">Felaktig rabattkod</span>
         <button class="discount-check">Lägg till rabattkod</button>
+
       </label>
 
       <!--checkboxes-->
@@ -430,14 +436,20 @@
         <span>Jag godkänner behandling av personuppgifter</span>
       </label>
       <label>
-        <input type="checkbox" id="wantNews" name="wantNews" value="wantNews">
+        <input type="checkbox" checked id="wantNews" name="wantNews" value="wantNews">
         <span>Jag vill ha nyhetsbrev</span>
       </label>
       <p>Summa:<span class="form-sum"> 0</span> kr</p>
 
-      <button type="submit" disabled id="sendBtn">Skicka beställning</button>
-      <button id="clearBtn">Rensa beställning</button>
+      <button type="submit" disabled id="sendBtn" class="form-button">Skicka beställning</button>
+      <button id="clearBtn" class="form-button">Rensa beställning</button>
     </form>
+
+    <div id="orderConfirm" class="order-confirm">
+      <button id="closeConfirmBtn" class="close-confirm-btn">Stäng</button><br>
+      <span>Du har beställt: x antal munkar</span><br>
+      <span>Beräknad leveranstid: x minuter</span>
+    </div>
   </main>
 
   <script src="script.js" defer></script>
