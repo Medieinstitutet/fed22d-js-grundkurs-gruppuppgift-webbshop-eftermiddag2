@@ -46,8 +46,4 @@ Desktop
 ![Lighthouse desktop](screenshots/validations/lighthousedesktop.png)  
 Mobil  
 ![Lighthouse mobil](screenshots/validations/lighthousemobile.png)  
-**Instruktioner**
-
-1. write "npm install" i terminalen för att installera eslint+prettier package. Installera även extensions (eslint & prettier) i VS-code.
-2. Tips: Formate on save i vscode eller skriv "npm run lint" i terminalen för att koden ska kollas igenom.
-3. i package.json -> under "scripts": kan nya kortkommandon läggas till för easy acess. Ex som "npm run lint".
+_Notering: Mycket av mobil performance krav består av bundling av javascript, vilket inte vi har gått igenom._
