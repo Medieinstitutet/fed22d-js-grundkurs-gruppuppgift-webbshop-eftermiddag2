@@ -828,10 +828,10 @@ const hiddenInputs = document.querySelectorAll(
 const sendBtn = document.querySelector('#sendBtn'); // 'skicka beställning'
 const clearBtn = document.getElementById('clearBtn'); //'rensa beställning' btn
 const resetForm = document.getElementById('formContainer'); // form
-const closeConfirmBtn = document.querySelector('#closeConfirmBtn');
+const closeConfirmBtn = document.getElementById('closeConfirmBtn');
 //Variable for the confirmation
 const confirmationMessage = document.querySelector('#orderConfirm');
-const orderConfirm = document.querySelector('#orderConfirm');
+const orderConfirm = document.querySelector('#summaryConfirm');
 
 //FIX! anonym funktion
 /*clearBtn.addEventListener('click', () => {
@@ -1086,12 +1086,10 @@ const confirmationDonuts = () => {
   //Shows the ordered donuts in the comfirmation
   for (let i = 0; i < 10; i += 1) {
     if (donuts[i].count > 0) {
-      orderConfirm.innerHTML += `
+      orderConfirm.innerHTML += ` 
       <p class="confirm-donuts">${donuts[i].name} ${donuts[i].count} st</p>
       <br>
-      <img class="donut-img confirm-donuts" src="${
-        donuts[i].img
-      }" alt="Munk med socker" height="100" width="100" />`
+      <img class="donut-img confirm-donuts" src="${donuts[i].img}" alt="Munk med socker" height="60" width="60" />`;
     }
   }
 }
@@ -1121,7 +1119,7 @@ function closeConfirm() {
   //Closes the confirmation and refreshes page
   defaultConfirm();
   document.location.reload();
-  console.log('hej');
+  
 }
 
 
