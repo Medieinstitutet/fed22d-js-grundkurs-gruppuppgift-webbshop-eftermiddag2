@@ -50,16 +50,16 @@ tempDonutContainer.forEach((donut) => {
 });
 
 //check day for special rules:
-const isMonday03to10 = () => {
+function isMonday03to10() {
   //return true if it is monday 03:00-10:00, else return false
   const date = new Date(); // get today's date
   const time = date.getHours(); // get today's hours
   const isMonday = date.getDay() === 1; // if today is monday return true, else false
 
   return isMonday && time >= 3 && time < 10; // if true + true + true = return true, if true + true + false = return false
-};
+}
 
-const isFriday15toMonday03 = () => {
+function isFriday15toMonday03() {
   //return true if it is friday after 15:00 and before monday 03:00, else return false
   const date = new Date();
   const time = date.getHours();
@@ -70,9 +70,9 @@ const isFriday15toMonday03 = () => {
   const isSunday = getDay === 0;
 
   return (isFriday && time >= 15) || isSaturday || isSunday || (isMonday && time < 3); // one part has to be true to retun true, otherwise return false
-};
+}
 
-const evenTuesday = () => {
+function evenTuesday() {
   const currentDate = new Date(); // todays date
 
   let startDate = new Date(currentDate.getFullYear(), 0, 1); //first date of the year of current date. 0 = january. 1 = sunday 2022
@@ -95,9 +95,9 @@ const evenTuesday = () => {
   const isEvenWeek = currentWeek % 2 === 0; // check even week nr
   const isTuesday = currentDate.getDay() === 2; // check if tuesday
   return isEvenWeek && isTuesday; // if isEvenWeek and isTuesday true return true
-};
+}
 
-const checkLucia = () => {
+function checkLucia() {
   const date = new Date(); //todays date
   const monthDate = date.getMonth() + 1; // +1 because jan starts on 0
   const dayDate = date.getDate(); // get day of month
@@ -106,17 +106,18 @@ const checkLucia = () => {
   const isLucia = dayDate === 13; // if day is 13
 
   return isDec && isLucia; // if both true -> return true
-};
+}
 
-const getDonutSum = () => {
+function calcDonutSum(acc, { price, count }) {
+  //reduce function
+  if (count >= 10) {
+    return acc + price * count * 0.9; // 10% off the price for the donut that has more than 10 count
+  }
+  return acc + price * count;
+}
+function getDonutSum() {
   //total price of all donuts including discount for >10 donuts
-  let sum = donuts.reduce((acc, { price, count }) => {
-    //reduce function
-    if (count >= 10) {
-      return acc + price * count * 0.9; // 10% off the price for the donut that has more than 10 count
-    }
-    return acc + price * count;
-  }, 0);
+  let sum = donuts.reduce(calcDonutSum, 0);
 
   if (evenTuesday() && sum > 25) {
     sum -= 25;
@@ -133,24 +134,25 @@ const getDonutSum = () => {
   }
 
   return Math.round(sum); //round to nearest integer
-};
+}
 
-const getDonutCount = () => {
+function calcDonutCount(acc, { count }) {
+  // reduce function
+  return acc + count;
+}
+function getDonutCount() {
   // total count for all donuts
-  const totalCount = donuts.reduce((acc, { count }) => {
-    // reduce function
-    return acc + count;
-  }, 0);
+  const totalCount = donuts.reduce(calcDonutCount, 0);
   return totalCount;
-};
+}
 
-const updateCarts = () => {
+function updateCarts() {
   //update basketSum, donutCountCart and donutCostSummery in HTML.
   const sum = getDonutSum();
 
   donutCountCart.innerHTML = getDonutCount(); //set donutCountCart to getDonutCount
   donutCostSummary.childNodes[0].innerHTML = sum;
-};
+}
 
 function detailsVisbility() {
   if (getDonutCount() <= 0) {
@@ -163,16 +165,16 @@ function detailsVisbility() {
 }
 
 // + and - btn
-const clickPlusMinusMain = (e) => {
+function clickPlusMinusMain(e) {
   const findBtn = e.currentTarget.innerHTML;
   const donutCounter = e.currentTarget.parentElement.querySelector('.donut-count');
   const donutName = e.currentTarget.parentElement.querySelector('.donut-name');
   //callback function to findIndex
   // search for index of donut name
   // find index where html donut-names matches with names in 'donuts'-object
-  const indexOfName = ({ name }) => {
+  function indexOfName({ name }) {
     return name === donutName.innerHTML;
-  };
+  }
   const indexOfDonut = donuts.findIndex(indexOfName); // needs to be after 'indexOfName'
   //only do if count is bigger than 0
   if (donutCounter.innerHTML <= 0 && findBtn === 'remove') {
@@ -193,27 +195,28 @@ const clickPlusMinusMain = (e) => {
 
   updateCarts(); //Updates cart text
   detailsVisbility();
-};
+}
 
 //sort btns
 //For sortByType to work, index MUST start at 1 ---> Bubble sort
-const sortByType = (type, index) => {
+function sortByType(type, index) {
   const sortedArray = []; //  empty array for sorted preferences
   const unSortedArray = []; //  empty array for comparison
-  //creates a function for sorting types (e.g name + price)
-  donuts.forEach((donut, j) => {
+  function sortTypeFn(donut, j) {
     // '.forEach' loops for every donut in 'donutsContainer'
     sortedArray.push(donut[type]); //extracts type from donuts into 'sortedArray'
     unSortedArray.push(
       // extracts donuts type from 'index.html' into 'unSortedArray'
       document.getElementsByClassName(`donut-${type}`)[j].innerHTML //gets the value of the type
     );
-  });
+  }
 
-  const compare = (value) => {
+  //creates a function for sorting types (e.g name + price)
+  donuts.forEach(sortTypeFn);
+  function compare(value) {
     // compares all values from unSortedArray with values in sortedArray until a match, e.g 2===2
     return value === sortedArray[index]; // condition for match for '.findIndex'. '.findIndex' requires a function with conditions.
-  };
+  }
 
   const foundIndex = unSortedArray.findIndex(compare); //finds index in unSortedArray where elements matches with the sortedArray. It compares with the current index recieved in this function.
   mainDonuts.insertBefore(donutsContainer[foundIndex], form); //insert the found donut above the position reference; <form id="form-contianer"> in 'index.html'
@@ -233,10 +236,10 @@ const sortByType = (type, index) => {
       sortByType('rating', index + 1);
     }
   }
-};
+}
 
 // sort array with objects of ascending proprerty name, from A-Ö.
-const sortNameAscFn = (a, b) => {
+function sortNameAscFn(a, b) {
   // compare first letter in a with first letter in b. Each letter (lower and upper) has different values e.g console.log("a".charCodeAt(0)) returns 97
   if (a.name < b.name) {
     return -1; //if return < 0 ---> sort a BEFORE b
@@ -245,14 +248,14 @@ const sortNameAscFn = (a, b) => {
     return 1; //if return < 0 ---> sort a AFTER b
   }
   return 0; // if its 0 ---> keep order
-};
+}
 
-const sortNameAsc = () => {
+function sortNameAsc() {
   donuts.sort(sortNameAscFn); // sorts donuts by sortNameAsc()
   sortByType('name', 1); // sort name + start index which is 1
-};
+}
 
-const sortNameDescFn = (a, b) => {
+function sortNameDescFn(a, b) {
   // sort array with objects of proprerty name, from Ö-A.
   if (a.name > b.name) {
     return -1;
@@ -261,72 +264,72 @@ const sortNameDescFn = (a, b) => {
     return 1;
   }
   return 0;
-};
+}
 
-const sortNameDesc = () => {
+function sortNameDesc() {
   donuts.sort(sortNameDescFn);
   sortByType('name', 1); // sort name + start index which is 1
-};
+}
 
-const sortPriceAscFn = (a, b) => {
+function sortPriceAscFn(a, b) {
   //a & b is only made up arguments in this callback function
   return b.price - a.price; //sorts 'donuts array' by ascending price.
-};
+}
 
-const sortPriceAsc = () => {
+function sortPriceAsc() {
   donuts.sort(sortPriceAscFn);
   sortByType('price', 1); // sort price + start index which is 1
-};
+}
 
-const sortPriceDescFn = (a, b) => {
+function sortPriceDescFn(a, b) {
   return a.price - b.price; // sorts 'donuts array' by descending price
-};
+}
 
-const sortPriceDesc = () => {
+function sortPriceDesc() {
   donuts.sort(sortPriceDescFn);
   sortByType('price', 1); // sort price + start index which is 1
-};
+}
 
 //sort ratings
-const sortRatingAscFn = (a, b) => {
+function sortRatingAscFn(a, b) {
   return b.rating - a.rating; // sorts 'donuts array' by rating
-};
+}
 
-const sortRatingAsc = () => {
+function sortRatingAsc() {
   donuts.sort(sortRatingAscFn);
   sortByType('rating', 1);
-};
+}
 
-const sortRatingDescFn = (a, b) => {
+function sortRatingDescFn(a, b) {
   return a.rating - b.rating;
-};
+}
 
-const sortRatingDesc = () => {
+function sortRatingDesc() {
   donuts.sort(sortRatingDescFn);
   sortByType('rating', 1);
-};
+}
 
 // filter after categories
-const showNone = () => {
+function showNone() {
   // function to set 'display = flex' on all donuts with 'category-none' (noneArray)
   for (let i = 0; i < noneArray.length; i += 1) {
     noneArray[i].style.display = 'flex';
   }
-};
-const showGlaze = () => {
+}
+function showGlaze() {
   // function to set 'display = flex' on all donuts with 'category-glaze' (glazeArray)
   for (let i = 0; i < glazeArray.length; i += 1) {
     glazeArray[i].style.display = 'flex';
   }
-};
-const showSprinkle = () => {
+}
+function showSprinkle() {
   // function to set 'display = flex' on all donuts with 'category-sprinkle' (sprinkleArray)
   for (let i = 0; i < sprinkleArray.length; i += 1) {
     sprinkleArray[i].style.display = 'flex';
   }
-};
-const hideAll = () => {
-  // 'display = none on all donuts
+}
+// 'display = none on all donuts
+function hideAll() {
   for (let i = 0; i < noneArray.length; i += 1) {
     noneArray[i].style.display = 'none';
   }
@@ -336,36 +339,39 @@ const hideAll = () => {
   for (let i = 0; i < sprinkleArray.length; i += 1) {
     sprinkleArray[i].style.display = 'none';
   }
-};
+}
 
-const filterGlaze = () => {
+function filterGlaze() {
   // function that only shows donuts with 'category-glaze'
   hideAll(); // start with all donuts have 'display = none'
   showGlaze(); // only change 'display = flex' on donuts that is selected
-};
+}
 // same reasoning as filterGlaze
-const filterSprinkle = () => {
+function filterSprinkle() {
   hideAll();
   showSprinkle();
-};
-const filterNone = () => {
+}
+function filterNone() {
   hideAll();
   showNone();
-};
+}
 // show all donuts
-const filterAll = () => {
+function filterAll() {
   showNone();
   showGlaze();
   showSprinkle();
-};
+}
 
-donutIncrease.forEach((button) => {
+function increaseBtn(button) {
   button.addEventListener('click', clickPlusMinusMain);
-});
+}
+donutIncrease.forEach(increaseBtn);
 
-donutDecrease.forEach((button) => {
+function decreaseBtn(button) {
   button.addEventListener('click', clickPlusMinusMain);
-});
+}
+donutDecrease.forEach(decreaseBtn);
+
 sortNameBtnAsc.addEventListener('click', sortNameAsc);
 sortNameBtnDesc.addEventListener('click', sortNameDesc);
 sortPriceBtnAsc.addEventListener('click', sortPriceAsc);
@@ -389,7 +395,7 @@ let cartDeleteBtn = document.querySelectorAll('.cart-delete-donut');
 const deliveryFee = document.getElementsByClassName('delivery-fee'); // 'Frakt' in cart
 const totalFee = document.getElementsByClassName('basket-total'); // 'Totalt' in cart
 
-const updateFeesCart = () => {
+function updateFeesCart() {
   const sumPrice = getDonutSum(); // 'Summa' in cart
   const totalDonutCount = getDonutCount(); //all donuts in cart
 
@@ -404,22 +410,19 @@ const updateFeesCart = () => {
   }
   basketSum[0].innerHTML = sumPrice;
   totalFee[0].innerHTML = Number(deliveryFee[0].innerHTML) + sumPrice; // totalFee = deliveryFee + sumPrice
-};
+}
 
-const createDonut = () => {
+function createDonut() {
   // creates a new donut in cart with HTML below. Uses for loop so that we dont need to re-write code for multiple donuts
   for (let i = 0; i < 10; i += 1) {
     if (donuts[i].count > 0) {
       // add html in cartContent
       cartContent.innerHTML += `
-
     <tr class="cart-delete">
       <td>
         <span>${donuts[i].name}</span>
         <br>
-        <img class="donut-img" src="${
-          donuts[i].img
-        }" alt="Munk med socker" height="100" width="100" />
+        <img class="donut-img" src="${donuts[i].img}" alt="Munk med socker" height="100" width="100" />
       </td>
       <td>
         <span class="cart-donut-count">${donuts[i].count}</span> st
@@ -458,21 +461,21 @@ const createDonut = () => {
   cartMinusBtns = document.querySelectorAll('.cart-amount-decrease'); // all minus btns in cart
   cartDeleteBtn = document.querySelectorAll('.cart-delete-donut'); // all delete btns in cart
 
-  const clickPlusMinusCart = (e) => {
+  function clickPlusMinusCart(e) {
     // identify which btn
     const findBtn = e.currentTarget.innerHTML;
     // donut count in cart
     const cartDonutCount = e.currentTarget.parentElement.childNodes[1];
     const cartDonutContainer = e.currentTarget.parentElement.parentElement;
     //name of donut from cart
-    const cartDonutName =
-      e.currentTarget.parentElement.previousElementSibling.childNodes[1].innerHTML;
+    const cartDonutName = e.currentTarget.parentElement.previousElementSibling.childNodes[1].innerHTML;
     const partSum = cartDonutContainer.childNodes[7].childNodes[1];
-    // set NEW cart counter
     const newCartDonutCount = cartDonutCount.innerHTML;
-
+    function indexOfDonutName({ name }) {
+      return name === cartDonutName;
+    }
     // find index in donuts-array where donut.name matches the button
-    const indexOfDonutCart = donuts.findIndex(({ name }) => name === cartDonutName);
+    const indexOfDonutCart = donuts.findIndex(indexOfDonutName);
     const donutsContainerArray = Array.from(donutsContainer); // convert donutsContainer to an array so that we can use 'findIndex'. Doesnt work on HTMLCollection
     const indexOfDonutFrontPage = donutsContainerArray.findIndex(
       // find index in donutsContainer-array where
@@ -496,15 +499,13 @@ const createDonut = () => {
     }
 
     // set main page counter equal to cart counter
-    donutsContainer[
-      indexOfDonutFrontPage
-    ].childNodes[3].childNodes[7].childNodes[0].innerHTML = newCartDonutCount;
+    donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML =
+      newCartDonutCount;
 
     // tempPartSum + if + partSum.innerHTML = tempPartSum.
     // round to nearest integer
     let tempPartSum = Math.round(
-      cartDonutContainer.childNodes[5].childNodes[1].innerHTML *
-        donuts[indexOfDonutCart].count
+      cartDonutContainer.childNodes[5].childNodes[1].innerHTML * donuts[indexOfDonutCart].count
     );
 
     //if there is 10 or more of the same donut -> tempPartSum and 10% price off
@@ -516,9 +517,9 @@ const createDonut = () => {
 
     updateFeesCart(); //updates fees in cart
     updateCarts();
-  };
+  }
 
-  const clickDeleteCart = (e) => {
+  function clickDeleteCart(e) {
     const cartDonutName = //name of donut in cart
       e.currentTarget.parentElement.parentElement.childNodes[1].childNodes[1].innerHTML;
     const deleteDonut = e.currentTarget.parentElement.parentElement;
@@ -530,37 +531,38 @@ const createDonut = () => {
     );
 
     donuts[indexOfDonutCart].count = 0; // set count for deleted donut to 0
-    donutsContainer[
-      indexOfDonutFrontPage
-    ].childNodes[3].childNodes[7].childNodes[0].innerHTML = 0; // set count for deleted donut in main to 0
+    donutsContainer[indexOfDonutFrontPage].childNodes[3].childNodes[7].childNodes[0].innerHTML = 0; // set count for deleted donut in main to 0
 
     deleteDonut.remove(); // remove selected donut
 
     updateFeesCart(); //update fees in cart
     updateCarts(); // update cart
-  };
+  }
 
-  // loop over every plus btns in cart
-  cartPlusBtns.forEach((plusBtn) => {
+  function cartPlusBtnFn(plusBtn) {
     plusBtn.addEventListener('click', clickPlusMinusCart);
-  });
+  }
+  // loop over every plus btns in cart
 
-  cartMinusBtns.forEach((minusBtn) => {
+  function cartMinusBtnFn(minusBtn) {
     minusBtn.addEventListener('click', clickPlusMinusCart);
-  });
+  }
 
-  cartDeleteBtn.forEach((deleteBtn) => {
+  function cartDeleteBtnFn(deleteBtn) {
     deleteBtn.addEventListener('click', clickDeleteCart);
-  });
-};
+  }
+  cartPlusBtns.forEach(cartPlusBtnFn);
+  cartMinusBtns.forEach(cartMinusBtnFn);
+  cartDeleteBtn.forEach(cartDeleteBtnFn);
+}
 //when closing cart, remove all existing donuts in cart
 //cart should be empty when closed. When open cart, create donuts and fees for the order
-const defaultCart = () => {
+function defaultCart() {
   const cartDonuts = document.querySelectorAll('.cart-delete');
   cartDonuts.forEach((cartDonut) => {
     cartDonut.remove();
   });
-};
+}
 
 const openBtn = document.querySelectorAll('#openCart');
 const closeBtn = document.querySelectorAll('#closeCart');
@@ -568,7 +570,7 @@ const backdropShadow = document.querySelector('#shadowcast');
 const cart = document.querySelectorAll('#shoppingCart');
 
 // If you click on "Varukorg" the shopping cart will open
-const openCart = () => {
+function openCart() {
   cart[0].classList.toggle('hidden');
 
   backdropShadow.classList.remove('hidden');
@@ -577,15 +579,15 @@ const openCart = () => {
   createDonut(); // when open cart: create ordered donuts from main in cart
   updateFeesCart(); // when open cart: update all fees in cart including discounts
   christmasCheck();
-};
+}
 
 // If you click on the button "Stäng" while the shopping cart is open it will close the shopping cart
-const closeCart = () => {
+function closeCart() {
   cart[0].classList.toggle('hidden');
   backdropShadow.classList.add('hidden');
 
   defaultCart();
-};
+}
 
 openBtn[0].addEventListener('click', openCart);
 closeBtn[0].addEventListener('click', closeCart);
@@ -601,25 +603,25 @@ const showForm = document.querySelectorAll('#formContainer');
 const closeFormBtn = document.querySelector('#closeFormBtn');
 const formSum = document.getElementsByClassName('form-sum'); // sum in form
 
-const checkDiscount = () => {
+function checkDiscount() {
   error13.style.visibility = 'visible'; // show msg because input-field is empty
   if (discountInput.value === 'a_damn_fine-cup_of-coffee') {
     error13.innerHTML = 'Giltig rabattkod'; //change msg for discount
     formSum[0].innerHTML = 0; // change formSum to 0kr
     billOpt[0].removeAttribute('disabled'); // when sum is 0, billing option is enabled
   }
-};
+}
 
-const finalOrderSum = () => {
+function finalOrderSum() {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
   formSum[0].innerHTML = totalFee[0].innerHTML; // set sum in form to total fee in cart
   if (Number(formSum[0].innerHTML) >= 800) {
     billOpt[0].setAttribute('disabled', ''); // disabled billing option
   }
-};
+}
 
-const isbackDropShadow = () => {
+function isbackDropShadow() {
   if (cart[0].classList.contains('hidden') === false) {
     defaultCart();
     cart[0].classList.add('hidden');
@@ -628,14 +630,14 @@ const isbackDropShadow = () => {
     showForm[0].classList.add('hidden');
   }
   backdropShadow.classList.add('hidden');
-};
+}
 
 discountCheckBtn[0].addEventListener('click', checkDiscount);
 orderBtn[0].addEventListener('click', finalOrderSum); // The form will only be visible if you click on "Beställ"
 backdropShadow.addEventListener('click', isbackDropShadow);
 
+//Clicking on the close button will close the form and get rid of backdrop shadow
 function closeForm() {
-  //Clicking on the close button will close the form and get rid of backdrop shadow
   showForm[0].classList.toggle('hidden');
   backdropShadow.classList.add('hidden');
 }
@@ -653,7 +655,7 @@ const maxLeft = Number(inputLeft.max);
 const minRight = Number(inputRight.min);
 const maxRight = Number(inputRight.max);
 
-const filterPriceLeft = () => {
+function filterPriceLeft() {
   // destruct donuts.price
   donuts.forEach(({ price }, i) => {
     if (
@@ -673,9 +675,9 @@ const filterPriceLeft = () => {
       donutsContainer[i].style.display = 'flex';
     }
   });
-};
+}
 
-const setLeftValue = () => {
+function setLeftValue() {
   //convert to number because 'inputLeft.min' is a string
   //Math.min return smalles number of given values
   inputLeft.value = Math.min(
@@ -687,9 +689,9 @@ const setLeftValue = () => {
   range.style.left = `${percent}%`; //moves the yellow bar % from left
 
   filterPriceLeft();
-};
+}
 
-const filterPriceRight = () => {
+function filterPriceRight() {
   donuts.forEach(({ price }, i) => {
     if (
       Number(inputRight.value) < Number(price) && // if donut price is bigger than right slider's (of 'prisintervall') value AND
@@ -704,9 +706,9 @@ const filterPriceRight = () => {
       donutsContainer[i].style.display = 'flex'; // display flex on donutsContainer
     }
   });
-};
+}
 
-const setRightValue = () => {
+function setRightValue() {
   inputRight.value = Math.max(
     Number(inputRight.value),
     Number(inputLeft.value) + 1 // can only be 1 in difference between left slider and right slider
@@ -718,7 +720,7 @@ const setRightValue = () => {
   range.style.right = `${100 - percent}%`;
 
   filterPriceRight();
-};
+}
 
 inputLeft.addEventListener('input', setLeftValue);
 inputRight.addEventListener('input', setRightValue);
@@ -743,22 +745,23 @@ function switchImage(image) {
 }
 
 //Functioner för knapparna
-const slideshowBtnRight = (e) => {
+function slideshowBtnRight(e) {
   const image = e.currentTarget.previousElementSibling; //Får sibling(bilden)
   switchImage(image);
-};
-const slideshowBtnLeft = (e) => {
+}
+function slideshowBtnLeft(e) {
   const image = e.currentTarget.nextElementSibling; //Samma sak som förra
   switchImage(image);
-};
+}
 
-//Eventlisteners
-slideshowLeft.forEach((btn) => {
+function slidershowLeftFn(btn) {
   btn.addEventListener('click', slideshowBtnLeft);
-});
-slideshowRight.forEach((btn) => {
+}
+function slidershowRightFn(btn) {
   btn.addEventListener('click', slideshowBtnRight);
-});
+}
+slideshowLeft.forEach(slidershowLeftFn);
+slideshowRight.forEach(slidershowRightFn);
 
 //-------------------------------------------------------------------------------------
 //---------------------------------------FORM------------------------------------------
@@ -782,9 +785,7 @@ const socialNumberField = document.querySelector('#socialNumber');
 //Variables used for hiding some inputs
 const methodOfPayment = document.querySelector('#payMethod');
 
-const hiddenInputs = document.querySelectorAll(
-  '#hideInput1, #hideInput2, #hideInput3, #hideInput4'
-);
+const hiddenInputs = document.querySelectorAll('#hideInput1, #hideInput2, #hideInput3, #hideInput4');
 
 //Variables for the buttons
 const sendBtn = document.querySelector('#sendBtn'); // 'skicka beställning'
@@ -983,11 +984,7 @@ function checkCvc() {
 }
 
 function checkSocialNumber() {
-  if (
-    /^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/.test(
-      socialNumberField.value
-    )
-  ) {
+  if (/^(\d{10}|\d{12}|\d{6}-\d{4}|\d{8}-\d{4}|\d{8} \d{4}|\d{6} \d{4})/.test(socialNumberField.value)) {
     validSocialNumber = true;
     error12.classList.add('error-hidden');
   } else {
@@ -1176,28 +1173,29 @@ formContainer.addEventListener('keydown', preventEnterFromClosing);
 
 //God jul
 //Funktion kallas ifall det är jul
-function layoutChristmas() {
-  //Hämtar element som ska ändras
-  const priceText = document.querySelectorAll('.price-text');
-  const backgroundStyle = document.querySelector('.content-container');
-  const banner = document.querySelector('.banner');
-  const bannerText = document.querySelector('.banner>h1');
+//Hämtar element som ska ändras
+const priceTexts = document.querySelectorAll('.price-text');
+const backgroundStyle = document.querySelector('.content-container');
+const banner = document.querySelector('.banner');
+const bannerText = document.querySelector('.banner>h1');
 
-  //Går igenom alla pristexter och ändrar färgen till rött
-  priceText.forEach((element) => {
-    element.style.color = 'red';
+function layoutChristmas() {
+  // Går igenom alla pristexter och ändrar färgen till rött
+  priceTexts.forEach((priceText) => {
+    const tempPriceText = priceText;
+    tempPriceText.style.color = 'red';
   });
+
   //Backgrundsbild!
-  backgroundStyle.style.backgroundImage =
-    'url("assets/christmas/christmas-background.png")';
+  backgroundStyle.style.backgroundImage = 'url("assets/christmas/christmas-background.png")';
   //Gömmer banner bakgrunden och gör texten vit.
   banner.style.backgroundColor = 'rgba(0,0,0,0)';
   bannerText.style.color = 'white';
 }
 //funktion som kollar ifall det är jul.
 function isItChristmas() {
-  // now = dagens datum
-  const now = new Date();
+  // date = dagens datum
+  const date = new Date();
 
   //Vilken dag ska vi kolla? Efter julafton såklart!
   const christmas = {
@@ -1207,7 +1205,7 @@ function isItChristmas() {
     day: 24,
   };
   //Kollar av ifall månad och dag stämmer av med den dag vi kollar efter, isf return true.
-  return now.getMonth() === christmas.month && now.getDate() === christmas.day;
+  return date.getMonth() === christmas.month && date.getDate() === christmas.day;
 }
 
 //Om det är jul, ändra till jultema!
