@@ -7,7 +7,7 @@ Nani Dam,
 Alexander Pressfelt,
 Evelina Zillman
 
-[Länk till sidan](https://www.example.com)
+[Länk till sidan](https://ezillman.github.io/EZillman-fed22d-js-grundkurs-gruppuppgift-webbshop-eftermiddag2-kopia/)
 
 ## **Teknikstack**
 
