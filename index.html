@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Gottfrids Munkar, billiga och nybakade munkar varje dag.">
-  <title>Gottfrids Munkar</title>
-  
+  <title>Gottfrids munkshop</title>
+
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap">
   <link rel="stylesheet" href="style/main.css">
@@ -255,7 +255,8 @@
         <h2 class="donut-name">Vaniljmunk med choklad</h2>
         <div class="img-space">
           <button class="slideshow-button btn-left material-symbols-outlined">chevron_left</button>
-          <img class="donut-img" src="assets/donuts/donut-glaze-vanillastriped.svg" alt="Munk med vanilj och choklad" height="300" width="300">
+          <img class="donut-img" src="assets/donuts/donut-glaze-vanillastriped.svg" alt="Munk med vanilj och choklad"
+            height="300" width="300">
 
           <button class="slideshow-button btn-right material-symbols-outlined">chevron_right</button>
 
@@ -335,7 +336,7 @@
     </div>
 
     <!--form-->
-    
+
     <form id="formContainer" class="hidden">
       <button id="closeFormBtn" class="close-form-button button-style">Stäng</button>
       <label>
@@ -359,7 +360,7 @@
       <label>
         <span>Postnummer</span><br>
         <input type="text" id="postNumber"><br>
-        <span class="error-hidden4 error-hidden" id="error4" >Felaktigt postnummer</span>
+        <span class="error-hidden4 error-hidden" id="error4">Felaktigt postnummer</span>
       </label>
 
       <label>
@@ -437,18 +438,18 @@
       </label>
       <p>Summa:<span class="form-sum"> 0</span> kr</p>
 
-      <button type="submit" disabled id="sendBtn" class="form-button button-style">Skicka beställning</button>
+      <button type="submit" enabled id="sendBtn" class="form-button button-style">Skicka beställning</button>
       <button id="clearBtn" class="form-button button-style">Rensa beställning</button>
     </form>
 
     <div id="orderConfirm" class="order-confirm">
       <button id="closeConfirmBtn" class="close-confirm-btn button-style">Stäng</button><br>
-      <p>Beräknad leveranstid: 30 minuter</p><br>
-      <p>Du har beställt: </p><br>
+      <p>Beräknad leveranstid: <span class="deliver-time">30 minuter</span></p><br>
+      <p>Du har beställt: <span class="deliver-nr-donuts">0</span> st</p><br>
       <div id="summaryConfirm"></div>
     </div>
-  </main>
 
+  </main>
   <script src="script.js" defer></script>
 </body>
 

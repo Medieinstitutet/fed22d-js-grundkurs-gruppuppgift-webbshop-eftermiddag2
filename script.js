@@ -1,9 +1,9 @@
 /*eslint-disable arrow-body-style */
 /* eslint-disable spaced-comment */
+
 const donutIncrease = document.querySelectorAll('.donut-amount-increase'); //all + btns
 const donutDecrease = document.querySelectorAll('.donut-amount-reduce'); //all - btns
 const donutCountCart = document.getElementById('donut-counter-cart'); //text in cart
-// prettier-ignore
 const donutCostSummary = document.getElementById('donut-cost-summary-container');
 const sortingButtons = document.querySelectorAll('.sorting-type'); //filter btns
 
@@ -11,9 +11,31 @@ const donutsContainer = document.getElementsByClassName('flex-content'); //array
 const mainDonuts = document.getElementById('sort-container'); //creates container for 'insertBefore'
 const form = document.getElementById('form-container'); // use for reference position line at <form> in html
 
+const basketSum = document.getElementsByClassName('basket-sum'); //variables for basket-sum
+const discountText = document.getElementsByClassName('discount-text'); //variables for discount text
+
+// sort btn for ascending and descending price, name and rating
+const sortPriceBtnAsc = sortingButtons[0];
+const sortPriceBtnDesc = sortingButtons[1];
+const sortNameBtnAsc = sortingButtons[2];
+const sortNameBtnDesc = sortingButtons[3];
+const sortRatingBtnAsc = sortingButtons[4];
+const sortRatingBtnDesc = sortingButtons[5];
+
+//filter btns
+const filterBtns = document.querySelectorAll('.filter-type');
+const filterBtnGlaze = filterBtns[0];
+const filterBtnSprinkle = filterBtns[1];
+const filterBtnNone = filterBtns[2];
+const filterBtnAll = filterBtns[3];
+
+//donut categories
+const noneArray = document.getElementsByClassName('category-none');
+const sprinkleArray = document.getElementsByClassName('category-sprinkle');
+const glazeArray = document.getElementsByClassName('category-glaze');
+
 const donuts = []; //creates an empty array
 const tempDonutContainer = [...donutsContainer];
-
 tempDonutContainer.forEach((donut) => {
   //Loops through lenght of 'donutIncrease' which is = amount of donus. Could also use for-loop
   donuts.push({
@@ -23,21 +45,11 @@ tempDonutContainer.forEach((donut) => {
     price: donut.childNodes[3].childNodes[5].childNodes[0].innerHTML,
     rating: donut.childNodes[3].childNodes[9].childNodes[1].innerHTML,
     count: Number(donut.childNodes[3].childNodes[7].childNodes[0].innerHTML),
-    img: donut.childNodes[3].childNodes[3].childNodes[3].attributes[1]
-      .nodeValue,
+    img: donut.childNodes[3].childNodes[3].childNodes[3].attributes[1].nodeValue,
   });
 });
 
-donutCountCart.style.visibility = 'visible'; //check with group layout --------------------------
-
-//   ---------------------------------------------------------------------------------------------------------------------
-//   --------------------------------------------INCREASE & DECREASE BUTTON--------------------------------------------------
-//   ---------------------------------------------------------------------------------------------------------------------
-//
-
-const basketSum = document.getElementsByClassName('basket-sum'); //variables for basket-sum
-const discountText = document.getElementsByClassName('discount-text'); //variables for discount text
-
+//check day for special rules:
 const isMonday03to10 = () => {
   //return true if it is monday 03:00-10:00, else return false
   const date = new Date(); // get today's date
@@ -51,14 +63,13 @@ const isFriday15toMonday03 = () => {
   //return true if it is friday after 15:00 and before monday 03:00, else return false
   const date = new Date();
   const time = date.getHours();
-  const isMonday = date.getDay() === 1; // check if its monday
-  const isFriday = date.getDay() === 5; // check if its friday
-  const isSaturday = date.getDay() === 6;
-  const isSunday = date.getDay() === 0;
+  const getDay = date.getDay();
+  const isMonday = getDay === 1; // check if its monday
+  const isFriday = getDay === 5; // check if its friday
+  const isSaturday = getDay === 6;
+  const isSunday = getDay === 0;
 
-  return (
-    (isFriday && time >= 15) || isSaturday || isSunday || (isMonday && time < 3)
-  ); // one part has to be true to retun true, otherwise return false
+  return (isFriday && time >= 15) || isSaturday || isSunday || (isMonday && time < 3); // one part has to be true to retun true, otherwise return false
 };
 
 const evenTuesday = () => {
@@ -78,9 +89,7 @@ const evenTuesday = () => {
   }
 
   // number of days in the year
-  const numberOfDays = Math.floor(
-    (currentDate - startDate) / (24 * 60 * 60 * 1000)
-  );
+  const numberOfDays = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
   // current week of the year
   const currentWeek = Math.ceil((currentDate.getDay() + 1 + numberOfDays) / 7);
   const isEvenWeek = currentWeek % 2 === 0; // check even week nr
@@ -98,9 +107,6 @@ const checkLucia = () => {
 
   return isDec && isLucia; // if both true -> return true
 };
-
-//   ---------------------------------------------------------------------------------------------------------------------
-//   ---------------------------------------------CART SUM-------------------------------------------------------
 
 const getDonutSum = () => {
   //total price of all donuts including discount for >10 donuts
@@ -156,10 +162,10 @@ function detailsVisbility() {
   }
 }
 
+// + and - btn
 const clickPlusMinusMain = (e) => {
   const findBtn = e.currentTarget.innerHTML;
-  const donutCounter =
-    e.currentTarget.parentElement.querySelector('.donut-count');
+  const donutCounter = e.currentTarget.parentElement.querySelector('.donut-count');
   const donutName = e.currentTarget.parentElement.querySelector('.donut-name');
   //callback function to findIndex
   // search for index of donut name
@@ -189,28 +195,7 @@ const clickPlusMinusMain = (e) => {
   detailsVisbility();
 };
 
-//Loops over all increase buttons
-donutIncrease.forEach((button) => {
-  button.addEventListener('click', clickPlusMinusMain); //On click (on plus button), run function 'clickPlus'
-});
-
-//loops over all decrease btns
-donutDecrease.forEach((button) => {
-  button.addEventListener('click', clickPlusMinusMain);
-});
-
-// ------------------------------------------------------------------------------------------------------------------------
-//   ---------------------------------------------------------------------------------------------------------------------
-//   -------------------------------------SORTING FUNCTION-----------------------------------------------------------------
-//   ---------------------------------------------------------------------------------------------------------------------
-
-const sortPriceBtnAsc = sortingButtons[0]; //Button Sort price: High to low.
-const sortPriceBtnDesc = sortingButtons[1]; // Button sort price: Low to high.
-const sortNameBtnAsc = sortingButtons[2]; // Btn sort name A-Ö
-const sortNameBtnDesc = sortingButtons[3]; // Btn sort name Ö-A
-const sortRatingBtnAsc = sortingButtons[4]; // Btn sort Rating high to low
-const sortRatingBtnDesc = sortingButtons[5]; // btn sort rating low to high
-
+//sort btns
 //For sortByType to work, index MUST start at 1 ---> Bubble sort
 const sortByType = (type, index) => {
   const sortedArray = []; //  empty array for sorted preferences
@@ -249,7 +234,7 @@ const sortByType = (type, index) => {
     }
   }
 };
-// sort name
+
 // sort array with objects of ascending proprerty name, from A-Ö.
 const sortNameAscFn = (a, b) => {
   // compare first letter in a with first letter in b. Each letter (lower and upper) has different values e.g console.log("a".charCodeAt(0)) returns 97
@@ -267,8 +252,6 @@ const sortNameAsc = () => {
   sortByType('name', 1); // sort name + start index which is 1
 };
 
-sortNameBtnAsc.addEventListener('click', sortNameAsc);
-
 const sortNameDescFn = (a, b) => {
   // sort array with objects of proprerty name, from Ö-A.
   if (a.name > b.name) {
@@ -285,20 +268,15 @@ const sortNameDesc = () => {
   sortByType('name', 1); // sort name + start index which is 1
 };
 
-sortNameBtnDesc.addEventListener('click', sortNameDesc);
-
 const sortPriceAscFn = (a, b) => {
   //a & b is only made up arguments in this callback function
   return b.price - a.price; //sorts 'donuts array' by ascending price.
 };
 
-//sort price
 const sortPriceAsc = () => {
   donuts.sort(sortPriceAscFn);
   sortByType('price', 1); // sort price + start index which is 1
 };
-
-sortPriceBtnAsc.addEventListener('click', sortPriceAsc);
 
 const sortPriceDescFn = (a, b) => {
   return a.price - b.price; // sorts 'donuts array' by descending price
@@ -308,8 +286,6 @@ const sortPriceDesc = () => {
   donuts.sort(sortPriceDescFn);
   sortByType('price', 1); // sort price + start index which is 1
 };
-
-sortPriceBtnDesc.addEventListener('click', sortPriceDesc);
 
 //sort ratings
 const sortRatingAscFn = (a, b) => {
@@ -321,8 +297,6 @@ const sortRatingAsc = () => {
   sortByType('rating', 1);
 };
 
-sortRatingBtnAsc.addEventListener('click', sortRatingAsc);
-
 const sortRatingDescFn = (a, b) => {
   return a.rating - b.rating;
 };
@@ -332,19 +306,7 @@ const sortRatingDesc = () => {
   sortByType('rating', 1);
 };
 
-sortRatingBtnDesc.addEventListener('click', sortRatingDesc);
-
-//filter btns
-const filterBtns = document.querySelectorAll('.filter-type');
-const filterBtnGlaze = filterBtns[0];
-const filterBtnSprinkle = filterBtns[1];
-const filterBtnNone = filterBtns[2];
-const filterBtnAll = filterBtns[3];
-
-const noneArray = document.getElementsByClassName('category-none');
-const sprinkleArray = document.getElementsByClassName('category-sprinkle');
-const glazeArray = document.getElementsByClassName('category-glaze');
-
+// filter after categories
 const showNone = () => {
   // function to set 'display = flex' on all donuts with 'category-none' (noneArray)
   for (let i = 0; i < noneArray.length; i += 1) {
@@ -397,7 +359,21 @@ const filterAll = () => {
   showSprinkle();
 };
 
-filterBtnGlaze.addEventListener('click', filterGlaze); //when click on filterBtnGlaze, run filterGlaze function
+donutIncrease.forEach((button) => {
+  button.addEventListener('click', clickPlusMinusMain);
+});
+
+donutDecrease.forEach((button) => {
+  button.addEventListener('click', clickPlusMinusMain);
+});
+sortNameBtnAsc.addEventListener('click', sortNameAsc);
+sortNameBtnDesc.addEventListener('click', sortNameDesc);
+sortPriceBtnAsc.addEventListener('click', sortPriceAsc);
+sortPriceBtnDesc.addEventListener('click', sortPriceDesc);
+sortRatingBtnAsc.addEventListener('click', sortRatingAsc);
+sortRatingBtnDesc.addEventListener('click', sortRatingDesc);
+
+filterBtnGlaze.addEventListener('click', filterGlaze);
 filterBtnSprinkle.addEventListener('click', filterSprinkle);
 filterBtnNone.addEventListener('click', filterNone);
 filterBtnAll.addEventListener('click', filterAll);
@@ -461,7 +437,6 @@ const createDonut = () => {
         <button class="cart-delete-donut button-style">Ta bort</button>
       </td>
     </tr>`;
-
     }
   }
   //if its lucia day -> create a lucia donut
@@ -491,16 +466,13 @@ const createDonut = () => {
     const cartDonutContainer = e.currentTarget.parentElement.parentElement;
     //name of donut from cart
     const cartDonutName =
-      e.currentTarget.parentElement.previousElementSibling.childNodes[1]
-        .innerHTML;
+      e.currentTarget.parentElement.previousElementSibling.childNodes[1].innerHTML;
     const partSum = cartDonutContainer.childNodes[7].childNodes[1];
     // set NEW cart counter
     const newCartDonutCount = cartDonutCount.innerHTML;
 
     // find index in donuts-array where donut.name matches the button
-    const indexOfDonutCart = donuts.findIndex(
-      ({ name }) => name === cartDonutName
-    );
+    const indexOfDonutCart = donuts.findIndex(({ name }) => name === cartDonutName);
     const donutsContainerArray = Array.from(donutsContainer); // convert donutsContainer to an array so that we can use 'findIndex'. Doesnt work on HTMLCollection
     const indexOfDonutFrontPage = donutsContainerArray.findIndex(
       // find index in donutsContainer-array where
@@ -548,13 +520,10 @@ const createDonut = () => {
 
   const clickDeleteCart = (e) => {
     const cartDonutName = //name of donut in cart
-      e.currentTarget.parentElement.parentElement.childNodes[1].childNodes[1]
-        .innerHTML;
+      e.currentTarget.parentElement.parentElement.childNodes[1].childNodes[1].innerHTML;
     const deleteDonut = e.currentTarget.parentElement.parentElement;
     const donutsContainerArray = Array.from(donutsContainer);
-    const indexOfDonutCart = donuts.findIndex(
-      ({ name }) => name === cartDonutName
-    );
+    const indexOfDonutCart = donuts.findIndex(({ name }) => name === cartDonutName);
 
     const indexOfDonutFrontPage = donutsContainerArray.findIndex(
       (donut) => donut.childNodes[3].childNodes[1].innerHTML === cartDonutName
@@ -641,7 +610,6 @@ const checkDiscount = () => {
   }
 };
 
-
 const finalOrderSum = () => {
   showForm[0].classList.toggle('hidden');
   cart[0].classList.toggle('hidden');
@@ -651,10 +619,8 @@ const finalOrderSum = () => {
   }
 };
 
-
 const isbackDropShadow = () => {
   if (cart[0].classList.contains('hidden') === false) {
-
     defaultCart();
     cart[0].classList.add('hidden');
   }
@@ -667,7 +633,6 @@ const isbackDropShadow = () => {
 discountCheckBtn[0].addEventListener('click', checkDiscount);
 orderBtn[0].addEventListener('click', finalOrderSum); // The form will only be visible if you click on "Beställ"
 backdropShadow.addEventListener('click', isbackDropShadow);
-
 
 function closeForm() {
   //Clicking on the close button will close the form and get rid of backdrop shadow
@@ -770,10 +735,7 @@ function switchImage(image) {
   checkEnd = checkEnd.slice(0, checkEnd.length - 4); //Kanske inte behövs om man ändrar if till "side.svg", men iaf, den tar bort .svg från variabeln.
   if (checkEnd !== 'side') {
     //Kollar ifall checkEnd redan är i "side"
-    image.setAttribute(
-      'src',
-      `${imageSrc.slice(0, imageSrc.length - 4)}-side.svg`
-    ); //Tar bort .svg från slutet, sätter in -side.svg
+    image.setAttribute('src', `${imageSrc.slice(0, imageSrc.length - 4)}-side.svg`); //Tar bort .svg från slutet, sätter in -side.svg
     //Kunde nog även gjort replace('.svg' '-side.svg')....
   } else {
     image.setAttribute('src', imageSrc.replace('-side', '')); //Om den hittar -side, ta bort den
@@ -999,8 +961,8 @@ function checkCardNumber() {
 }
 
 function checkDate() {
-  if(dateField.value !== null) {  
-    validDate = true;           
+  if (dateField.value !== null) {
+    validDate = true;
     error10.classList.add('error-hidden');
   } else {
     validDate = false;
@@ -1010,7 +972,7 @@ function checkDate() {
 }
 
 function checkCvc() {
-  if(cvcField.value !== null) { 
+  if (cvcField.value !== null) {
     validCvc = true;
     error11.classList.add('error-hidden');
   } else {
@@ -1050,8 +1012,8 @@ function payByCard(e) {
 }
 
 function payByBill(e) {
-//If bill is chosen as method of payment the hidden input field "social number" will be dispalyed as a block
-  if(e.target.value ==='bill') {              
+  //If bill is chosen as method of payment the hidden input field "social number" will be dispalyed as a block
+  if (e.target.value === 'bill') {
     hiddenInputs[3].style.display = 'block';
   } else {
     hiddenInputs[3].style.display = 'none';
@@ -1060,21 +1022,20 @@ function payByBill(e) {
 
 function skipCardFields(e) {
   //If the option "bill" is chosen the cardnumber, date and cvc will be true if empty because those inputs are not needed if you don't pay with card
-  if(e.target.value === 'bill') {
+  if (e.target.value === 'bill') {
     validCardNumber = true;
     validCvc = true;
     validDate = true;
-   } else {
+  } else {
     validCardNumber = false;
     validCvc = false;
     validDate = false;
-   }
-   activateSendBtn()
   }
-
+  activateSendBtn();
+}
 
 function skipBillFields(e) {
-  if(e.target.value === 'card') {
+  if (e.target.value === 'card') {
     validSocialNumber = true;
   } else {
     validSocialNumber = false;
@@ -1092,7 +1053,7 @@ const confirmationDonuts = () => {
       <img class="donut-img confirm-donuts" src="${donuts[i].img}" alt="Munk med socker" height="60" width="60" />`;
     }
   }
-}
+};
 
 const defaultConfirm = () => {
   const cartDonuts = document.querySelectorAll('.cart-delete');
@@ -1103,13 +1064,67 @@ const defaultConfirm = () => {
 
 //Function that prevents page refreshing when clicking on the send button
 function preventRefresh(e) {
-  e.preventDefault()
+  e.preventDefault();
 }
+
+//variables in delivery text
+const deliveryTime = document.getElementsByClassName('deliver-time')[0];
+const deliveryCount = document.getElementsByClassName('deliver-nr-donuts')[0];
+
+//weekend = friday to sunday
+const isWeekend = () => {
+  const date = new Date();
+  const getDay = date.getDay();
+  const isFriday = getDay === 5;
+  const isSaturday = getDay === 6;
+  const isSunday = getDay === 0;
+  const getTime = date.getTime();
+
+  return (isFriday && getTime > 17) || isSaturday || isSunday;
+};
+
+// night = 00-06 o'clock
+const isNight = () => {
+  const date = new Date();
+  const getTime = date.getTime();
+
+  return getTime >= 0 && getTime < 6;
+};
+
+// friday between 11 and 13 o'clock
+const isFriday11to13 = () => {
+  const date = new Date();
+  const getTime = date.getTime();
+  const isFriday = date.getDay() === 5;
+
+  return isFriday && getTime > 11 && getTime < 13;
+};
+
+//change delivery time depending on which day/time
+const changeDeliveryTime = () => {
+  if (isWeekend()) {
+    deliveryTime.innerHTML = '90 minuter';
+  }
+  if (isNight()) {
+    deliveryTime.innerHTML = '45 minuter';
+  }
+  if (isFriday11to13()) {
+    deliveryTime.innerHTML = 'Anländer klockan 15:00.';
+  }
+};
+
+// shows how many donuts that has been orderd
+const updateDeliveryCount = () => {
+  deliveryCount.innerHTML = getDonutCount();
+};
 
 //Button functions
 function sendOrder() {
   //The confirmation will be displayed as a block when clicking on the send button
   //The form will be hidden
+
+  changeDeliveryTime();
+  updateDeliveryCount();
   confirmationMessage.style.display = 'block';
   showForm[0].classList.toggle('hidden');
   confirmationDonuts();
@@ -1119,19 +1134,16 @@ function closeConfirm() {
   //Closes the confirmation and refreshes page
   defaultConfirm();
   document.location.reload();
-  
 }
-
 
 function preventEnterFromClosing(e) {
   //Disables the Enter key in form, stops form from closing when using the Enter key
   //The Enter key does not work at all in form, fix maybe?
   const key = e.charCode || e.keyCode || 0;
   if (key === 13) {
-  e.preventDefault();
+    e.preventDefault();
   }
 }
- 
 
 //Check values on input field
 firstNameField.addEventListener('change', checkName);
@@ -1158,7 +1170,7 @@ methodOfPayment.addEventListener('change', skipBillFields);
 sendBtn.addEventListener('click', sendOrder);
 closeConfirmBtn.addEventListener('click', closeConfirm);
 
-//Form 
+//Form
 formContainer.addEventListener('submit', preventRefresh);
 formContainer.addEventListener('keydown', preventEnterFromClosing);
 
@@ -1173,14 +1185,14 @@ function layoutChristmas() {
 
   //Går igenom alla pristexter och ändrar färgen till rött
   priceText.forEach((element) => {
-    element.style.color = "red";
+    element.style.color = 'red';
   });
   //Backgrundsbild!
-  backgroundStyle.style.backgroundImage = 'url("assets/christmas/christmas-background.png")';
+  backgroundStyle.style.backgroundImage =
+    'url("assets/christmas/christmas-background.png")';
   //Gömmer banner bakgrunden och gör texten vit.
   banner.style.backgroundColor = 'rgba(0,0,0,0)';
   bannerText.style.color = 'white';
-
 }
 //funktion som kollar ifall det är jul.
 function isItChristmas() {
@@ -1192,25 +1204,22 @@ function isItChristmas() {
     //Månaderna börjar på 0, och slutar på 11 för någon anledning, så det är 11 för december...
     month: 11,
     //Men dagar börjar på 1.... så det blir den 24e
-    day: 24
-  }
+    day: 24,
+  };
   //Kollar av ifall månad och dag stämmer av med den dag vi kollar efter, isf return true.
-  return (now.getMonth() === christmas.month && now.getDate() === christmas.day);
-
+  return now.getMonth() === christmas.month && now.getDate() === christmas.day;
 }
 
 //Om det är jul, ändra till jultema!
-function christmasCheck(){
+function christmasCheck() {
   if (isItChristmas()) {
     layoutChristmas();
   }
 }
 christmasCheck();
 
-
-
-function clearSite(){
+function clearSite() {
   document.location.reload();
-  }
-  
-setTimeout(clearSite, 1000*60*15)
+}
+
+setTimeout(clearSite, 1000 * 60 * 15);
