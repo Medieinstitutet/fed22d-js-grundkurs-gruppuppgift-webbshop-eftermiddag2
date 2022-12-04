@@ -2,6 +2,11 @@
 
 # **Gottfrids munkar**
 
+Arbetet skrivet av:
+Nani Dam,
+Alexander Pressfelt,
+Evelina Zillman
+
 [Länk till sidan](https://www.example.com)
 
 ## **Teknikstack**
@@ -34,7 +39,7 @@ Prettier
 
 ### HTML Validering
 
-![HTML Valideringskonfirmation](screenshots/validations/validatedhtml.png)
+![HTML Valideringskonfirmation](screenshots/validations/validation-html.jpg)
 
 ### CSS Validering
 
