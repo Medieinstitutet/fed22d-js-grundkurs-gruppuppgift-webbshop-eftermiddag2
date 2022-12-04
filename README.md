@@ -29,11 +29,23 @@ Prettier
 
 ## **Bilder**
 
-![Mobil landningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-29%20Gottfrids%20Munkar.png)  
-![Mobil beställningssida](screenshots/firefox/mobile/Screenshot%202022-12-02%20at%2015-22-48%20Gottfrids%20Munkar.png)
-![Desktop landningssida](screenshots/firefox/desktop/Screenshot%202022-12-02%20at%2015-23-49%20Gottfrids%20Munkar.png)  
-![Desktop varukorg](screenshots/firefox/desktop/Screenshot%202022-12-02%20at%2015-24-00%20Gottfrids%20Munkar.png)  
-![Desktop beställningssida](screenshots/firefox/desktop/Screenshot%202022-12-02%20at%2015-24-19%20Gottfrids%20Munkar.png)
+![Desktop landningssida](screenshots/desktop/donutsStart.png)
+
+![Desktop varukorg](screenshots/desktop/donutsShoppingCart.png)
+
+![Desktop formulär 1](screenshots/desktop/donutsForm1.png)
+
+![Desktop formulär 2](screenshots/desktop/donutsForm2.png)
+
+![Desktop bekräftelse](screenshots/desktop/donutsConfirmation.png)
+
+![Mobil landningssida](screenshots/mobile/mobileStart.png)
+
+![Mobil varukorg](screenshots/mobile/mobileCart.png)
+
+![Mobil formulär](screenshots/mobile/mobileForm.png)
+
+![Mobil bekräftelse](screenshots/mobile/mobileConfirmation.png)
 
 ## **Validering / Lighthouse**
 
